@@ -661,7 +661,14 @@
         margin-bottom: 22px;
       }
 
-      .filter {
+      .search-bar {
+        grid-column: 1 / -1;
+      }
+
+      .filter,
+      .profile-form input,
+      .profile-form select,
+      .profile-form textarea {
         min-height: 46px;
         width: 100%;
         padding: 0 12px;
@@ -671,6 +678,19 @@
         color: var(--ink);
         font: inherit;
         font-size: 0.9rem;
+      }
+
+      .profile-form textarea {
+        min-height: 96px;
+        padding-top: 12px;
+        resize: vertical;
+      }
+
+      .finder-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 8px 0 22px;
       }
 
       .opportunity-meta {
@@ -723,12 +743,52 @@
         text-transform: uppercase;
       }
 
+      .opportunity-card.recommended {
+        border-color: rgba(201, 169, 97, 0.75);
+        box-shadow: 0 18px 44px rgba(201, 169, 97, 0.14);
+      }
+
       .empty-state {
         padding: 24px;
         border: 1px dashed rgba(11, 45, 74, 0.28);
         border-radius: var(--radius);
         color: var(--muted);
         text-align: center;
+      }
+
+      .profile-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 18px 0 20px;
+      }
+
+      .profile-form .full {
+        grid-column: 1 / -1;
+      }
+
+      .recommendation-summary {
+        display: none;
+        margin-bottom: 18px;
+        padding: 18px;
+        border: 1px solid rgba(201, 169, 97, 0.4);
+        border-radius: var(--radius);
+        background: rgba(201, 169, 97, 0.12);
+        color: var(--navy);
+        font-weight: 800;
+      }
+
+      .recommendation-summary.visible {
+        display: block;
+      }
+
+      .disclaimer {
+        margin-top: 20px;
+        padding: 16px;
+        border-left: 4px solid var(--gold);
+        background: rgba(11, 45, 74, 0.06);
+        color: var(--muted);
+        font-size: 0.92rem;
       }
 
       .section-head {
@@ -1089,6 +1149,10 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
+        .profile-form {
+          grid-template-columns: 1fr;
+        }
+
         .stats-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -1193,6 +1257,7 @@
         .market-list,
         .market-pills,
         .opportunity-tools,
+        .profile-form,
         .stats-grid {
           grid-template-columns: 1fr;
         }
@@ -1496,68 +1561,118 @@
                 </article>
 
                 <article class="panel" id="panel-opportunities">
-                  <div class="panel-layout">
-                    <div>
-                      <p class="kicker">Scholarships, Grants & Fellowships</p>
-                      <h2>A resource hub for funded academic and research opportunities.</h2>
-                      <p class="panel-lede">
-                        Students and researchers can filter Bachelor’s, Master’s, PhD, Postdoctoral, fellowship, grant, research program and funded training opportunities by level, region, field, deadline and funding type.
-                      </p>
+                  <p class="kicker">Scholarships, Grants & Fellowships Finder</p>
+                  <h2>Match students and researchers with credible funding sources.</h2>
+                  <p class="panel-lede">
+                    Browse curated scholarship sources or submit a profile to receive suggested links for Bachelor’s, Master’s, PhD, Postdoc and Professional Training opportunities.
+                  </p>
 
-                      <div class="opportunity-tools" aria-label="Scholarship and fellowship filters">
-                        <select class="filter" id="levelFilter" aria-label="Filter by level">
-                          <option value="all">All levels</option>
-                          <option value="Bachelor's">Bachelor's</option>
-                          <option value="Master's">Master's</option>
-                          <option value="PhD">PhD</option>
-                          <option value="Postdoctoral">Postdoctoral</option>
-                          <option value="Training">Training</option>
-                        </select>
-                        <select class="filter" id="regionFilter" aria-label="Filter by country or region">
-                          <option value="all">All regions</option>
-                          <option value="Africa">Africa</option>
-                          <option value="Europe">Europe</option>
-                          <option value="North America">North America</option>
-                          <option value="Asia-Pacific">Asia-Pacific</option>
-                          <option value="Global">Global</option>
-                        </select>
-                        <select class="filter" id="fieldFilter" aria-label="Filter by field">
-                          <option value="all">All fields</option>
-                          <option value="AI & Data">AI & Data</option>
-                          <option value="Renewable Energy">Renewable Energy</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Infrastructure">Infrastructure</option>
-                          <option value="Climate">Climate</option>
-                        </select>
-                        <select class="filter" id="deadlineFilter" aria-label="Filter by deadline">
-                          <option value="all">All deadlines</option>
-                          <option value="30">Next 30 days</option>
-                          <option value="90">Next 90 days</option>
-                          <option value="rolling">Rolling</option>
-                        </select>
-                        <select class="filter" id="fundingFilter" aria-label="Filter by funding type">
-                          <option value="all">All funding</option>
-                          <option value="Fully funded">Fully funded</option>
-                          <option value="Partial funding">Partial funding</option>
-                          <option value="Grant">Grant</option>
-                          <option value="Stipend">Stipend</option>
-                          <option value="Travel support">Travel support</option>
-                        </select>
-                      </div>
-
-                      <div class="opportunity-list" id="opportunityList" aria-live="polite"></div>
-                    </div>
-                    <aside class="insight-card">
-                      <h3>Easy to update</h3>
-                      <p>New opportunities are managed in the <code>opportunities</code> array near the bottom of this HTML file. Add a title, level, region, field, deadline, funding type and link.</p>
-                      <div class="mini-list">
-                        <span>Bachelor's</span>
-                        <span>Master's and PhD</span>
-                        <span>Postdoctoral</span>
-                        <span>Grants and training</span>
-                      </div>
-                    </aside>
+                  <div class="opportunity-tools" aria-label="Scholarship and fellowship filters">
+                    <input class="filter search-bar" id="scholarshipSearch" type="search" placeholder="Search provider, country, field, keyword or opportunity title" aria-label="Search scholarship opportunities">
+                    <select class="filter" id="levelFilter" aria-label="Filter by degree level">
+                      <option value="all">All levels</option>
+                      <option value="Bachelor's">Bachelor's</option>
+                      <option value="Master's">Master's</option>
+                      <option value="PhD">PhD</option>
+                      <option value="Postdoc">Postdoc</option>
+                      <option value="Professional Training">Professional Training</option>
+                    </select>
+                    <select class="filter" id="countryFilter" aria-label="Filter by country or region">
+                      <option value="all">All countries/regions</option>
+                      <option value="Africa">Africa</option>
+                      <option value="Nigeria">Nigeria</option>
+                      <option value="Europe">Europe</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="United States">United States</option>
+                      <option value="Germany">Germany</option>
+                      <option value="Asia-Pacific">Asia-Pacific</option>
+                      <option value="Global">Global</option>
+                    </select>
+                    <select class="filter" id="fieldFilter" aria-label="Filter by field">
+                      <option value="all">All fields</option>
+                      <option value="All Fields">All Fields</option>
+                      <option value="AI & Data">AI & Data</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Renewable Energy">Renewable Energy</option>
+                      <option value="Climate">Climate</option>
+                      <option value="Development">Development</option>
+                      <option value="Public Policy">Public Policy</option>
+                      <option value="Research">Research</option>
+                    </select>
+                    <select class="filter" id="deadlineFilter" aria-label="Filter by deadline">
+                      <option value="all">All deadlines</option>
+                      <option value="30">Next 30 days</option>
+                      <option value="90">Next 90 days</option>
+                      <option value="180">Next 180 days</option>
+                      <option value="rolling">Rolling</option>
+                    </select>
+                    <select class="filter" id="fundingFilter" aria-label="Filter by funding type">
+                      <option value="all">All funding</option>
+                      <option value="Fully funded">Fully funded</option>
+                      <option value="Partial funding">Partial funding</option>
+                      <option value="Research Grant">Research grant</option>
+                      <option value="Fellowship">Fellowship</option>
+                      <option value="Internship">Internship</option>
+                      <option value="Training">Training</option>
+                    </select>
                   </div>
+
+                  <div class="finder-actions">
+                    <button class="button" type="button" id="browseAllButton">Browse all opportunities</button>
+                    <button class="button secondary" type="button" id="clearFinderButton">Clear filters</button>
+                  </div>
+
+                  <div class="accordion">
+                    <div class="accordion-item">
+                      <button class="accordion-trigger" type="button" aria-expanded="false">
+                        <span class="icon">AI</span>
+                        Submit profile for recommendations
+                        <span class="plus">+</span>
+                      </button>
+                      <div class="accordion-panel">
+                        <div>
+                          <form class="profile-form" id="scholarshipProfileForm">
+                            <input type="text" id="nationalityInput" placeholder="Nationality" aria-label="Nationality">
+                            <input type="text" id="residenceInput" placeholder="Country of residence" aria-label="Country of residence">
+                            <select id="profileLevel" aria-label="Degree level">
+                              <option value="">Degree level</option>
+                              <option value="Bachelor's">Bachelor's</option>
+                              <option value="Master's">Master's</option>
+                              <option value="PhD">PhD</option>
+                              <option value="Postdoc">Postdoc</option>
+                              <option value="Professional Training">Professional Training</option>
+                            </select>
+                            <input type="text" id="profileField" placeholder="Field of study" aria-label="Field of study">
+                            <input type="text" id="preferredRegion" placeholder="Preferred country or region" aria-label="Preferred country or region">
+                            <select id="profileFunding" aria-label="Funding type">
+                              <option value="">Funding type</option>
+                              <option value="Fully funded">Fully funded</option>
+                              <option value="Partial funding">Partial funding</option>
+                              <option value="Research Grant">Research grant</option>
+                              <option value="Fellowship">Fellowship</option>
+                              <option value="Internship">Internship</option>
+                              <option value="Training">Training</option>
+                            </select>
+                            <select id="profileDeadline" aria-label="Deadline preference">
+                              <option value="all">Any deadline</option>
+                              <option value="30">Next 30 days</option>
+                              <option value="90">Next 90 days</option>
+                              <option value="180">Next 180 days</option>
+                              <option value="rolling">Rolling deadlines</option>
+                            </select>
+                            <textarea class="full" id="keywordInput" placeholder="Keywords or interests, e.g. renewable energy, AI, public policy, Africa" aria-label="Keywords or interests"></textarea>
+                            <button class="button full" type="submit">Recommend sources</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="recommendation-summary" id="recommendationSummary"></div>
+                  <div class="opportunity-list" id="opportunityList" aria-live="polite"></div>
+                  <p class="disclaimer">
+                    Scholarship information is provided as a resource hub. Users must verify current deadlines, eligibility, application requirements and official instructions on the scholarship provider’s website before applying.
+                  </p>
                 </article>
 
                 <article class="panel" id="panel-contact">
@@ -1627,58 +1742,7 @@
       const panelButtons = document.querySelectorAll("[data-panel-target]");
       const panels = document.querySelectorAll(".panel");
       const workspace = document.querySelector("#workspace");
-      const opportunities = [
-        {
-          title: "Clean Energy Systems Graduate Scholarship",
-          level: "Master's",
-          region: "Europe",
-          field: "Renewable Energy",
-          deadline: "2026-08-30",
-          funding: "Fully funded",
-          summary: "A fully funded graduate pathway for students researching solar, storage, smart grids and energy efficiency.",
-          link: "#"
-        },
-        {
-          title: "AI for Development Research Fellowship",
-          level: "PhD",
-          region: "Global",
-          field: "AI & Data",
-          deadline: "rolling",
-          funding: "Stipend",
-          summary: "Research fellowship for doctoral candidates applying AI, data systems and automation to development challenges.",
-          link: "#"
-        },
-        {
-          title: "Infrastructure Innovation Postdoctoral Grant",
-          level: "Postdoctoral",
-          region: "North America",
-          field: "Infrastructure",
-          deadline: "2026-09-15",
-          funding: "Grant",
-          summary: "Postdoctoral grant supporting resilient infrastructure, smart systems and public-sector technology research.",
-          link: "#"
-        },
-        {
-          title: "Engineering Futures Undergraduate Award",
-          level: "Bachelor's",
-          region: "Africa",
-          field: "Engineering",
-          deadline: "2026-07-20",
-          funding: "Partial funding",
-          summary: "Undergraduate scholarship for students in mechanical, electrical, civil, industrial and environmental engineering.",
-          link: "#"
-        },
-        {
-          title: "Climate Technology Training Fellowship",
-          level: "Training",
-          region: "Asia-Pacific",
-          field: "Climate",
-          deadline: "2026-10-01",
-          funding: "Travel support",
-          summary: "Funded technical training for early-career professionals working on clean energy and climate technology deployment.",
-          link: "#"
-        }
-      ];
+      let scholarshipEntries = [];
 
       function openPanel(panelName, shouldScroll = true) {
         panels.forEach((panel) => {
@@ -1733,7 +1797,6 @@
         observer.observe(element);
       });
 
-      const hashTarget = window.location.hash.replace("#", "");
       function isWithinDeadline(opportunity, filterValue) {
         if (filterValue === "all") return true;
         if (filterValue === "rolling") return opportunity.deadline === "rolling";
@@ -1750,53 +1813,162 @@
         return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date(`${deadline}T00:00:00`));
       }
 
-      function renderOpportunities() {
-        const list = document.querySelector("#opportunityList");
-        if (!list) return;
+      function includesValue(values, value) {
+        if (value === "all" || !value) return true;
+        return values.some((item) => item.toLowerCase() === value.toLowerCase());
+      }
 
-        const filters = {
+      function searchableText(opportunity) {
+        return [
+          opportunity.title,
+          opportunity.provider,
+          opportunity.summary,
+          opportunity.deadline,
+          ...(opportunity.levels || []),
+          ...(opportunity.countries || []),
+          ...(opportunity.fields || []),
+          ...(opportunity.fundingTypes || []),
+          ...(opportunity.keywords || [])
+        ].join(" ").toLowerCase();
+      }
+
+      function getFinderFilters() {
+        return {
+          query: document.querySelector("#scholarshipSearch")?.value.trim().toLowerCase() || "",
           level: document.querySelector("#levelFilter")?.value || "all",
-          region: document.querySelector("#regionFilter")?.value || "all",
+          country: document.querySelector("#countryFilter")?.value || "all",
           field: document.querySelector("#fieldFilter")?.value || "all",
           deadline: document.querySelector("#deadlineFilter")?.value || "all",
           funding: document.querySelector("#fundingFilter")?.value || "all"
         };
+      }
 
-        const filtered = opportunities.filter((opportunity) => {
-          return (filters.level === "all" || opportunity.level === filters.level)
-            && (filters.region === "all" || opportunity.region === filters.region)
-            && (filters.field === "all" || opportunity.field === filters.field)
-            && (filters.funding === "all" || opportunity.funding === filters.funding)
-            && isWithinDeadline(opportunity, filters.deadline);
+      function matchesFilters(opportunity, filters) {
+        return (!filters.query || searchableText(opportunity).includes(filters.query))
+          && includesValue(opportunity.levels || [], filters.level)
+          && includesValue(opportunity.countries || [], filters.country)
+          && (includesValue(opportunity.fields || [], filters.field) || includesValue(opportunity.fields || [], "All Fields"))
+          && includesValue(opportunity.fundingTypes || [], filters.funding)
+          && isWithinDeadline(opportunity, filters.deadline);
+      }
+
+      function scoreOpportunity(opportunity, profile) {
+        let score = 0;
+        const haystack = searchableText(opportunity);
+
+        if (profile.level && includesValue(opportunity.levels || [], profile.level)) score += 5;
+        if (profile.funding && includesValue(opportunity.fundingTypes || [], profile.funding)) score += 4;
+        if (profile.preferredRegion && haystack.includes(profile.preferredRegion.toLowerCase())) score += 4;
+        if (profile.residence && haystack.includes(profile.residence.toLowerCase())) score += 2;
+        if (profile.nationality && haystack.includes(profile.nationality.toLowerCase())) score += 2;
+        if (profile.field && haystack.includes(profile.field.toLowerCase())) score += 3;
+        if (isWithinDeadline(opportunity, profile.deadline || "all")) score += 1;
+
+        profile.keywords.forEach((keyword) => {
+          if (keyword && haystack.includes(keyword)) score += 2;
         });
 
+        return score;
+      }
+
+      function renderOpportunities(entries = scholarshipEntries, recommended = false) {
+        const list = document.querySelector("#opportunityList");
+        if (!list) return;
+
+        const filtered = recommended ? entries : entries.filter((opportunity) => matchesFilters(opportunity, getFinderFilters()));
+
         if (!filtered.length) {
-          list.innerHTML = '<div class="empty-state">No matching opportunities yet. Adjust the filters or add more entries to the opportunities array.</div>';
+          list.innerHTML = '<div class="empty-state">No matching scholarship sources yet. Adjust filters or add entries to data/scholarships.json.</div>';
           return;
         }
 
         list.innerHTML = filtered.map((opportunity) => `
-          <article class="opportunity-card">
+          <article class="opportunity-card ${recommended ? "recommended" : ""}">
             <h3>${opportunity.title}</h3>
             <div class="opportunity-meta">
-              <span class="tag">${opportunity.level}</span>
-              <span class="tag">${opportunity.region}</span>
-              <span class="tag">${opportunity.field}</span>
-              <span class="tag">${opportunity.funding}</span>
+              <span class="tag">${opportunity.provider}</span>
+              <span class="tag">${(opportunity.levels || []).join(", ")}</span>
+              <span class="tag">${(opportunity.countries || []).join(", ")}</span>
+              <span class="tag">${(opportunity.fundingTypes || []).join(", ")}</span>
               <span class="tag">${formatDeadline(opportunity.deadline)}</span>
             </div>
             <p>${opportunity.summary}</p>
-            <a href="${opportunity.link}" aria-label="View ${opportunity.title} opportunity">View opportunity</a>
+            <a href="${opportunity.source}" target="_blank" rel="noopener" aria-label="Open ${opportunity.provider} official website">Open official source</a>
           </article>
         `).join("");
       }
 
       document.querySelectorAll(".filter").forEach((filter) => {
-        filter.addEventListener("change", renderOpportunities);
+        filter.addEventListener("input", () => {
+          document.querySelector("#recommendationSummary")?.classList.remove("visible");
+          renderOpportunities();
+        });
       });
 
-      renderOpportunities();
+      document.querySelector("#browseAllButton")?.addEventListener("click", () => {
+        renderOpportunities(scholarshipEntries);
+      });
 
+      document.querySelector("#clearFinderButton")?.addEventListener("click", () => {
+        document.querySelectorAll(".filter").forEach((filter) => {
+          filter.value = filter.id === "scholarshipSearch" ? "" : "all";
+        });
+        document.querySelector("#recommendationSummary")?.classList.remove("visible");
+        renderOpportunities();
+      });
+
+      document.querySelector("#scholarshipProfileForm")?.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const profile = {
+          nationality: document.querySelector("#nationalityInput")?.value.trim() || "",
+          residence: document.querySelector("#residenceInput")?.value.trim() || "",
+          level: document.querySelector("#profileLevel")?.value || "",
+          field: document.querySelector("#profileField")?.value.trim() || "",
+          preferredRegion: document.querySelector("#preferredRegion")?.value.trim() || "",
+          funding: document.querySelector("#profileFunding")?.value || "",
+          deadline: document.querySelector("#profileDeadline")?.value || "all",
+          keywords: (document.querySelector("#keywordInput")?.value || "")
+            .toLowerCase()
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean)
+        };
+
+        const ranked = scholarshipEntries
+          .map((opportunity) => ({ ...opportunity, score: scoreOpportunity(opportunity, profile) }))
+          .filter((opportunity) => opportunity.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 8);
+
+        const summary = document.querySelector("#recommendationSummary");
+        if (summary) {
+          summary.textContent = ranked.length
+            ? `Recommended ${ranked.length} scholarship sources based on your profile. Open each official source to verify eligibility and deadlines.`
+            : "No strong recommendations found yet. Try broader keywords or browse all sources.";
+          summary.classList.add("visible");
+        }
+
+        renderOpportunities(ranked, true);
+      });
+
+      async function loadScholarshipData() {
+        const list = document.querySelector("#opportunityList");
+        try {
+          const response = await fetch("data/scholarships.json");
+          if (!response.ok) throw new Error("Scholarship data could not be loaded.");
+          scholarshipEntries = await response.json();
+          renderOpportunities();
+        } catch (error) {
+          if (list) {
+            list.innerHTML = '<div class="empty-state">Scholarship data could not load. Run the site through a local server or deployment host so data/scholarships.json can be fetched.</div>';
+          }
+        }
+      }
+
+      loadScholarshipData();
+
+      const hashTarget = window.location.hash.replace("#", "");
       if (["capabilities", "innovation", "markets", "opportunities", "contact"].includes(hashTarget)) {
         openPanel(hashTarget, false);
       }
