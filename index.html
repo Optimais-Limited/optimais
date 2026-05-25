@@ -1,0 +1,1805 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Optimais Limited is an R&D driven company building intelligent systems, renewable energy solutions, smart industrial systems, and strategic advisory programs."
+    >
+    <title>Optimais Limited | Intelligent Systems. Sustainable Futures.</title>
+    <style>
+      :root {
+        --navy: #0b2d4a;
+        --navy-900: #071a2a;
+        --navy-800: #0a243b;
+        --navy-700: #103958;
+        --gold: #c9a961;
+        --gold-2: #e7c978;
+        --cream: #f4f1ea;
+        --ink: #07121d;
+        --muted: #6c7378;
+        --line: rgba(11, 45, 74, 0.14);
+        --teal: #3bc0aa;
+        --rust: #c86e3f;
+        --white: #ffffff;
+        --shadow: 0 28px 80px rgba(4, 17, 29, 0.18);
+        --radius: 8px;
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        content: "";
+        background:
+          linear-gradient(rgba(11, 45, 74, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(11, 45, 74, 0.035) 1px, transparent 1px);
+        background-size: 44px 44px;
+      }
+
+      body::after {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        opacity: 0.45;
+        background-image:
+          radial-gradient(circle at 20% 12%, rgba(201, 169, 97, 0.22), transparent 30%),
+          radial-gradient(circle at 72% 18%, rgba(59, 192, 170, 0.18), transparent 34%),
+          radial-gradient(circle at 70% 82%, rgba(200, 110, 63, 0.12), transparent 32%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .page {
+        overflow: hidden;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(244, 241, 234, 0.13);
+        background: rgba(7, 26, 42, 0.78);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        width: 178px;
+        height: 52px;
+        padding: 7px;
+        border: 1px solid rgba(244, 241, 234, 0.16);
+        border-radius: var(--radius);
+        background: var(--cream);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .brand img {
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: rgba(244, 241, 234, 0.82);
+        font-size: 0.84rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .nav-links button {
+        position: relative;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        text-transform: inherit;
+      }
+
+      .nav-links button::after {
+        position: absolute;
+        right: 0;
+        bottom: -8px;
+        left: 0;
+        height: 2px;
+        content: "";
+        transform: scaleX(0);
+        transform-origin: right;
+        background: var(--gold);
+        transition: transform 0.24s ease;
+      }
+
+      .nav-links button:hover::after,
+      .nav-links button.active::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .mobile-menu {
+        display: none;
+        height: 42px;
+        padding: 0 12px;
+        border: 1px solid rgba(244, 241, 234, 0.18);
+        border-radius: var(--radius);
+        background: rgba(244, 241, 234, 0.08);
+        color: var(--cream);
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .mobile-menu option {
+        color: var(--ink);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border: 1px solid rgba(201, 169, 97, 0.42);
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, var(--gold), var(--gold-2));
+        color: var(--navy-900);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        box-shadow: 0 16px 44px rgba(201, 169, 97, 0.2);
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 55px rgba(201, 169, 97, 0.28);
+      }
+
+      .button.secondary {
+        background: rgba(244, 241, 234, 0.08);
+        color: var(--cream);
+        box-shadow: none;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        padding: 148px 0 86px;
+        color: var(--cream);
+        background: linear-gradient(115deg, rgba(7, 26, 42, 0.98), rgba(11, 45, 74, 0.94) 52%, rgba(16, 57, 88, 0.9));
+      }
+
+      .hero::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        opacity: 0.58;
+        background:
+          linear-gradient(120deg, transparent 0 54%, rgba(201, 169, 97, 0.16) 54.1% 54.7%, transparent 54.8%),
+          linear-gradient(152deg, transparent 0 62%, rgba(59, 192, 170, 0.14) 62.1% 62.6%, transparent 62.7%),
+          repeating-linear-gradient(90deg, transparent 0 82px, rgba(244, 241, 234, 0.05) 82px 83px);
+      }
+
+      .hero .shell {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.76fr);
+        gap: 54px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 24px;
+        color: rgba(244, 241, 234, 0.78);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 38px;
+        height: 2px;
+        content: "";
+        background: var(--gold);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin-bottom: 24px;
+        font-size: clamp(3rem, 7.2vw, 6.8rem);
+        line-height: 0.92;
+        font-weight: 800;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        color: rgba(244, 241, 234, 0.82);
+        font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .signal-panel {
+        position: relative;
+        min-height: 500px;
+        border: 1px solid rgba(244, 241, 234, 0.15);
+        border-radius: var(--radius);
+        background: rgba(244, 241, 234, 0.06);
+        box-shadow: 0 30px 110px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(6px);
+        overflow: hidden;
+      }
+
+      .signal-panel::before {
+        position: absolute;
+        inset: 28px;
+        content: "";
+        border: 1px solid rgba(244, 241, 234, 0.14);
+        background:
+          linear-gradient(rgba(244, 241, 234, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(244, 241, 234, 0.07) 1px, transparent 1px);
+        background-size: 34px 34px;
+      }
+
+      .node {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 94px;
+        height: 94px;
+        border: 1px solid rgba(244, 241, 234, 0.2);
+        border-radius: 50%;
+        background: rgba(7, 26, 42, 0.78);
+        color: var(--cream);
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        box-shadow: inset 0 0 0 12px rgba(244, 241, 234, 0.03), 0 18px 46px rgba(0, 0, 0, 0.24);
+      }
+
+      .node::after {
+        position: absolute;
+        inset: -8px;
+        content: "";
+        border: 1px solid rgba(201, 169, 97, 0.32);
+        border-radius: inherit;
+        animation: pulse 3.8s ease-in-out infinite;
+      }
+
+      .node.ai {
+        top: 52px;
+        left: 54px;
+      }
+
+      .node.energy {
+        right: 52px;
+        top: 150px;
+        color: var(--navy-900);
+        background: var(--gold);
+      }
+
+      .node.industry {
+        bottom: 64px;
+        left: 118px;
+        background: #123f5d;
+      }
+
+      .trace {
+        position: absolute;
+        height: 2px;
+        transform-origin: left center;
+        background: linear-gradient(90deg, rgba(201, 169, 97, 0), rgba(201, 169, 97, 0.88), rgba(59, 192, 170, 0.24));
+      }
+
+      .trace.one {
+        top: 142px;
+        left: 138px;
+        width: 245px;
+        transform: rotate(16deg);
+      }
+
+      .trace.two {
+        top: 254px;
+        left: 196px;
+        width: 196px;
+        transform: rotate(-30deg);
+      }
+
+      .trace.three {
+        top: 320px;
+        left: 128px;
+        width: 236px;
+        transform: rotate(24deg);
+      }
+
+      .readout {
+        position: absolute;
+        right: 36px;
+        bottom: 34px;
+        width: min(250px, calc(100% - 72px));
+        padding: 18px;
+        border: 1px solid rgba(244, 241, 234, 0.15);
+        border-radius: var(--radius);
+        background: rgba(7, 26, 42, 0.74);
+      }
+
+      .readout strong {
+        display: block;
+        color: var(--gold-2);
+        font-size: 1.85rem;
+        line-height: 1;
+      }
+
+      .readout span {
+        display: block;
+        margin-top: 8px;
+        color: rgba(244, 241, 234, 0.72);
+        font-size: 0.82rem;
+      }
+
+      section {
+        padding: 96px 0;
+      }
+
+      .interactive {
+        margin-top: -1px;
+        background: linear-gradient(180deg, #fffaf0 0%, var(--cream) 100%);
+      }
+
+      .console {
+        display: grid;
+        grid-template-columns: 300px minmax(0, 1fr);
+        min-height: 640px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .console-nav {
+        padding: 22px;
+        background: var(--navy-900);
+        color: var(--cream);
+      }
+
+      .console-nav p {
+        margin-bottom: 18px;
+        color: rgba(244, 241, 234, 0.56);
+        font-size: 0.76rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .console-tab {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 15px;
+        border: 1px solid rgba(244, 241, 234, 0.12);
+        border-radius: var(--radius);
+        background: rgba(244, 241, 234, 0.04);
+        color: rgba(244, 241, 234, 0.74);
+        cursor: pointer;
+        text-align: left;
+        transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+      }
+
+      .console-tab:hover,
+      .console-tab.active {
+        transform: translateX(4px);
+        border-color: rgba(201, 169, 97, 0.48);
+        background: rgba(201, 169, 97, 0.13);
+        color: var(--cream);
+      }
+
+      .console-tab strong {
+        display: block;
+        color: var(--gold-2);
+        font-size: 0.74rem;
+      }
+
+      .console-tab span:last-child {
+        align-self: center;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .console-body {
+        padding: clamp(26px, 4vw, 54px);
+      }
+
+      .panel {
+        display: none;
+      }
+
+      .panel.active {
+        display: block;
+        animation: panelIn 0.38s ease both;
+      }
+
+      .panel-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.88fr) minmax(280px, 0.52fr);
+        gap: 36px;
+        align-items: start;
+      }
+
+      .panel h2 {
+        margin-bottom: 18px;
+      }
+
+      .panel-lede {
+        max-width: 720px;
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: 1.06rem;
+      }
+
+      .accordion {
+        display: grid;
+        gap: 12px;
+      }
+
+      .accordion-item {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.74);
+        overflow: hidden;
+      }
+
+      .accordion-trigger {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        align-items: center;
+        width: 100%;
+        min-height: 66px;
+        padding: 0 18px;
+        border: 0;
+        background: transparent;
+        color: var(--navy);
+        cursor: pointer;
+        font: inherit;
+        font-weight: 900;
+        text-align: left;
+      }
+
+      .accordion-trigger .plus {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(11, 45, 74, 0.08);
+        color: var(--navy);
+        transition: transform 0.22s ease;
+      }
+
+      .accordion-trigger .icon {
+        margin-bottom: 0;
+      }
+
+      .accordion-trigger[aria-expanded="true"] .plus {
+        transform: rotate(45deg);
+        background: var(--gold);
+      }
+
+      .accordion-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.28s ease;
+      }
+
+      .accordion-panel.open {
+        grid-template-rows: 1fr;
+      }
+
+      .accordion-panel > div {
+        overflow: hidden;
+      }
+
+      .accordion-panel p {
+        margin: 0;
+        padding: 0 18px 20px 70px;
+        color: var(--muted);
+      }
+
+      .insight-card {
+        position: sticky;
+        top: 102px;
+        padding: 28px;
+        border-radius: var(--radius);
+        background: var(--navy);
+        color: var(--cream);
+      }
+
+      .insight-card h3 {
+        margin-bottom: 14px;
+        color: var(--gold-2);
+      }
+
+      .insight-card p {
+        color: rgba(244, 241, 234, 0.74);
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .mini-list span {
+        padding: 12px;
+        border: 1px solid rgba(244, 241, 234, 0.13);
+        border-radius: var(--radius);
+        color: rgba(244, 241, 234, 0.82);
+        font-weight: 800;
+      }
+
+      .market-pills {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .market-pills span {
+        min-height: 88px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--navy);
+        font-weight: 900;
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 12px;
+        max-width: 560px;
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .contact-list a {
+        display: block;
+        padding: 13px 14px;
+        border: 1px solid rgba(244, 241, 234, 0.13);
+        border-radius: var(--radius);
+        color: rgba(244, 241, 234, 0.86);
+        font-weight: 800;
+      }
+
+      .field {
+        min-height: 54px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--ink);
+        font: inherit;
+      }
+
+      textarea.field {
+        min-height: 120px;
+        padding-top: 15px;
+        resize: vertical;
+      }
+
+      .opportunity-tools {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
+      .filter {
+        min-height: 46px;
+        width: 100%;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.9rem;
+      }
+
+      .opportunity-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: rgba(11, 45, 74, 0.08);
+        color: var(--navy);
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .opportunity-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .opportunity-card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.76);
+      }
+
+      .opportunity-card h3 {
+        margin-bottom: 8px;
+        color: var(--navy);
+      }
+
+      .opportunity-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .opportunity-card a {
+        display: inline-flex;
+        margin-top: 14px;
+        color: var(--navy);
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .empty-state {
+        padding: 24px;
+        border: 1px dashed rgba(11, 45, 74, 0.28);
+        border-radius: var(--radius);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.74fr) minmax(280px, 0.46fr);
+        gap: 42px;
+        align-items: end;
+        margin-bottom: 44px;
+      }
+
+      .kicker {
+        margin-bottom: 12px;
+        color: var(--rust);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        color: var(--navy);
+        font-size: clamp(2.2rem, 4vw, 4rem);
+        line-height: 1;
+      }
+
+      .section-head p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 1.02rem;
+      }
+
+      .capability-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .capability-card {
+        position: relative;
+        min-height: 250px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.68);
+        box-shadow: 0 16px 48px rgba(11, 45, 74, 0.08);
+        overflow: hidden;
+        transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      }
+
+      .capability-card::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 112px;
+        height: 112px;
+        content: "";
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        background: rgba(201, 169, 97, 0.16);
+      }
+
+      .capability-card:hover {
+        transform: translateY(-7px);
+        border-color: rgba(201, 169, 97, 0.5);
+        box-shadow: var(--shadow);
+      }
+
+      .icon {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 24px;
+        border-radius: var(--radius);
+        background: var(--navy);
+        color: var(--gold-2);
+        font-weight: 900;
+      }
+
+      .capability-card h3 {
+        margin-bottom: 14px;
+        color: var(--navy);
+        font-size: 1.3rem;
+      }
+
+      .capability-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .about {
+        color: var(--cream);
+        background: var(--navy-900);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1fr);
+        gap: 56px;
+        align-items: center;
+      }
+
+      .about h2 {
+        color: var(--cream);
+      }
+
+      .about p {
+        color: rgba(244, 241, 234, 0.76);
+      }
+
+      .about-lines {
+        display: grid;
+        gap: 14px;
+      }
+
+      .line-item {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 18px;
+        align-items: start;
+        padding: 20px;
+        border: 1px solid rgba(244, 241, 234, 0.14);
+        border-radius: var(--radius);
+        background: rgba(244, 241, 234, 0.05);
+      }
+
+      .line-item b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--gold-2);
+      }
+
+      .line-number {
+        color: rgba(244, 241, 234, 0.36);
+        font-weight: 900;
+      }
+
+      .stats {
+        padding: 0;
+        color: var(--cream);
+        background: linear-gradient(135deg, var(--navy), #143e4c 58%, #19394c);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-right: 1px solid rgba(244, 241, 234, 0.14);
+        border-left: 1px solid rgba(244, 241, 234, 0.14);
+      }
+
+      .stat {
+        min-height: 188px;
+        padding: 34px 28px;
+        border-right: 1px solid rgba(244, 241, 234, 0.14);
+      }
+
+      .stat:last-child {
+        border-right: 0;
+      }
+
+      .stat strong {
+        display: block;
+        color: var(--gold-2);
+        font-size: clamp(2rem, 4vw, 4.2rem);
+        line-height: 0.95;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 12px;
+        color: rgba(244, 241, 234, 0.72);
+        font-weight: 700;
+      }
+
+      .markets {
+        background: #fffaf0;
+      }
+
+      .market-band {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 42px;
+        align-items: stretch;
+      }
+
+      .market-copy {
+        padding: 34px;
+        border-radius: var(--radius);
+        background: var(--navy);
+        color: var(--cream);
+      }
+
+      .market-copy h2 {
+        margin-bottom: 18px;
+        color: var(--cream);
+      }
+
+      .market-copy p {
+        color: rgba(244, 241, 234, 0.76);
+      }
+
+      .market-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .market-list span {
+        min-height: 86px;
+        padding: 20px;
+        border: 1px solid rgba(11, 45, 74, 0.13);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--navy);
+        font-weight: 800;
+      }
+
+      .contact {
+        padding-bottom: 44px;
+        color: var(--cream);
+        background: var(--navy-900);
+      }
+
+      .contact-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 36px;
+        align-items: center;
+        padding: clamp(32px, 5vw, 64px);
+        border: 1px solid rgba(244, 241, 234, 0.14);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(201, 169, 97, 0.12), transparent 34%),
+          rgba(244, 241, 234, 0.05);
+      }
+
+      .contact h2 {
+        margin-bottom: 18px;
+        color: var(--cream);
+      }
+
+      .contact p {
+        max-width: 680px;
+        margin-bottom: 0;
+        color: rgba(244, 241, 234, 0.74);
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 0 0;
+        color: rgba(244, 241, 234, 0.5);
+        font-size: 0.9rem;
+      }
+
+      .footer-mark {
+        color: var(--gold-2);
+        font-weight: 900;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.34;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.9;
+          transform: scale(1.08);
+        }
+      }
+
+      @keyframes panelIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          display: none;
+        }
+
+        .mobile-menu {
+          display: inline-flex;
+          max-width: 190px;
+        }
+
+        .hero {
+          min-height: auto;
+          background-position: center, 125% 42%;
+        }
+
+        .hero .shell,
+        .section-head,
+        .about-grid,
+        .market-band,
+        .contact-panel,
+        .console,
+        .panel-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .console {
+          min-height: 0;
+        }
+
+        .console-nav {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+        }
+
+        .console-nav p {
+          grid-column: 1 / -1;
+          margin-bottom: 4px;
+        }
+
+        .console-tab {
+          margin-bottom: 0;
+        }
+
+        .console-tab:hover,
+        .console-tab.active {
+          transform: none;
+        }
+
+        .insight-card {
+          position: static;
+        }
+
+        .signal-panel {
+          min-height: 420px;
+        }
+
+        .capability-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .opportunity-tools {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(100% - 28px, 1180px);
+        }
+
+        .site-header {
+          position: absolute;
+        }
+
+        .nav {
+          min-height: 68px;
+        }
+
+        .brand {
+          width: 148px;
+          height: 46px;
+        }
+
+        .nav .button {
+          display: none;
+        }
+
+        .mobile-menu {
+          min-height: 40px;
+          width: auto;
+          max-width: 148px;
+          padding: 0 12px;
+          font-size: 0.72rem;
+        }
+
+        .hero {
+          padding: 112px 0 60px;
+        }
+
+        h1 {
+          font-size: clamp(2.65rem, 15vw, 4.4rem);
+        }
+
+        section {
+          padding: 70px 0;
+        }
+
+        .hero-actions,
+        .footer {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .signal-panel {
+          min-height: 360px;
+        }
+
+        .node {
+          width: 76px;
+          height: 76px;
+          font-size: 0.64rem;
+        }
+
+        .node.ai {
+          top: 42px;
+          left: 34px;
+        }
+
+        .node.energy {
+          right: 34px;
+          top: 116px;
+        }
+
+        .node.industry {
+          bottom: 70px;
+          left: 58px;
+        }
+
+        .trace.one {
+          top: 111px;
+          left: 100px;
+          width: 170px;
+        }
+
+        .trace.two {
+          top: 204px;
+          left: 118px;
+          width: 152px;
+        }
+
+        .trace.three {
+          top: 262px;
+          left: 84px;
+          width: 160px;
+        }
+
+        .capability-grid,
+        .market-list,
+        .market-pills,
+        .opportunity-tools,
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .console-nav {
+          grid-template-columns: 1fr;
+        }
+
+        .console-body {
+          padding: 22px;
+        }
+
+        .accordion-trigger {
+          grid-template-columns: auto 1fr auto;
+          padding: 0 14px;
+        }
+
+        .accordion-panel p {
+          padding: 0 14px 18px 58px;
+        }
+
+        .stat {
+          border-right: 0;
+          border-bottom: 1px solid rgba(244, 241, 234, 0.14);
+        }
+
+        .stat:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <nav class="shell nav" aria-label="Primary navigation">
+          <a class="brand" href="#top" aria-label="Optimais home">
+            <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
+          </a>
+          <div class="nav-links" aria-label="Page sections">
+            <button class="panel-link active" type="button" data-panel-target="capabilities">Capabilities</button>
+            <button class="panel-link" type="button" data-panel-target="innovation">Innovation</button>
+            <button class="panel-link" type="button" data-panel-target="markets">Markets</button>
+            <button class="panel-link" type="button" data-panel-target="opportunities">Opportunities</button>
+            <button class="panel-link" type="button" data-panel-target="contact">Contact</button>
+          </div>
+          <select class="mobile-menu" aria-label="Open Optimais section">
+            <option value="capabilities">Capabilities</option>
+            <option value="innovation">Innovation</option>
+            <option value="markets">Markets</option>
+            <option value="opportunities">Opportunities</option>
+            <option value="contact">Contact</option>
+          </select>
+          <button class="button panel-link" type="button" data-panel-target="contact">Start a Project</button>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="shell">
+            <div class="hero-content reveal">
+              <p class="eyebrow">R&D driven technology, energy and infrastructure</p>
+              <h1>Intelligent systems for sustainable industrial growth.</h1>
+              <p class="hero-copy">
+                Optimais Limited designs, develops, implements and operates advanced technology, renewable energy and engineering solutions for businesses, governments and institutions.
+              </p>
+              <div class="hero-actions">
+                <button class="button panel-link" type="button" data-panel-target="capabilities">Explore Capabilities</button>
+                <button class="button secondary panel-link" type="button" data-panel-target="innovation">View Approach</button>
+              </div>
+            </div>
+
+            <div class="signal-panel reveal" aria-label="Optimais systems map">
+              <span class="trace one"></span>
+              <span class="trace two"></span>
+              <span class="trace three"></span>
+              <span class="node ai">AI</span>
+              <span class="node energy">Energy</span>
+              <span class="node industry">Industry</span>
+              <div class="readout">
+                <strong>360</strong>
+                <span>degree capability across strategy, engineering, deployment and operations.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="interactive" id="workspace">
+          <div class="shell">
+            <div class="section-head reveal">
+              <div>
+                <p class="kicker">Single Page Command Center</p>
+                <h2>Explore Optimais Limited without leaving the page.</h2>
+              </div>
+              <p>
+                Use the tabs to open each focus area in place. Detailed services expand as needed, keeping the experience fast, clean and focused.
+              </p>
+            </div>
+
+            <div class="console reveal">
+              <div class="console-nav" aria-label="Optimais content panels">
+                <p>Open a focus area</p>
+                <button class="console-tab active" type="button" data-panel-target="capabilities">
+                  <strong>01</strong>
+                  <span>Capabilities</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="innovation">
+                  <strong>02</strong>
+                  <span>R&D and Innovation</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="markets">
+                  <strong>03</strong>
+                  <span>Markets Served</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="opportunities">
+                  <strong>04</strong>
+                  <span>Scholarships & Grants</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="contact">
+                  <strong>05</strong>
+                  <span>Contact</span>
+                </button>
+              </div>
+
+              <div class="console-body">
+                <article class="panel active" id="panel-capabilities">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">What Optimais Builds</p>
+                      <h2>Capabilities that connect research to real infrastructure.</h2>
+                      <p class="panel-lede">
+                        From software platforms and automation to clean power and industrial delivery, Optimais Limited brings multidisciplinary execution to complex development work.
+                      </p>
+                      <div class="accordion">
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="true">
+                            <span class="icon">01</span>
+                            Intelligent Systems & AI
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel open">
+                            <div><p>Software, hardware, digital platforms, automation systems, artificial intelligence, data systems and smart connected technologies.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">02</span>
+                            Renewable Energy
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Solar energy, energy storage, smart grids, clean power infrastructure and efficiency programs for public and private sector applications.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">03</span>
+                            Engineering Services
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Mechanical, electrical, civil, industrial, environmental and systems engineering across design, construction, installation and support.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">04</span>
+                            Strategic Advisory
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Clear guidance for organizations navigating development, technology adoption, infrastructure strategy and operational transformation.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">05</span>
+                            Research Commercialization
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Commercialization of research outputs, intellectual property, industrial solutions, licensing arrangements and strategic technology partnerships.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">06</span>
+                            Training & Capacity Building
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Technical programs, workshops, innovation hubs, incubation centers and applied training for technology, engineering and energy talent.</p></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Integrated delivery</h3>
+                      <p>Optimais Limited can design, develop, acquire, produce, implement, operate, maintain, license, market and manage technology products and services.</p>
+                      <div class="mini-list">
+                        <span>Strategy</span>
+                        <span>Engineering</span>
+                        <span>Deployment</span>
+                        <span>Operations</span>
+                      </div>
+                    </aside>
+                  </div>
+                </article>
+
+                <article class="panel" id="panel-innovation">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Operating Model</p>
+                      <h2>Built for high-stakes implementation, not slideware.</h2>
+                      <p class="panel-lede">
+                        Optimais Limited works where strategy, technology, energy and industrial operations overlap, moving ideas from research to deployable systems.
+                      </p>
+                      <div class="accordion">
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="true">
+                            <span class="icon">01</span>
+                            R&D to deployment
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel open">
+                            <div><p>Research outputs and proprietary technologies are shaped into practical products, platforms and services.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">02</span>
+                            Infrastructure depth
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Project delivery spans infrastructure, industrial, environmental, technological and developmental programs.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">03</span>
+                            Institutional capacity
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>The company can establish and support training centers, laboratories, workshops, innovation hubs, academies and incubation programs.</p></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Partnership-ready</h3>
+                      <p>Structured for collaborations, joint ventures, franchises, licensing arrangements and strategic alliances with local and international organizations.</p>
+                      <div class="mini-list">
+                        <span>IP commercialization</span>
+                        <span>Technology transfer</span>
+                        <span>Innovation hubs</span>
+                      </div>
+                    </aside>
+                  </div>
+                </article>
+
+                <article class="panel" id="panel-markets">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Who We Serve</p>
+                      <h2>Partners building the next generation of infrastructure.</h2>
+                      <p class="panel-lede">
+                        Optimais Limited supports organizations that need disciplined technical capability, clean energy thinking and strategic execution under one roof.
+                      </p>
+                      <div class="market-pills">
+                        <span>Government and public sector agencies</span>
+                        <span>Industrial operators and manufacturers</span>
+                        <span>Energy developers and infrastructure sponsors</span>
+                        <span>Research institutions and innovation programs</span>
+                        <span>Businesses modernizing operations</span>
+                        <span>Communities requiring resilient systems</span>
+                      </div>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Nigeria and abroad</h3>
+                      <p>Optimais Limited is structured to establish branches, subsidiaries, affiliates, agencies, offices, laboratories, workshops, factories and training centers locally and internationally.</p>
+                    </aside>
+                  </div>
+                </article>
+
+                <article class="panel" id="panel-opportunities">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Scholarships, Grants & Fellowships</p>
+                      <h2>A resource hub for funded academic and research opportunities.</h2>
+                      <p class="panel-lede">
+                        Students and researchers can filter Bachelor’s, Master’s, PhD, Postdoctoral, fellowship, grant, research program and funded training opportunities by level, region, field, deadline and funding type.
+                      </p>
+
+                      <div class="opportunity-tools" aria-label="Scholarship and fellowship filters">
+                        <select class="filter" id="levelFilter" aria-label="Filter by level">
+                          <option value="all">All levels</option>
+                          <option value="Bachelor's">Bachelor's</option>
+                          <option value="Master's">Master's</option>
+                          <option value="PhD">PhD</option>
+                          <option value="Postdoctoral">Postdoctoral</option>
+                          <option value="Training">Training</option>
+                        </select>
+                        <select class="filter" id="regionFilter" aria-label="Filter by country or region">
+                          <option value="all">All regions</option>
+                          <option value="Africa">Africa</option>
+                          <option value="Europe">Europe</option>
+                          <option value="North America">North America</option>
+                          <option value="Asia-Pacific">Asia-Pacific</option>
+                          <option value="Global">Global</option>
+                        </select>
+                        <select class="filter" id="fieldFilter" aria-label="Filter by field">
+                          <option value="all">All fields</option>
+                          <option value="AI & Data">AI & Data</option>
+                          <option value="Renewable Energy">Renewable Energy</option>
+                          <option value="Engineering">Engineering</option>
+                          <option value="Infrastructure">Infrastructure</option>
+                          <option value="Climate">Climate</option>
+                        </select>
+                        <select class="filter" id="deadlineFilter" aria-label="Filter by deadline">
+                          <option value="all">All deadlines</option>
+                          <option value="30">Next 30 days</option>
+                          <option value="90">Next 90 days</option>
+                          <option value="rolling">Rolling</option>
+                        </select>
+                        <select class="filter" id="fundingFilter" aria-label="Filter by funding type">
+                          <option value="all">All funding</option>
+                          <option value="Fully funded">Fully funded</option>
+                          <option value="Partial funding">Partial funding</option>
+                          <option value="Grant">Grant</option>
+                          <option value="Stipend">Stipend</option>
+                          <option value="Travel support">Travel support</option>
+                        </select>
+                      </div>
+
+                      <div class="opportunity-list" id="opportunityList" aria-live="polite"></div>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Easy to update</h3>
+                      <p>New opportunities are managed in the <code>opportunities</code> array near the bottom of this HTML file. Add a title, level, region, field, deadline, funding type and link.</p>
+                      <div class="mini-list">
+                        <span>Bachelor's</span>
+                        <span>Master's and PhD</span>
+                        <span>Postdoctoral</span>
+                        <span>Grants and training</span>
+                      </div>
+                    </aside>
+                  </div>
+                </article>
+
+                <article class="panel" id="panel-contact">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Start the Conversation</p>
+                      <h2>Plan, build and operate smarter systems with Optimais Limited.</h2>
+                      <p class="panel-lede">
+                        Bring Optimais Limited into early strategy, feasibility, engineering design, implementation planning or long-term operations for technology, energy and infrastructure programs.
+                      </p>
+                      <form class="contact-form" action="mailto:optimaislimited@gmail.com" method="post" enctype="text/plain">
+                        <input class="field" type="text" name="name" placeholder="Name" aria-label="Name">
+                        <input class="field" type="email" name="email" placeholder="Email" aria-label="Email">
+                        <textarea class="field" name="message" placeholder="Project brief" aria-label="Project brief"></textarea>
+                        <button class="button" type="submit">Send Inquiry</button>
+                      </form>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Direct contacts</h3>
+                      <p>Prefer a direct note or call? Reach Optimais Limited through the channels below.</p>
+                      <div class="contact-list">
+                        <a href="mailto:optimaislimited@gmail.com">optimaislimited@gmail.com</a>
+                        <a href="tel:+16038040701">+1 603 804 0701</a>
+                        <a href="tel:+2348067040090">+234 806 704 0090</a>
+                      </div>
+                    </aside>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats" aria-label="Optimais operating breadth">
+          <div class="shell stats-grid">
+            <div class="stat reveal">
+              <strong>6</strong>
+              <span>core capability domains</span>
+            </div>
+            <div class="stat reveal">
+              <strong>12+</strong>
+              <span>engineering and technology disciplines</span>
+            </div>
+            <div class="stat reveal">
+              <strong>4</strong>
+              <span>deployment markets: public, private, industrial and communities</span>
+            </div>
+            <div class="stat reveal">
+              <strong>2</strong>
+              <span>geographic paths: Nigeria and international growth</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="contact">
+          <div class="shell">
+            <footer class="footer">
+              <span><span class="footer-mark">Optimais Limited</span> - Intelligent Systems. Sustainable Futures.</span>
+              <span>Nigeria and international markets</span>
+            </footer>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const panelButtons = document.querySelectorAll("[data-panel-target]");
+      const panels = document.querySelectorAll(".panel");
+      const workspace = document.querySelector("#workspace");
+      const opportunities = [
+        {
+          title: "Clean Energy Systems Graduate Scholarship",
+          level: "Master's",
+          region: "Europe",
+          field: "Renewable Energy",
+          deadline: "2026-08-30",
+          funding: "Fully funded",
+          summary: "A fully funded graduate pathway for students researching solar, storage, smart grids and energy efficiency.",
+          link: "#"
+        },
+        {
+          title: "AI for Development Research Fellowship",
+          level: "PhD",
+          region: "Global",
+          field: "AI & Data",
+          deadline: "rolling",
+          funding: "Stipend",
+          summary: "Research fellowship for doctoral candidates applying AI, data systems and automation to development challenges.",
+          link: "#"
+        },
+        {
+          title: "Infrastructure Innovation Postdoctoral Grant",
+          level: "Postdoctoral",
+          region: "North America",
+          field: "Infrastructure",
+          deadline: "2026-09-15",
+          funding: "Grant",
+          summary: "Postdoctoral grant supporting resilient infrastructure, smart systems and public-sector technology research.",
+          link: "#"
+        },
+        {
+          title: "Engineering Futures Undergraduate Award",
+          level: "Bachelor's",
+          region: "Africa",
+          field: "Engineering",
+          deadline: "2026-07-20",
+          funding: "Partial funding",
+          summary: "Undergraduate scholarship for students in mechanical, electrical, civil, industrial and environmental engineering.",
+          link: "#"
+        },
+        {
+          title: "Climate Technology Training Fellowship",
+          level: "Training",
+          region: "Asia-Pacific",
+          field: "Climate",
+          deadline: "2026-10-01",
+          funding: "Travel support",
+          summary: "Funded technical training for early-career professionals working on clean energy and climate technology deployment.",
+          link: "#"
+        }
+      ];
+
+      function openPanel(panelName, shouldScroll = true) {
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === `panel-${panelName}`);
+        });
+
+        panelButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.panelTarget === panelName);
+        });
+
+        const mobileMenu = document.querySelector(".mobile-menu");
+        if (mobileMenu) mobileMenu.value = panelName;
+
+        if (shouldScroll && workspace) {
+          workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      panelButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.panelTarget;
+
+          openPanel(target);
+        });
+      });
+
+      document.querySelector(".mobile-menu")?.addEventListener("change", (event) => {
+        openPanel(event.target.value);
+      });
+
+      document.querySelectorAll(".accordion-trigger").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const panel = trigger.nextElementSibling;
+          const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+          trigger.setAttribute("aria-expanded", String(!isOpen));
+          panel.classList.toggle("open", !isOpen);
+        });
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      document.querySelectorAll(".reveal").forEach((element, index) => {
+        element.style.transitionDelay = `${Math.min(index * 55, 330)}ms`;
+        observer.observe(element);
+      });
+
+      const hashTarget = window.location.hash.replace("#", "");
+      function isWithinDeadline(opportunity, filterValue) {
+        if (filterValue === "all") return true;
+        if (filterValue === "rolling") return opportunity.deadline === "rolling";
+        if (opportunity.deadline === "rolling") return false;
+
+        const today = new Date();
+        const deadline = new Date(`${opportunity.deadline}T00:00:00`);
+        const daysRemaining = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+        return daysRemaining >= 0 && daysRemaining <= Number(filterValue);
+      }
+
+      function formatDeadline(deadline) {
+        if (deadline === "rolling") return "Rolling deadline";
+        return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date(`${deadline}T00:00:00`));
+      }
+
+      function renderOpportunities() {
+        const list = document.querySelector("#opportunityList");
+        if (!list) return;
+
+        const filters = {
+          level: document.querySelector("#levelFilter")?.value || "all",
+          region: document.querySelector("#regionFilter")?.value || "all",
+          field: document.querySelector("#fieldFilter")?.value || "all",
+          deadline: document.querySelector("#deadlineFilter")?.value || "all",
+          funding: document.querySelector("#fundingFilter")?.value || "all"
+        };
+
+        const filtered = opportunities.filter((opportunity) => {
+          return (filters.level === "all" || opportunity.level === filters.level)
+            && (filters.region === "all" || opportunity.region === filters.region)
+            && (filters.field === "all" || opportunity.field === filters.field)
+            && (filters.funding === "all" || opportunity.funding === filters.funding)
+            && isWithinDeadline(opportunity, filters.deadline);
+        });
+
+        if (!filtered.length) {
+          list.innerHTML = '<div class="empty-state">No matching opportunities yet. Adjust the filters or add more entries to the opportunities array.</div>';
+          return;
+        }
+
+        list.innerHTML = filtered.map((opportunity) => `
+          <article class="opportunity-card">
+            <h3>${opportunity.title}</h3>
+            <div class="opportunity-meta">
+              <span class="tag">${opportunity.level}</span>
+              <span class="tag">${opportunity.region}</span>
+              <span class="tag">${opportunity.field}</span>
+              <span class="tag">${opportunity.funding}</span>
+              <span class="tag">${formatDeadline(opportunity.deadline)}</span>
+            </div>
+            <p>${opportunity.summary}</p>
+            <a href="${opportunity.link}" aria-label="View ${opportunity.title} opportunity">View opportunity</a>
+          </article>
+        `).join("");
+      }
+
+      document.querySelectorAll(".filter").forEach((filter) => {
+        filter.addEventListener("change", renderOpportunities);
+      });
+
+      renderOpportunities();
+
+      if (["capabilities", "innovation", "markets", "opportunities", "contact"].includes(hashTarget)) {
+        openPanel(hashTarget, false);
+      }
+    </script>
+  </body>
+</html>
