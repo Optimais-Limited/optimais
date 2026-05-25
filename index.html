@@ -10,505 +10,808 @@
     <title>Optimais Limited | Intelligent Systems. Sustainable Futures.</title>
     <style>
       :root {
-        --navy: #0b2d4a;
-        --navy-900: #071a2a;
-        --navy-800: #0a243b;
-        --navy-700: #103958;
-        --gold: #c9a961;
-        --gold-2: #e7c978;
-        --cream: #f4f1ea;
-        --ink: #07121d;
-        --muted: #6c7378;
-        --line: rgba(11, 45, 74, 0.14);
-        --teal: #3bc0aa;
-        --rust: #c86e3f;
-        --white: #ffffff;
-        --shadow: 0 28px 80px rgba(4, 17, 29, 0.18);
-        --radius: 8px;
-        color-scheme: light;
+        --black:   #051520;
+        --black-2: #091e2e;
+        --black-3: #0d2840;
+        --white:   #ffffff;
+        --gold:         #C9A961;
+        --gold-light:   #d9be7a;
+        --gold-100:     #f0e4c4;
+        --navy:         #0B2D4A;
+        --navy-mid:     #1a5276;
+        --cream:        #F4F1EA;
+        --muted:        rgba(255, 255, 255, 0.52);
+        --muted-2:      rgba(255, 255, 255, 0.72);
+        --card-bg:      rgba(255, 255, 255, 0.03);
+        --card-border:  rgba(255, 255, 255, 0.09);
+        --radius:    10px;
+        --radius-lg: 16px;
+        --shadow:    0 28px 90px rgba(0, 0, 0, 0.5);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
 
       body {
         margin: 0;
-        background: var(--cream);
-        color: var(--ink);
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        line-height: 1.5;
+        background: var(--black);
+        color: var(--white);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        letter-spacing: 0.25px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      body::before {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        content: "";
-        background:
-          linear-gradient(rgba(11, 45, 74, 0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(11, 45, 74, 0.035) 1px, transparent 1px);
-        background-size: 44px 44px;
-      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      h1, h2, h3, p { margin-top: 0; }
 
-      body::after {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        content: "";
-        opacity: 0.45;
-        background-image:
-          radial-gradient(circle at 20% 12%, rgba(201, 169, 97, 0.22), transparent 30%),
-          radial-gradient(circle at 72% 18%, rgba(59, 192, 170, 0.18), transparent 34%),
-          radial-gradient(circle at 70% 82%, rgba(200, 110, 63, 0.12), transparent 32%);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        display: block;
-        max-width: 100%;
-      }
-
-      .page {
-        overflow: hidden;
-      }
+      .page { overflow: hidden; }
 
       .shell {
-        width: min(1180px, calc(100% - 40px));
+        width: min(1160px, calc(100% - 48px));
         margin: 0 auto;
       }
 
+      /* ─── HEADER ─── */
       .site-header {
         position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
+        top: 0; right: 0; left: 0;
         z-index: 20;
-        border-bottom: 1px solid rgba(244, 241, 234, 0.13);
-        background: rgba(7, 26, 42, 0.78);
-        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(201, 169, 97, 0.12);
+        background: rgba(5, 21, 32, 0.92);
+        backdrop-filter: blur(22px);
       }
 
       .nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        min-height: 76px;
-        gap: 24px;
+        min-height: 72px;
+        gap: 16px;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
-        width: 178px;
-        height: 52px;
-        padding: 7px;
-        border: 1px solid rgba(244, 241, 234, 0.16);
+        height: 46px;
+        padding: 7px 12px;
+        border: 1px solid rgba(201, 169, 97, 0.2);
         border-radius: var(--radius);
-        background: var(--cream);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        background: rgba(255, 255, 255, 0.94);
+        flex-shrink: 0;
       }
 
-      .brand img {
-        width: 100%;
-      }
+      .brand img { height: 100%; width: auto; }
 
       .nav-links {
         display: flex;
         align-items: center;
         gap: 28px;
-        color: rgba(244, 241, 234, 0.82);
-        font-size: 0.84rem;
-        font-weight: 700;
-        text-transform: uppercase;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 600;
       }
 
       .nav-links button {
-        position: relative;
         padding: 0;
         border: 0;
         background: transparent;
         color: inherit;
         cursor: pointer;
         font: inherit;
-        text-transform: inherit;
+        transition: color 0.2s;
       }
 
-      .nav-links button::after {
-        position: absolute;
-        right: 0;
-        bottom: -8px;
-        left: 0;
-        height: 2px;
-        content: "";
-        transform: scaleX(0);
-        transform-origin: right;
-        background: var(--gold);
-        transition: transform 0.24s ease;
+      .nav-links button:hover,
+      .nav-links button.active {
+        color: var(--gold-light);
       }
 
-      .nav-links button:hover::after,
-      .nav-links button.active::after {
-        transform: scaleX(1);
-        transform-origin: left;
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
       }
 
-      .mobile-menu {
+      /* ─── HAMBURGER / MOBILE NAV ─── */
+      .hamburger {
         display: none;
-        height: 42px;
-        padding: 0 12px;
-        border: 1px solid rgba(244, 241, 234, 0.18);
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--card-border);
         border-radius: var(--radius);
-        background: rgba(244, 241, 234, 0.08);
-        color: var(--cream);
-        font-size: 0.74rem;
-        font-weight: 900;
-        text-transform: uppercase;
+        background: var(--card-bg);
+        color: var(--white);
+        cursor: pointer;
+        font-size: 1.1rem;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
       }
 
-      .mobile-menu option {
-        color: var(--ink);
+      .hamburger span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--white);
+        border-radius: 2px;
+        transition: transform 0.22s ease, opacity 0.22s ease;
       }
 
+      .mobile-nav {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(5, 21, 32, 0.98);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        padding: 88px 32px 40px;
+        gap: 4px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      .mobile-nav.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .mobile-nav-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--card-border);
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font: inherit;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.2s, color 0.2s;
+      }
+
+      .mobile-nav-close:hover {
+        border-color: rgba(201, 169, 97, 0.4);
+        color: var(--gold);
+      }
+
+      .mobile-nav-link {
+        display: block;
+        padding: 18px 0;
+        border: 0;
+        border-bottom: 1px solid var(--card-border);
+        background: transparent;
+        color: var(--muted-2);
+        font: inherit;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: left;
+        cursor: pointer;
+        letter-spacing: -0.3px;
+        transition: color 0.2s, padding-left 0.2s;
+      }
+
+      .mobile-nav-link:hover { color: var(--gold); padding-left: 8px; }
+
+      .mobile-nav-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      /* ─── BUTTONS ─── */
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 46px;
-        padding: 0 18px;
-        border: 1px solid rgba(201, 169, 97, 0.42);
-        border-radius: var(--radius);
-        background: linear-gradient(135deg, var(--gold), var(--gold-2));
-        color: var(--navy-900);
-        font-size: 0.82rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        box-shadow: 0 16px 44px rgba(201, 169, 97, 0.2);
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        gap: 8px;
+        min-height: 44px;
+        padding: 0 22px;
+        border: none;
+        border-radius: 999px;
+        background: var(--gold);
+        color: var(--black);
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 28px rgba(201, 169, 97, 0.22);
       }
 
       .button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 22px 55px rgba(201, 169, 97, 0.28);
+        box-shadow: 0 16px 44px rgba(201, 169, 97, 0.35);
       }
 
       .button.secondary {
-        background: rgba(244, 241, 234, 0.08);
-        color: var(--cream);
+        background: transparent;
+        border: 1px solid rgba(201, 169, 97, 0.45);
+        color: var(--gold-light);
         box-shadow: none;
       }
 
+      .button.secondary:hover {
+        background: rgba(11, 45, 74, 0.25);
+        box-shadow: none;
+        transform: translateY(-2px);
+      }
+
+      .button.full { width: 100%; }
+
+      /* ─── HERO ─── */
       .hero {
         position: relative;
-        min-height: 92vh;
-        padding: 148px 0 86px;
-        color: var(--cream);
-        background: linear-gradient(115deg, rgba(7, 26, 42, 0.98), rgba(11, 45, 74, 0.94) 52%, rgba(16, 57, 88, 0.9));
+        min-height: 96vh;
+        padding: 158px 0 100px;
+        overflow: hidden;
       }
 
       .hero::before {
         position: absolute;
         inset: 0;
         content: "";
-        opacity: 0.58;
+        pointer-events: none;
         background:
-          linear-gradient(120deg, transparent 0 54%, rgba(201, 169, 97, 0.16) 54.1% 54.7%, transparent 54.8%),
-          linear-gradient(152deg, transparent 0 62%, rgba(59, 192, 170, 0.14) 62.1% 62.6%, transparent 62.7%),
-          repeating-linear-gradient(90deg, transparent 0 82px, rgba(244, 241, 234, 0.05) 82px 83px);
+          radial-gradient(ellipse 90% 60% at 50% -10%, rgba(11, 45, 74, 0.45) 0%, transparent 68%),
+          radial-gradient(ellipse 55% 45% at 85% 65%, rgba(201, 169, 97, 0.09) 0%, transparent 60%),
+          radial-gradient(ellipse 40% 30% at 10% 80%, rgba(11, 45, 74, 0.2) 0%, transparent 55%);
       }
 
       .hero .shell {
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.76fr);
-        gap: 54px;
+        grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+        gap: 68px;
         align-items: center;
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        margin: 0 0 24px;
-        color: rgba(244, 241, 234, 0.78);
-        font-size: 0.78rem;
-        font-weight: 800;
+        gap: 8px;
+        margin: 0 0 28px;
+        padding: 6px 16px;
+        border: 1px solid rgba(201, 169, 97, 0.4);
+        border-radius: 999px;
+        background: rgba(201, 169, 97, 0.08);
+        color: var(--gold-light);
+        font-size: 0.76rem;
+        font-weight: 700;
         text-transform: uppercase;
-      }
-
-      .eyebrow::before {
-        width: 38px;
-        height: 2px;
-        content: "";
-        background: var(--gold);
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
+        letter-spacing: 0.9px;
       }
 
       h1 {
-        max-width: 780px;
-        margin-bottom: 24px;
-        font-size: clamp(3rem, 7.2vw, 6.8rem);
-        line-height: 0.92;
+        max-width: 660px;
+        margin-bottom: 22px;
+        font-size: clamp(2.8rem, 5.8vw, 5.6rem);
+        line-height: 1.02;
         font-weight: 800;
+        letter-spacing: -1.5px;
       }
 
       .hero-copy {
-        max-width: 650px;
-        color: rgba(244, 241, 234, 0.82);
-        font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+        max-width: 560px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.35vw, 1.15rem);
+        line-height: 1.75;
       }
 
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
-        margin-top: 34px;
+        margin-top: 38px;
       }
 
-      .signal-panel {
+      /* ─── IPHONE MOCKUP ─── */
+      .iphone-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 460px;
+      }
+
+      .iphone {
         position: relative;
-        min-height: 500px;
-        border: 1px solid rgba(244, 241, 234, 0.15);
-        border-radius: var(--radius);
-        background: rgba(244, 241, 234, 0.06);
-        box-shadow: 0 30px 110px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(6px);
+        width: 268px;
+        height: 548px;
+        background: #08192a;
+        border-radius: 50px;
+        border: 2px solid rgba(201, 169, 97, 0.3);
+        box-shadow:
+          0 0 0 8px #04111d,
+          0 0 0 10px rgba(201, 169, 97, 0.1),
+          0 50px 120px rgba(0, 0, 0, 0.75),
+          0 0 80px rgba(201, 169, 97, 0.06);
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
       }
 
-      .signal-panel::before {
-        position: absolute;
-        inset: 28px;
-        content: "";
-        border: 1px solid rgba(244, 241, 234, 0.14);
-        background:
-          linear-gradient(rgba(244, 241, 234, 0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(244, 241, 234, 0.07) 1px, transparent 1px);
-        background-size: 34px 34px;
+      .iphone-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px 4px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        color: var(--white);
+        position: relative;
+        z-index: 5;
+        flex-shrink: 0;
       }
 
-      .node {
+      .iphone-notch {
         position: absolute;
-        display: grid;
-        place-items: center;
-        width: 94px;
-        height: 94px;
-        border: 1px solid rgba(244, 241, 234, 0.2);
-        border-radius: 50%;
-        background: rgba(7, 26, 42, 0.78);
-        color: var(--cream);
-        font-size: 0.72rem;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 108px;
+        height: 30px;
+        background: #000;
+        border-radius: 0 0 22px 22px;
+        z-index: 6;
+      }
+
+      .iphone-body {
+        flex: 1;
+        padding: 6px 14px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow: hidden;
+        background: var(--black-2);
+      }
+
+      .iphone-app-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 2px 2px;
+      }
+
+      .iphone-app-title {
+        font-size: 0.82rem;
         font-weight: 800;
+        color: var(--white);
+        letter-spacing: -0.3px;
+      }
+
+      .iphone-app-title span { color: var(--gold); }
+
+      .iphone-app-badge {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        background: rgba(201, 169, 97, 0.12);
+        border: 1px solid rgba(201, 169, 97, 0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+        font-weight: 800;
+        color: var(--gold);
+      }
+
+      .iphone-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .iphone-metric {
+        padding: 10px 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .iphone-metric-label {
+        font-size: 0.52rem;
+        font-weight: 700;
+        color: var(--muted);
         text-transform: uppercase;
-        box-shadow: inset 0 0 0 12px rgba(244, 241, 234, 0.03), 0 18px 46px rgba(0, 0, 0, 0.24);
-      }
-
-      .node::after {
-        position: absolute;
-        inset: -8px;
-        content: "";
-        border: 1px solid rgba(201, 169, 97, 0.32);
-        border-radius: inherit;
-        animation: pulse 3.8s ease-in-out infinite;
-      }
-
-      .node.ai {
-        top: 52px;
-        left: 54px;
-      }
-
-      .node.energy {
-        right: 52px;
-        top: 150px;
-        color: var(--navy-900);
-        background: var(--gold);
-      }
-
-      .node.industry {
-        bottom: 64px;
-        left: 118px;
-        background: #123f5d;
-      }
-
-      .trace {
-        position: absolute;
-        height: 2px;
-        transform-origin: left center;
-        background: linear-gradient(90deg, rgba(201, 169, 97, 0), rgba(201, 169, 97, 0.88), rgba(59, 192, 170, 0.24));
-      }
-
-      .trace.one {
-        top: 142px;
-        left: 138px;
-        width: 245px;
-        transform: rotate(16deg);
-      }
-
-      .trace.two {
-        top: 254px;
-        left: 196px;
-        width: 196px;
-        transform: rotate(-30deg);
-      }
-
-      .trace.three {
-        top: 320px;
-        left: 128px;
-        width: 236px;
-        transform: rotate(24deg);
-      }
-
-      .readout {
-        position: absolute;
-        right: 36px;
-        bottom: 34px;
-        width: min(250px, calc(100% - 72px));
-        padding: 18px;
-        border: 1px solid rgba(244, 241, 234, 0.15);
-        border-radius: var(--radius);
-        background: rgba(7, 26, 42, 0.74);
-      }
-
-      .readout strong {
+        letter-spacing: 0.4px;
+        margin-bottom: 4px;
         display: block;
-        color: var(--gold-2);
-        font-size: 1.85rem;
+      }
+
+      .iphone-metric-value {
+        display: block;
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.5px;
+        color: var(--gold);
+      }
+
+      .iphone-metric-value.light { color: var(--gold-light); }
+
+      .iphone-bars {
+        padding: 10px 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        flex-shrink: 0;
+      }
+
+      .iphone-bars-title {
+        font-size: 0.52rem;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 9px;
+        display: block;
+      }
+
+      .iphone-bar-row {
+        display: grid;
+        grid-template-columns: 58px 1fr 26px;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 7px;
+      }
+
+      .iphone-bar-row:last-child { margin-bottom: 0; }
+
+      .iphone-bar-name {
+        font-size: 0.57rem;
+        font-weight: 600;
+        color: var(--muted-2);
+      }
+
+      .iphone-bar-track {
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+      }
+
+      .iphone-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: var(--navy-mid);
+      }
+
+      .iphone-bar-fill.gold { background: var(--gold); }
+
+      .iphone-bar-pct {
+        font-size: 0.52rem;
+        font-weight: 700;
+        color: var(--muted);
+        text-align: right;
+      }
+
+      .iphone-status-strip {
+        padding: 8px 12px;
+        border: 1px solid rgba(201, 169, 97, 0.15);
+        border-radius: 10px;
+        background: rgba(201, 169, 97, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .iphone-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .iphone-status-text {
+        font-size: 0.58rem;
+        font-weight: 600;
+        color: var(--gold-light);
+      }
+
+      .iphone-nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 8px 0;
+        border-top: 1px solid var(--card-border);
+        background: var(--black);
+        flex-shrink: 0;
+      }
+
+      .iphone-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 6px 0;
+        font-size: 0.48rem;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .iphone-nav-item.active { color: var(--gold); }
+
+      .iphone-nav-icon {
+        font-size: 0.85rem;
         line-height: 1;
       }
 
-      .readout span {
-        display: block;
+      .iphone-home-indicator {
+        display: flex;
+        justify-content: center;
+        padding: 6px 0 12px;
+        background: var(--black);
+        flex-shrink: 0;
+      }
+
+      .iphone-home-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.22);
+        border-radius: 2px;
+      }
+
+      /* ─── SECTION SHARED ─── */
+      section { padding: 104px 0; }
+
+      .section-label {
+        display: inline-block;
+        margin-bottom: 16px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(201, 169, 97, 0.3);
+        background: rgba(201, 169, 97, 0.07);
+        color: var(--gold);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+      }
+
+      .kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(201, 169, 97, 0.3);
+        background: rgba(201, 169, 97, 0.07);
+        color: var(--gold);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-size: clamp(2rem, 3.8vw, 3.5rem);
+        line-height: 1.08;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.74fr) minmax(280px, 0.46fr);
+        gap: 48px;
+        align-items: end;
+        margin-bottom: 52px;
+      }
+
+      .section-head p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.72;
+      }
+
+      /* ─── APPROACH STEPS ─── */
+      .approach {
+        background: var(--black-2);
+        border-top: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .approach-head {
+        max-width: 760px;
+        margin-bottom: 56px;
+      }
+
+      .approach-head h2 { margin-top: 8px; }
+
+      .approach-steps { display: grid; gap: 28px; }
+
+      .step-card {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 28px;
+        align-items: start;
+        padding: 32px 36px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        background: var(--card-bg);
+        transition: border-color 0.25s, background 0.25s;
+      }
+
+      .step-card:hover {
+        border-color: rgba(201, 169, 97, 0.35);
+        background: rgba(201, 169, 97, 0.04);
+      }
+
+      .step-num {
+        font-size: 3rem;
+        font-weight: 900;
+        line-height: 1;
+        color: var(--gold-light);
+        letter-spacing: -2px;
+        opacity: 0.55;
+      }
+
+      .step-body h3 {
+        margin-bottom: 10px;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--white);
+      }
+
+      .step-body p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+        line-height: 1.72;
+      }
+
+      .step-body ul {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 6px;
+      }
+
+      .step-body ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .step-body ul li::before {
+        content: "";
+        flex-shrink: 0;
         margin-top: 8px;
-        color: rgba(244, 241, 234, 0.72);
-        font-size: 0.82rem;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
       }
 
-      section {
-        padding: 96px 0;
-      }
-
+      /* ─── INTERACTIVE CONSOLE ─── */
       .interactive {
-        margin-top: -1px;
-        background: linear-gradient(180deg, #fffaf0 0%, var(--cream) 100%);
+        background: var(--black);
+        border-top: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
       }
 
       .console {
         display: grid;
-        grid-template-columns: 300px minmax(0, 1fr);
+        grid-template-columns: 276px minmax(0, 1fr);
         min-height: 640px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow: var(--shadow);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
         overflow: hidden;
+        box-shadow: var(--shadow);
       }
 
       .console-nav {
-        padding: 22px;
-        background: var(--navy-900);
-        color: var(--cream);
+        padding: 22px 16px;
+        background: rgba(255, 255, 255, 0.02);
+        border-right: 1px solid var(--card-border);
       }
 
       .console-nav p {
-        margin-bottom: 18px;
-        color: rgba(244, 241, 234, 0.56);
-        font-size: 0.76rem;
-        font-weight: 900;
+        margin-bottom: 16px;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 700;
         text-transform: uppercase;
+        letter-spacing: 0.9px;
       }
 
       .console-tab {
         display: grid;
-        grid-template-columns: 38px 1fr;
+        grid-template-columns: 36px 1fr;
         gap: 12px;
         width: 100%;
-        margin-bottom: 10px;
-        padding: 15px;
-        border: 1px solid rgba(244, 241, 234, 0.12);
+        margin-bottom: 8px;
+        padding: 14px 12px;
+        border: 1px solid transparent;
         border-radius: var(--radius);
-        background: rgba(244, 241, 234, 0.04);
-        color: rgba(244, 241, 234, 0.74);
+        background: transparent;
+        color: var(--muted);
         cursor: pointer;
         text-align: left;
-        transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+        font: inherit;
+        transition: all 0.2s ease;
       }
 
       .console-tab:hover,
       .console-tab.active {
-        transform: translateX(4px);
-        border-color: rgba(201, 169, 97, 0.48);
-        background: rgba(201, 169, 97, 0.13);
-        color: var(--cream);
+        border-color: rgba(201, 169, 97, 0.35);
+        background: rgba(11, 45, 74, 0.25);
+        color: var(--white);
       }
 
       .console-tab strong {
         display: block;
-        color: var(--gold-2);
-        font-size: 0.74rem;
+        color: var(--gold-light);
+        font-size: 0.68rem;
+        font-weight: 800;
       }
 
       .console-tab span:last-child {
         align-self: center;
-        font-size: 0.92rem;
-        font-weight: 800;
+        font-size: 0.88rem;
+        font-weight: 700;
       }
 
       .console-body {
-        padding: clamp(26px, 4vw, 54px);
+        padding: clamp(28px, 4vw, 52px);
+        background: var(--black);
       }
 
-      .panel {
-        display: none;
-      }
+      .panel { display: none; }
 
       .panel.active {
         display: block;
-        animation: panelIn 0.38s ease both;
+        animation: panelIn 0.32s ease both;
       }
 
       .panel-layout {
         display: grid;
-        grid-template-columns: minmax(0, 0.88fr) minmax(280px, 0.52fr);
-        gap: 36px;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.5fr);
+        gap: 40px;
         align-items: start;
       }
 
       .panel h2 {
-        margin-bottom: 18px;
+        margin-bottom: 14px;
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        letter-spacing: -0.4px;
       }
 
       .panel-lede {
-        max-width: 720px;
+        max-width: 680px;
         margin-bottom: 28px;
         color: var(--muted);
-        font-size: 1.06rem;
+        font-size: 1rem;
+        line-height: 1.75;
       }
 
-      .accordion {
-        display: grid;
-        gap: 12px;
-      }
+      /* ─── ACCORDION ─── */
+      .accordion { display: grid; gap: 10px; }
 
       .accordion-item {
-        border: 1px solid var(--line);
+        border: 1px solid var(--card-border);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.74);
+        background: var(--card-bg);
         overflow: hidden;
       }
 
@@ -518,35 +821,54 @@
         gap: 14px;
         align-items: center;
         width: 100%;
-        min-height: 66px;
+        min-height: 64px;
         padding: 0 18px;
         border: 0;
         background: transparent;
-        color: var(--navy);
+        color: var(--white);
         cursor: pointer;
         font: inherit;
-        font-weight: 900;
+        font-size: 0.95rem;
+        font-weight: 700;
         text-align: left;
+        transition: background 0.2s;
       }
+
+      .accordion-trigger:hover { background: rgba(255, 255, 255, 0.03); }
 
       .accordion-trigger .plus {
         display: grid;
         place-items: center;
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         border-radius: 50%;
-        background: rgba(11, 45, 74, 0.08);
-        color: var(--navy);
-        transition: transform 0.22s ease;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        font-size: 1rem;
+        transition: transform 0.22s ease, background 0.22s ease;
       }
 
       .accordion-trigger .icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius);
+        background: rgba(11, 45, 74, 0.3);
+        color: var(--gold-light);
+        font-size: 0.7rem;
+        font-weight: 800;
         margin-bottom: 0;
       }
 
       .accordion-trigger[aria-expanded="true"] .plus {
         transform: rotate(45deg);
-        background: var(--gold);
+        background: var(--navy-mid);
+      }
+
+      .accordion-trigger[aria-expanded="true"] .icon {
+        background: rgba(201, 169, 97, 0.14);
+        color: var(--gold);
       }
 
       .accordion-panel {
@@ -555,52 +877,50 @@
         transition: grid-template-rows 0.28s ease;
       }
 
-      .accordion-panel.open {
-        grid-template-rows: 1fr;
-      }
+      .accordion-panel.open { grid-template-rows: 1fr; }
 
-      .accordion-panel > div {
-        overflow: hidden;
-      }
+      .accordion-panel > div { overflow: hidden; }
 
       .accordion-panel p {
         margin: 0;
-        padding: 0 18px 20px 70px;
+        padding: 0 18px 18px 68px;
         color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.7;
       }
 
+      /* ─── INSIGHT CARD ─── */
       .insight-card {
         position: sticky;
-        top: 102px;
-        padding: 28px;
-        border-radius: var(--radius);
-        background: var(--navy);
-        color: var(--cream);
+        top: 90px;
+        padding: 24px 26px;
+        border: 1px solid rgba(201, 169, 97, 0.15);
+        border-radius: var(--radius-lg);
+        background: var(--black-3);
       }
 
       .insight-card h3 {
-        margin-bottom: 14px;
-        color: var(--gold-2);
-      }
-
-      .insight-card p {
-        color: rgba(244, 241, 234, 0.74);
-      }
-
-      .mini-list {
-        display: grid;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .mini-list span {
-        padding: 12px;
-        border: 1px solid rgba(244, 241, 234, 0.13);
-        border-radius: var(--radius);
-        color: rgba(244, 241, 234, 0.82);
+        margin-bottom: 12px;
+        color: var(--gold);
+        font-size: 1.05rem;
         font-weight: 800;
       }
 
+      .insight-card p { color: var(--muted); margin-bottom: 0; font-size: 0.9rem; line-height: 1.7; }
+
+      .mini-list { display: grid; gap: 8px; margin-top: 18px; }
+
+      .mini-list span {
+        padding: 10px 14px;
+        border: 1px solid rgba(201, 169, 97, 0.15);
+        border-radius: var(--radius);
+        color: var(--gold-light);
+        font-size: 0.84rem;
+        font-weight: 700;
+        background: rgba(11, 45, 74, 0.2);
+      }
+
+      /* ─── MARKET PILLS ─── */
       .market-pills {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -608,80 +928,61 @@
       }
 
       .market-pills span {
-        min-height: 88px;
+        min-height: 80px;
         padding: 20px;
-        border: 1px solid var(--line);
+        border: 1px solid var(--card-border);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.72);
-        color: var(--navy);
-        font-weight: 900;
+        background: var(--card-bg);
+        color: var(--white);
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: border-color 0.2s, background 0.2s;
       }
 
-      .contact-form {
-        display: grid;
-        gap: 12px;
-        max-width: 560px;
+      .market-pills span:hover {
+        border-color: rgba(201, 169, 97, 0.35);
+        background: rgba(201, 169, 97, 0.05);
       }
 
-      .contact-list {
-        display: grid;
-        gap: 12px;
-        margin-top: 22px;
-      }
-
-      .contact-list a {
-        display: block;
-        padding: 13px 14px;
-        border: 1px solid rgba(244, 241, 234, 0.13);
-        border-radius: var(--radius);
-        color: rgba(244, 241, 234, 0.86);
-        font-weight: 800;
-      }
-
-      .field {
-        min-height: 54px;
-        padding: 0 16px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.78);
-        color: var(--ink);
-        font: inherit;
-      }
-
-      textarea.field {
-        min-height: 120px;
-        padding-top: 15px;
-        resize: vertical;
-      }
-
+      /* ─── OPPORTUNITY FINDER ─── */
       .opportunity-tools {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 10px;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
       }
 
-      .search-bar {
-        grid-column: 1 / -1;
-      }
+      .search-bar { grid-column: 1 / -1; }
 
       .filter,
       .profile-form input,
       .profile-form select,
       .profile-form textarea {
-        min-height: 46px;
+        min-height: 44px;
         width: 100%;
-        padding: 0 12px;
-        border: 1px solid var(--line);
+        padding: 0 14px;
+        border: 1px solid var(--card-border);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.82);
-        color: var(--ink);
+        background: var(--card-bg);
+        color: var(--white);
         font: inherit;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
+        transition: border-color 0.2s;
       }
 
+      .filter:focus,
+      .profile-form input:focus,
+      .profile-form select:focus,
+      .profile-form textarea:focus {
+        outline: none;
+        border-color: rgba(201, 169, 97, 0.55);
+      }
+
+      .filter::placeholder { color: rgba(255, 255, 255, 0.3); }
+      .filter option { background: #0d2840; color: #fff; }
+
       .profile-form textarea {
-        min-height: 96px;
+        min-height: 88px;
         padding-top: 12px;
         resize: vertical;
       }
@@ -696,319 +997,184 @@
       .opportunity-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: 14px 0;
+        gap: 6px;
+        margin: 12px 0;
       }
 
       .tag {
         display: inline-flex;
         align-items: center;
-        min-height: 28px;
+        min-height: 24px;
         padding: 0 10px;
         border-radius: 999px;
-        background: rgba(11, 45, 74, 0.08);
-        color: var(--navy);
-        font-size: 0.74rem;
-        font-weight: 900;
-        text-transform: uppercase;
+        background: rgba(11, 45, 74, 0.25);
+        border: 1px solid rgba(11, 45, 74, 0.5);
+        color: var(--gold-light);
+        font-size: 0.7rem;
+        font-weight: 700;
       }
 
-      .opportunity-list {
-        display: grid;
-        gap: 12px;
-      }
+      .opportunity-list { display: grid; gap: 12px; }
 
       .opportunity-card {
         padding: 20px;
-        border: 1px solid var(--line);
+        border: 1px solid var(--card-border);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.76);
+        background: var(--card-bg);
+        transition: border-color 0.2s;
       }
 
-      .opportunity-card h3 {
-        margin-bottom: 8px;
-        color: var(--navy);
-      }
+      .opportunity-card:hover { border-color: rgba(201, 169, 97, 0.3); }
 
-      .opportunity-card p {
-        margin-bottom: 0;
-        color: var(--muted);
-      }
+      .opportunity-card h3 { margin-bottom: 6px; color: var(--white); font-size: 0.98rem; font-weight: 700; }
+      .opportunity-card p  { margin-bottom: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
 
       .opportunity-card a {
         display: inline-flex;
         margin-top: 14px;
-        color: var(--navy);
-        font-weight: 900;
-        text-transform: uppercase;
+        color: var(--gold);
+        font-size: 0.82rem;
+        font-weight: 700;
+        transition: opacity 0.2s;
       }
 
+      .opportunity-card a:hover { opacity: 0.75; }
+
       .opportunity-card.recommended {
-        border-color: rgba(201, 169, 97, 0.75);
-        box-shadow: 0 18px 44px rgba(201, 169, 97, 0.14);
+        border-color: rgba(201, 169, 97, 0.3);
+        background: rgba(201, 169, 97, 0.04);
       }
 
       .empty-state {
         padding: 24px;
-        border: 1px dashed rgba(11, 45, 74, 0.28);
+        border: 1px dashed var(--card-border);
         border-radius: var(--radius);
         color: var(--muted);
         text-align: center;
+        font-size: 0.9rem;
       }
 
       .profile-form {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
-        margin: 18px 0 20px;
+        margin: 16px 0 18px;
       }
 
-      .profile-form .full {
-        grid-column: 1 / -1;
-      }
+      .profile-form .full { grid-column: 1 / -1; }
 
       .recommendation-summary {
         display: none;
-        margin-bottom: 18px;
-        padding: 18px;
-        border: 1px solid rgba(201, 169, 97, 0.4);
+        margin-bottom: 16px;
+        padding: 14px 18px;
+        border: 1px solid rgba(201, 169, 97, 0.3);
         border-radius: var(--radius);
-        background: rgba(201, 169, 97, 0.12);
-        color: var(--navy);
-        font-weight: 800;
+        background: rgba(201, 169, 97, 0.06);
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 0.88rem;
       }
 
-      .recommendation-summary.visible {
-        display: block;
-      }
+      .recommendation-summary.visible { display: block; }
 
       .disclaimer {
         margin-top: 20px;
-        padding: 16px;
-        border-left: 4px solid var(--gold);
-        background: rgba(11, 45, 74, 0.06);
+        padding: 14px 18px;
+        border-left: 3px solid var(--navy-mid);
+        background: rgba(11, 45, 74, 0.12);
         color: var(--muted);
-        font-size: 0.92rem;
+        font-size: 0.86rem;
+        line-height: 1.65;
+        border-radius: 0 var(--radius) var(--radius) 0;
       }
 
-      .section-head {
-        display: grid;
-        grid-template-columns: minmax(0, 0.74fr) minmax(280px, 0.46fr);
-        gap: 42px;
-        align-items: end;
-        margin-bottom: 44px;
-      }
+      /* ─── CONTACT FORM ─── */
+      .contact-form { display: grid; gap: 12px; max-width: 540px; }
 
-      .kicker {
-        margin-bottom: 12px;
-        color: var(--rust);
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
+      .contact-list { display: grid; gap: 10px; margin-top: 20px; }
 
-      h2 {
-        margin-bottom: 0;
-        color: var(--navy);
-        font-size: clamp(2.2rem, 4vw, 4rem);
-        line-height: 1;
-      }
-
-      .section-head p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 1.02rem;
-      }
-
-      .capability-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .capability-card {
-        position: relative;
-        min-height: 250px;
-        padding: 26px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.68);
-        box-shadow: 0 16px 48px rgba(11, 45, 74, 0.08);
-        overflow: hidden;
-        transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
-      }
-
-      .capability-card::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 112px;
-        height: 112px;
-        content: "";
-        clip-path: polygon(100% 0, 0 0, 100% 100%);
-        background: rgba(201, 169, 97, 0.16);
-      }
-
-      .capability-card:hover {
-        transform: translateY(-7px);
-        border-color: rgba(201, 169, 97, 0.5);
-        box-shadow: var(--shadow);
-      }
-
-      .icon {
-        display: grid;
-        place-items: center;
-        width: 48px;
-        height: 48px;
-        margin-bottom: 24px;
-        border-radius: var(--radius);
-        background: var(--navy);
-        color: var(--gold-2);
-        font-weight: 900;
-      }
-
-      .capability-card h3 {
-        margin-bottom: 14px;
-        color: var(--navy);
-        font-size: 1.3rem;
-      }
-
-      .capability-card p {
-        margin-bottom: 0;
-        color: var(--muted);
-      }
-
-      .about {
-        color: var(--cream);
-        background: var(--navy-900);
-      }
-
-      .about-grid {
-        display: grid;
-        grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1fr);
-        gap: 56px;
-        align-items: center;
-      }
-
-      .about h2 {
-        color: var(--cream);
-      }
-
-      .about p {
-        color: rgba(244, 241, 234, 0.76);
-      }
-
-      .about-lines {
-        display: grid;
-        gap: 14px;
-      }
-
-      .line-item {
-        display: grid;
-        grid-template-columns: 56px 1fr;
-        gap: 18px;
-        align-items: start;
-        padding: 20px;
-        border: 1px solid rgba(244, 241, 234, 0.14);
-        border-radius: var(--radius);
-        background: rgba(244, 241, 234, 0.05);
-      }
-
-      .line-item b {
+      .contact-list a {
         display: block;
-        margin-bottom: 4px;
-        color: var(--gold-2);
+        padding: 12px 14px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.88rem;
+        transition: border-color 0.2s, color 0.2s;
       }
 
-      .line-number {
-        color: rgba(244, 241, 234, 0.36);
-        font-weight: 900;
+      .contact-list a:hover { border-color: rgba(201, 169, 97, 0.4); color: var(--gold); }
+
+      .field {
+        min-height: 50px;
+        padding: 0 16px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        background: var(--card-bg);
+        color: var(--white);
+        font: inherit;
+        font-size: 0.9rem;
+        transition: border-color 0.2s;
       }
 
+      .field:focus { outline: none; border-color: rgba(201, 169, 97, 0.55); }
+      .field::placeholder { color: rgba(255, 255, 255, 0.28); }
+
+      textarea.field {
+        min-height: 120px;
+        padding-top: 14px;
+        resize: vertical;
+      }
+
+      /* ─── STATS ─── */
       .stats {
         padding: 0;
-        color: var(--cream);
-        background: linear-gradient(135deg, var(--navy), #143e4c 58%, #19394c);
+        background: var(--black);
+        border-top: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
       }
 
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        border-right: 1px solid rgba(244, 241, 234, 0.14);
-        border-left: 1px solid rgba(244, 241, 234, 0.14);
+        border-left: 1px solid var(--card-border);
+        border-right: 1px solid var(--card-border);
       }
 
       .stat {
-        min-height: 188px;
-        padding: 34px 28px;
-        border-right: 1px solid rgba(244, 241, 234, 0.14);
+        min-height: 180px;
+        padding: 36px 30px;
+        border-right: 1px solid var(--card-border);
+        transition: background 0.2s;
       }
 
-      .stat:last-child {
-        border-right: 0;
-      }
+      .stat:hover { background: rgba(11, 45, 74, 0.1); }
+      .stat:last-child { border-right: 0; }
 
       .stat strong {
         display: block;
-        color: var(--gold-2);
-        font-size: clamp(2rem, 4vw, 4.2rem);
-        line-height: 0.95;
+        color: var(--gold);
+        font-size: clamp(2.2rem, 4vw, 4rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -2px;
+        margin-bottom: 12px;
       }
 
       .stat span {
         display: block;
-        margin-top: 12px;
-        color: rgba(244, 241, 234, 0.72);
-        font-weight: 700;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.88rem;
+        line-height: 1.55;
       }
 
-      .markets {
-        background: #fffaf0;
-      }
-
-      .market-band {
-        display: grid;
-        grid-template-columns: 0.8fr 1.2fr;
-        gap: 42px;
-        align-items: stretch;
-      }
-
-      .market-copy {
-        padding: 34px;
-        border-radius: var(--radius);
-        background: var(--navy);
-        color: var(--cream);
-      }
-
-      .market-copy h2 {
-        margin-bottom: 18px;
-        color: var(--cream);
-      }
-
-      .market-copy p {
-        color: rgba(244, 241, 234, 0.76);
-      }
-
-      .market-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .market-list span {
-        min-height: 86px;
-        padding: 20px;
-        border: 1px solid rgba(11, 45, 74, 0.13);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.75);
-        color: var(--navy);
-        font-weight: 800;
-      }
-
+      /* ─── CONTACT / FOOTER ─── */
       .contact {
         padding-bottom: 44px;
-        color: var(--cream);
-        background: var(--navy-900);
+        background: var(--black-2);
+        border-top: 1px solid var(--card-border);
       }
 
       .contact-panel {
@@ -1016,24 +1182,14 @@
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 36px;
         align-items: center;
-        padding: clamp(32px, 5vw, 64px);
-        border: 1px solid rgba(244, 241, 234, 0.14);
-        border-radius: var(--radius);
-        background:
-          linear-gradient(135deg, rgba(201, 169, 97, 0.12), transparent 34%),
-          rgba(244, 241, 234, 0.05);
+        padding: clamp(36px, 5vw, 68px);
+        border: 1px solid rgba(201, 169, 97, 0.12);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, rgba(11, 45, 74, 0.25), transparent 42%);
       }
 
-      .contact h2 {
-        margin-bottom: 18px;
-        color: var(--cream);
-      }
-
-      .contact p {
-        max-width: 680px;
-        margin-bottom: 0;
-        color: rgba(244, 241, 234, 0.74);
-      }
+      .contact h2 { margin-bottom: 16px; color: var(--white); }
+      .contact p  { max-width: 640px; margin-bottom: 0; color: var(--muted); }
 
       .footer {
         display: flex;
@@ -1041,273 +1197,424 @@
         justify-content: space-between;
         gap: 20px;
         padding: 28px 0 0;
-        color: rgba(244, 241, 234, 0.5);
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .footer-mark { color: var(--gold); font-weight: 800; }
+
+      /* ─── SIGN-IN MODAL ─── */
+      .signin-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: rgba(5, 21, 32, 0.85);
+        backdrop-filter: blur(14px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      .signin-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .signin-modal {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        padding: 36px;
+        border: 1px solid rgba(201, 169, 97, 0.2);
+        border-radius: var(--radius-lg);
+        background: var(--black-2);
+        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.65);
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: modalSlideIn 0.3s ease both;
+      }
+
+      @keyframes modalSlideIn {
+        from { opacity: 0; transform: translateY(16px) scale(0.97); }
+        to   { opacity: 1; transform: translateY(0)   scale(1); }
+      }
+
+      .signin-overlay:not(.open) .signin-modal { animation: none; }
+
+      .signin-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--card-border);
+        border-radius: 50%;
+        background: var(--card-bg);
+        color: var(--muted);
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.78rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.2s, color 0.2s;
+      }
+
+      .signin-close:hover {
+        border-color: rgba(201, 169, 97, 0.4);
+        color: var(--gold);
+      }
+
+      .signin-logo-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 22px;
+      }
+
+      .signin-logo-inner {
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.94);
+        border-radius: var(--radius);
+      }
+
+      .signin-logo-inner img { height: 32px; width: auto; }
+
+      .signin-heading {
+        margin: 0 0 6px;
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: -0.3px;
+      }
+
+      .signin-sub {
+        margin: 0 0 24px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .signin-type-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 22px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .signin-type-btn {
+        padding: 13px;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .signin-type-btn.active {
+        background: rgba(201, 169, 97, 0.12);
+        color: var(--gold);
+      }
+
+      .signin-form {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .signin-form.active { display: flex; }
+
+      .signin-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .signin-field {
+        min-height: 48px;
+        padding: 0 16px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--white);
+        font: inherit;
         font-size: 0.9rem;
+        width: 100%;
+        transition: border-color 0.2s;
       }
 
-      .footer-mark {
-        color: var(--gold-2);
-        font-weight: 900;
+      .signin-field:focus {
+        outline: none;
+        border-color: rgba(201, 169, 97, 0.5);
       }
 
+      .signin-field::placeholder { color: rgba(255, 255, 255, 0.28); }
+      .signin-field option { background: #0d2840; color: #fff; }
+
+      select.signin-field { cursor: pointer; }
+
+      .signin-divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .signin-divider::before,
+      .signin-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--card-border);
+      }
+
+      .signin-submit { margin-top: 4px; }
+
+      .signin-footer-note {
+        margin: 4px 0 0;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .signin-text-link {
+        border: 0;
+        background: transparent;
+        color: var(--gold);
+        font: inherit;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      /* ─── REVEAL ─── */
       .reveal {
         opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 0.7s ease, transform 0.7s ease;
+        transform: translateY(20px);
+        transition: opacity 0.65s ease, transform 0.65s ease;
       }
 
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
 
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 0.34;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.9;
-          transform: scale(1.08);
-        }
-      }
-
+      /* ─── KEYFRAMES ─── */
       @keyframes panelIn {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
+      /* ─── RESPONSIVE 980px ─── */
       @media (max-width: 980px) {
-        .nav-links {
-          display: none;
-        }
+        .nav-links  { display: none; }
+        .hamburger  { display: inline-flex; }
 
-        .mobile-menu {
-          display: inline-flex;
-          max-width: 190px;
-        }
-
-        .hero {
-          min-height: auto;
-          background-position: center, 125% 42%;
-        }
+        .hero { min-height: auto; }
 
         .hero .shell,
         .section-head,
-        .about-grid,
-        .market-band,
         .contact-panel,
         .console,
-        .panel-layout {
-          grid-template-columns: 1fr;
-        }
+        .panel-layout { grid-template-columns: 1fr; }
 
-        .console {
-          min-height: 0;
-        }
+        .console { min-height: 0; }
 
         .console-nav {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 10px;
+          gap: 8px;
+          border-right: none;
+          border-bottom: 1px solid var(--card-border);
         }
 
-        .console-nav p {
-          grid-column: 1 / -1;
-          margin-bottom: 4px;
-        }
+        .console-nav p { grid-column: 1 / -1; margin-bottom: 4px; }
+        .console-tab   { margin-bottom: 0; }
+        .insight-card  { position: static; }
+        .iphone-wrap   { min-height: 360px; }
+        .opportunity-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .profile-form  { grid-template-columns: 1fr; }
+        .stats-grid    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-        .console-tab {
-          margin-bottom: 0;
-        }
-
-        .console-tab:hover,
-        .console-tab.active {
-          transform: none;
-        }
-
-        .insight-card {
-          position: static;
-        }
-
-        .signal-panel {
-          min-height: 420px;
-        }
-
-        .capability-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .opportunity-tools {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .profile-form {
-          grid-template-columns: 1fr;
-        }
-
-        .stats-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+        .step-card { grid-template-columns: 60px 1fr; gap: 20px; padding: 24px; }
+        .step-num  { font-size: 2.2rem; }
       }
 
+      /* ─── RESPONSIVE 680px ─── */
       @media (max-width: 680px) {
-        .shell {
-          width: min(100% - 28px, 1180px);
-        }
+        .shell { width: min(100% - 28px, 1160px); }
+        .site-header { position: absolute; }
+        .nav { min-height: 64px; }
+        .brand { height: 40px; }
+        .nav-actions .button:not(.hamburger) { display: none; }
+        .hero { padding: 112px 0 68px; }
 
-        .site-header {
-          position: absolute;
-        }
+        h1 { font-size: clamp(2.4rem, 13vw, 3.8rem); }
 
-        .nav {
-          min-height: 68px;
-        }
-
-        .brand {
-          width: 148px;
-          height: 46px;
-        }
-
-        .nav .button {
-          display: none;
-        }
-
-        .mobile-menu {
-          min-height: 40px;
-          width: auto;
-          max-width: 148px;
-          padding: 0 12px;
-          font-size: 0.72rem;
-        }
-
-        .hero {
-          padding: 112px 0 60px;
-        }
-
-        h1 {
-          font-size: clamp(2.65rem, 15vw, 4.4rem);
-        }
-
-        section {
-          padding: 70px 0;
-        }
+        section { padding: 72px 0; }
 
         .hero-actions,
-        .footer {
-          align-items: stretch;
-          flex-direction: column;
-        }
+        .footer { align-items: stretch; flex-direction: column; }
 
-        .button {
-          width: 100%;
-        }
+        .button { width: 100%; }
 
-        .signal-panel {
-          min-height: 360px;
-        }
-
-        .node {
-          width: 76px;
-          height: 76px;
-          font-size: 0.64rem;
-        }
-
-        .node.ai {
-          top: 42px;
-          left: 34px;
-        }
-
-        .node.energy {
-          right: 34px;
-          top: 116px;
-        }
-
-        .node.industry {
-          bottom: 70px;
-          left: 58px;
-        }
-
-        .trace.one {
-          top: 111px;
-          left: 100px;
-          width: 170px;
-        }
-
-        .trace.two {
-          top: 204px;
-          left: 118px;
-          width: 152px;
-        }
-
-        .trace.three {
-          top: 262px;
-          left: 84px;
-          width: 160px;
-        }
-
-        .capability-grid,
-        .market-list,
         .market-pills,
         .opportunity-tools,
         .profile-form,
-        .stats-grid {
-          grid-template-columns: 1fr;
-        }
+        .stats-grid { grid-template-columns: 1fr; }
 
-        .console-nav {
-          grid-template-columns: 1fr;
-        }
+        .console-nav  { grid-template-columns: 1fr; }
+        .console-body { padding: 22px; }
+        .accordion-panel p { padding: 0 14px 16px 64px; }
 
-        .console-body {
-          padding: 22px;
-        }
+        .stat { border-right: 0; border-bottom: 1px solid var(--card-border); }
+        .stat:last-child { border-bottom: 0; }
 
-        .accordion-trigger {
-          grid-template-columns: auto 1fr auto;
-          padding: 0 14px;
-        }
+        .step-card { grid-template-columns: 1fr; gap: 8px; }
+        .step-num  { font-size: 1.8rem; opacity: 0.4; }
 
-        .accordion-panel p {
-          padding: 0 14px 18px 58px;
-        }
-
-        .stat {
-          border-right: 0;
-          border-bottom: 1px solid rgba(244, 241, 234, 0.14);
-        }
-
-        .stat:last-child {
-          border-bottom: 0;
-        }
+        .signin-row { grid-template-columns: 1fr; }
+        .signin-modal { padding: 28px 22px; }
+        .iphone { width: 240px; height: 490px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
           scroll-behavior: auto !important;
           animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
         }
+        .reveal { opacity: 1; transform: none; }
+        #dottedSurface { display: none; }
+      }
 
-        .reveal {
-          opacity: 1;
-          transform: none;
-        }
+      /* ─── DOTTED SURFACE ─── */
+      #dottedSurface {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      #dottedSurface canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.45;
       }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="page">
+
+      <!-- ─── MOBILE NAV OVERLAY ─── -->
+      <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Site navigation">
+        <button class="mobile-nav-close" type="button" id="mobileNavClose" aria-label="Close menu">✕</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="capabilities">Capabilities</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="innovation">R&amp;D &amp; Innovation</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="markets">Markets</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="opportunities">Scholarships &amp; Grants</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="contact">Contact</button>
+        <div class="mobile-nav-actions">
+          <button class="button secondary" type="button" id="mobileSigninBtn">Sign In</button>
+          <button class="button panel-link" type="button" data-panel-target="contact">Start a Project</button>
+        </div>
+      </div>
+
+      <!-- ─── SIGN-IN MODAL ─── -->
+      <div class="signin-overlay" id="signinOverlay" role="dialog" aria-modal="true" aria-label="Sign in to Optimais" aria-hidden="true">
+        <div class="signin-modal">
+          <button class="signin-close" type="button" id="signinClose" aria-label="Close">✕</button>
+          <div class="signin-logo-wrap">
+            <div class="signin-logo-inner">
+              <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
+            </div>
+          </div>
+          <h2 class="signin-heading">Create your account</h2>
+          <p class="signin-sub">Join Optimais Limited — individual or business</p>
+
+          <div class="signin-type-toggle">
+            <button class="signin-type-btn active" type="button" data-signin="individual">Individual</button>
+            <button class="signin-type-btn" type="button" data-signin="business">Business</button>
+          </div>
+
+          <!-- Individual Form -->
+          <form class="signin-form active" id="formIndividual" novalidate>
+            <div class="signin-row">
+              <input class="signin-field" type="text" name="firstName" placeholder="First name" required aria-label="First name">
+              <input class="signin-field" type="text" name="lastName" placeholder="Last name" required aria-label="Last name">
+            </div>
+            <input class="signin-field" type="email" name="email" placeholder="Email address" required aria-label="Email address">
+            <input class="signin-field" type="tel" name="phone" placeholder="Phone number" aria-label="Phone number">
+            <input class="signin-field" type="text" name="country" placeholder="Country of residence" aria-label="Country of residence">
+            <select class="signin-field" name="interest" aria-label="Area of interest">
+              <option value="">Area of interest</option>
+              <option>AI &amp; Intelligent Systems</option>
+              <option>Renewable Energy</option>
+              <option>Engineering Services</option>
+              <option>Strategic Advisory</option>
+              <option>Scholarships &amp; Training</option>
+              <option>Research &amp; Innovation</option>
+            </select>
+            <input class="signin-field" type="password" name="password" placeholder="Create password" required aria-label="Password" autocomplete="new-password">
+            <button class="button signin-submit" type="submit">Create Account</button>
+            <p class="signin-footer-note">Already registered? <button type="button" class="signin-text-link">Sign in instead</button></p>
+          </form>
+
+          <!-- Business Form -->
+          <form class="signin-form" id="formBusiness" novalidate>
+            <input class="signin-field" type="text" name="company" placeholder="Company / Organization name" required aria-label="Company name">
+            <div class="signin-row">
+              <input class="signin-field" type="text" name="contactName" placeholder="Contact name" required aria-label="Contact name">
+              <input class="signin-field" type="text" name="role" placeholder="Role / Title" aria-label="Role or title">
+            </div>
+            <input class="signin-field" type="email" name="email" placeholder="Business email" required aria-label="Business email">
+            <input class="signin-field" type="tel" name="phone" placeholder="Phone number" aria-label="Phone number">
+            <div class="signin-row">
+              <select class="signin-field" name="industry" aria-label="Industry">
+                <option value="">Industry</option>
+                <option>Energy</option>
+                <option>Technology</option>
+                <option>Engineering</option>
+                <option>Government / Public Sector</option>
+                <option>Research &amp; Academia</option>
+                <option>Finance</option>
+                <option>Manufacturing</option>
+                <option>Other</option>
+              </select>
+              <input class="signin-field" type="text" name="country" placeholder="Country" aria-label="Country">
+            </div>
+            <select class="signin-field" name="service" aria-label="Service interest">
+              <option value="">Service interest</option>
+              <option>AI &amp; Intelligent Systems</option>
+              <option>Renewable Energy</option>
+              <option>Engineering Services</option>
+              <option>Strategic Advisory</option>
+              <option>Research Commercialization</option>
+              <option>Capacity Building</option>
+            </select>
+            <input class="signin-field" type="password" name="password" placeholder="Create password" required aria-label="Password" autocomplete="new-password">
+            <button class="button signin-submit" type="submit">Register Business</button>
+            <p class="signin-footer-note">Already registered? <button type="button" class="signin-text-link">Sign in instead</button></p>
+          </form>
+        </div>
+      </div>
+
       <header class="site-header">
         <nav class="shell nav" aria-label="Primary navigation">
           <a class="brand" href="#top" aria-label="Optimais home">
@@ -1320,19 +1627,22 @@
             <button class="panel-link" type="button" data-panel-target="opportunities">Opportunities</button>
             <button class="panel-link" type="button" data-panel-target="contact">Contact</button>
           </div>
-          <select class="mobile-menu" aria-label="Open Optimais section">
-            <option value="capabilities">Capabilities</option>
-            <option value="innovation">Innovation</option>
-            <option value="markets">Markets</option>
-            <option value="opportunities">Opportunities</option>
-            <option value="contact">Contact</option>
-          </select>
-          <button class="button panel-link" type="button" data-panel-target="contact">Start a Project</button>
+          <div class="nav-actions">
+            <button class="button secondary" type="button" id="signinBtn">Sign In</button>
+            <button class="button panel-link" type="button" data-panel-target="contact">Start a Project</button>
+            <button class="hamburger" type="button" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </nav>
       </header>
 
       <main id="top">
+        <!-- ─── HERO ─── -->
         <section class="hero">
+          <div id="dottedSurface" aria-hidden="true"></div>
           <div class="shell">
             <div class="hero-content reveal">
               <p class="eyebrow">R&D driven technology, energy and infrastructure</p>
@@ -1346,26 +1656,144 @@
               </div>
             </div>
 
-            <div class="signal-panel reveal" aria-label="Optimais systems map">
-              <span class="trace one"></span>
-              <span class="trace two"></span>
-              <span class="trace three"></span>
-              <span class="node ai">AI</span>
-              <span class="node energy">Energy</span>
-              <span class="node industry">Industry</span>
-              <div class="readout">
-                <strong>360</strong>
-                <span>degree capability across strategy, engineering, deployment and operations.</span>
+            <!-- iPhone mockup -->
+            <div class="iphone-wrap reveal" aria-label="Optimais mobile interface preview">
+              <div class="iphone">
+                <div class="iphone-notch"></div>
+                <div class="iphone-topbar">
+                  <span>9:41</span>
+                  <span style="letter-spacing:2px">●●●</span>
+                </div>
+                <div class="iphone-body">
+                  <div class="iphone-app-header">
+                    <span class="iphone-app-title">Optim<span>ai</span>s</span>
+                    <div class="iphone-app-badge">AI</div>
+                  </div>
+                  <div class="iphone-metrics">
+                    <div class="iphone-metric">
+                      <span class="iphone-metric-label">Domains</span>
+                      <span class="iphone-metric-value">6</span>
+                    </div>
+                    <div class="iphone-metric">
+                      <span class="iphone-metric-label">Disciplines</span>
+                      <span class="iphone-metric-value light">12+</span>
+                    </div>
+                    <div class="iphone-metric">
+                      <span class="iphone-metric-label">Markets</span>
+                      <span class="iphone-metric-value">4</span>
+                    </div>
+                    <div class="iphone-metric">
+                      <span class="iphone-metric-label">Reach</span>
+                      <span class="iphone-metric-value light">Global</span>
+                    </div>
+                  </div>
+                  <div class="iphone-bars">
+                    <span class="iphone-bars-title">Capability Coverage</span>
+                    <div class="iphone-bar-row">
+                      <span class="iphone-bar-name">AI Systems</span>
+                      <div class="iphone-bar-track"><div class="iphone-bar-fill gold" style="width:92%"></div></div>
+                      <span class="iphone-bar-pct">92%</span>
+                    </div>
+                    <div class="iphone-bar-row">
+                      <span class="iphone-bar-name">Renewable</span>
+                      <div class="iphone-bar-track"><div class="iphone-bar-fill" style="width:85%"></div></div>
+                      <span class="iphone-bar-pct">85%</span>
+                    </div>
+                    <div class="iphone-bar-row">
+                      <span class="iphone-bar-name">Engineering</span>
+                      <div class="iphone-bar-track"><div class="iphone-bar-fill gold" style="width:78%"></div></div>
+                      <span class="iphone-bar-pct">78%</span>
+                    </div>
+                    <div class="iphone-bar-row">
+                      <span class="iphone-bar-name">Advisory</span>
+                      <div class="iphone-bar-track"><div class="iphone-bar-fill" style="width:70%"></div></div>
+                      <span class="iphone-bar-pct">70%</span>
+                    </div>
+                  </div>
+                  <div class="iphone-status-strip">
+                    <div class="iphone-status-dot"></div>
+                    <span class="iphone-status-text">All systems operational · Nigeria &amp; international</span>
+                  </div>
+                </div>
+                <div class="iphone-nav">
+                  <div class="iphone-nav-item active">
+                    <div class="iphone-nav-icon">⬡</div>
+                    <span>Home</span>
+                  </div>
+                  <div class="iphone-nav-item">
+                    <div class="iphone-nav-icon">◈</div>
+                    <span>Services</span>
+                  </div>
+                  <div class="iphone-nav-item">
+                    <div class="iphone-nav-icon">◉</div>
+                    <span>Markets</span>
+                  </div>
+                  <div class="iphone-nav-item">
+                    <div class="iphone-nav-icon">◎</div>
+                    <span>Contact</span>
+                  </div>
+                </div>
+                <div class="iphone-home-indicator">
+                  <div class="iphone-home-bar"></div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        <!-- ─── APPROACH STEPS ─── -->
+        <section class="approach" aria-label="Optimais approach">
+          <div class="shell">
+            <div class="approach-head reveal">
+              <p class="section-label">How we work</p>
+              <h2>A structured approach, for clear-headed execution.</h2>
+            </div>
+            <div class="approach-steps">
+              <div class="step-card reveal">
+                <div class="step-num">01</div>
+                <div class="step-body">
+                  <h3>Research to deployment</h3>
+                  <p>Research outputs and proprietary technologies are shaped into practical products, platforms and services that solve real infrastructure and industrial challenges.</p>
+                  <ul>
+                    <li>Rigorous R&D foundation for every solution</li>
+                    <li>Rapid prototyping and field validation</li>
+                    <li>IP commercialization and technology transfer</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="step-card reveal">
+                <div class="step-num">02</div>
+                <div class="step-body">
+                  <h3>Multi-discipline engineering delivery</h3>
+                  <p>Project delivery spans infrastructure, industrial, environmental, technological and developmental programs, managed under one integrated team.</p>
+                  <ul>
+                    <li>Mechanical, electrical, civil and systems engineering</li>
+                    <li>Clean power infrastructure and smart grid integration</li>
+                    <li>Full lifecycle from design through operations</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="step-card reveal">
+                <div class="step-num">03</div>
+                <div class="step-body">
+                  <h3>Institutional capacity and continuous improvement</h3>
+                  <p>Beyond delivery, Optimais builds the institutional structures that sustain impact — training centers, innovation hubs, academies and long-term strategic alliances.</p>
+                  <ul>
+                    <li>Technical training and applied workshops</li>
+                    <li>Incubation programs and innovation hubs</li>
+                    <li>Strategic alliances and joint ventures</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── INTERACTIVE CONSOLE ─── -->
         <section class="interactive" id="workspace">
           <div class="shell">
             <div class="section-head reveal">
               <div>
-                <p class="kicker">Single Page Command Center</p>
                 <h2>Explore Optimais Limited without leaving the page.</h2>
               </div>
               <p>
@@ -1382,7 +1810,7 @@
                 </button>
                 <button class="console-tab" type="button" data-panel-target="innovation">
                   <strong>02</strong>
-                  <span>R&D and Innovation</span>
+                  <span>R&amp;D and Innovation</span>
                 </button>
                 <button class="console-tab" type="button" data-panel-target="markets">
                   <strong>03</strong>
@@ -1390,7 +1818,7 @@
                 </button>
                 <button class="console-tab" type="button" data-panel-target="opportunities">
                   <strong>04</strong>
-                  <span>Scholarships & Grants</span>
+                  <span>Scholarships &amp; Grants</span>
                 </button>
                 <button class="console-tab" type="button" data-panel-target="contact">
                   <strong>05</strong>
@@ -1411,7 +1839,7 @@
                         <div class="accordion-item">
                           <button class="accordion-trigger" type="button" aria-expanded="true">
                             <span class="icon">01</span>
-                            Intelligent Systems & AI
+                            Intelligent Systems &amp; AI
                             <span class="plus">+</span>
                           </button>
                           <div class="accordion-panel open">
@@ -1461,7 +1889,7 @@
                         <div class="accordion-item">
                           <button class="accordion-trigger" type="button" aria-expanded="false">
                             <span class="icon">06</span>
-                            Training & Capacity Building
+                            Training &amp; Capacity Building
                             <span class="plus">+</span>
                           </button>
                           <div class="accordion-panel">
@@ -1495,7 +1923,7 @@
                         <div class="accordion-item">
                           <button class="accordion-trigger" type="button" aria-expanded="true">
                             <span class="icon">01</span>
-                            R&D to deployment
+                            R&amp;D to deployment
                             <span class="plus">+</span>
                           </button>
                           <div class="accordion-panel open">
@@ -1561,10 +1989,10 @@
                 </article>
 
                 <article class="panel" id="panel-opportunities">
-                  <p class="kicker">Scholarships, Grants & Fellowships Finder</p>
+                  <p class="kicker">Scholarships, Grants &amp; Fellowships Finder</p>
                   <h2>Match students and researchers with credible funding sources.</h2>
                   <p class="panel-lede">
-                    Browse curated scholarship sources or submit a profile to receive suggested links for Bachelor’s, Master’s, PhD, Postdoc and Professional Training opportunities.
+                    Browse curated scholarship sources or submit a profile to receive suggested links for Bachelor's, Master's, PhD, Postdoc and Professional Training opportunities.
                   </p>
 
                   <div class="opportunity-tools" aria-label="Scholarship and fellowship filters">
@@ -1591,7 +2019,7 @@
                     <select class="filter" id="fieldFilter" aria-label="Filter by field">
                       <option value="all">All fields</option>
                       <option value="All Fields">All Fields</option>
-                      <option value="AI & Data">AI & Data</option>
+                      <option value="AI & Data">AI &amp; Data</option>
                       <option value="Engineering">Engineering</option>
                       <option value="Renewable Energy">Renewable Energy</option>
                       <option value="Climate">Climate</option>
@@ -1671,7 +2099,7 @@
                   <div class="recommendation-summary" id="recommendationSummary"></div>
                   <div class="opportunity-list" id="opportunityList" aria-live="polite"></div>
                   <p class="disclaimer">
-                    Scholarship information is provided as a resource hub. Users must verify current deadlines, eligibility, application requirements and official instructions on the scholarship provider’s website before applying.
+                    Scholarship information is provided as a resource hub. Users must verify current deadlines, eligibility, application requirements and official instructions on the scholarship provider's website before applying.
                   </p>
                 </article>
 
@@ -1706,6 +2134,7 @@
           </div>
         </section>
 
+        <!-- ─── STATS ─── -->
         <section class="stats" aria-label="Optimais operating breadth">
           <div class="shell stats-grid">
             <div class="stat reveal">
@@ -1721,16 +2150,17 @@
               <span>deployment markets: public, private, industrial and communities</span>
             </div>
             <div class="stat reveal">
-              <strong>2</strong>
-              <span>geographic paths: Nigeria and international growth</span>
+              <strong>360°</strong>
+              <span>capability across strategy, engineering, deployment and operations</span>
             </div>
           </div>
         </section>
 
+        <!-- ─── FOOTER ─── -->
         <section class="contact">
           <div class="shell">
             <footer class="footer">
-              <span><span class="footer-mark">Optimais Limited</span> - Intelligent Systems. Sustainable Futures.</span>
+              <span><span class="footer-mark">Optimais Limited</span> — Intelligent Systems. Sustainable Futures.</span>
               <span>Nigeria and international markets</span>
             </footer>
           </div>
@@ -1738,7 +2168,95 @@
       </main>
     </div>
 
+    <script type="module">
+      /* ─── DOTTED SURFACE ANIMATION ─── */
+      import * as THREE from 'three';
+
+      const hero = document.querySelector('.hero');
+      const container = document.getElementById('dottedSurface');
+      if (!hero || !container) return;
+
+      const SEPARATION = 150;
+      const AMOUNTX = 40;
+      const AMOUNTY = 60;
+
+      const scene = new THREE.Scene();
+
+      let w = hero.offsetWidth;
+      let h = hero.offsetHeight;
+
+      const camera = new THREE.PerspectiveCamera(60, w / h, 1, 10000);
+      camera.position.set(0, 355, 1220);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(w, h);
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
+
+      const positions = [];
+      const colors = [];
+
+      for (let ix = 0; ix < AMOUNTX; ix++) {
+        for (let iy = 0; iy < AMOUNTY; iy++) {
+          positions.push(
+            ix * SEPARATION - (AMOUNTX * SEPARATION) / 2,
+            0,
+            iy * SEPARATION - (AMOUNTY * SEPARATION) / 2
+          );
+          // Brand gold #C9A961
+          colors.push(201 / 255, 169 / 255, 97 / 255);
+        }
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 6,
+        vertexColors: true,
+        transparent: true,
+        opacity: 1,
+        sizeAttenuation: true,
+      });
+
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      let count = 0;
+      let rafId;
+
+      (function animate() {
+        rafId = requestAnimationFrame(animate);
+
+        const posAttr = geometry.attributes.position;
+        const arr = posAttr.array;
+        let i = 0;
+        for (let ix = 0; ix < AMOUNTX; ix++) {
+          for (let iy = 0; iy < AMOUNTY; iy++) {
+            arr[i * 3 + 1] =
+              Math.sin((ix + count) * 0.3) * 50 +
+              Math.sin((iy + count) * 0.5) * 50;
+            i++;
+          }
+        }
+        posAttr.needsUpdate = true;
+        renderer.render(scene, camera);
+        count += 0.1;
+      })();
+
+      window.addEventListener('resize', () => {
+        w = hero.offsetWidth;
+        h = hero.offsetHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+    </script>
+
     <script>
+      /* ─── PANEL NAVIGATION ─── */
       const panelButtons = document.querySelectorAll("[data-panel-target]");
       const panels = document.querySelectorAll(".panel");
       const workspace = document.querySelector("#workspace");
@@ -1748,41 +2266,105 @@
         panels.forEach((panel) => {
           panel.classList.toggle("active", panel.id === `panel-${panelName}`);
         });
-
         panelButtons.forEach((button) => {
           button.classList.toggle("active", button.dataset.panelTarget === panelName);
         });
-
-        const mobileMenu = document.querySelector(".mobile-menu");
-        if (mobileMenu) mobileMenu.value = panelName;
-
         if (shouldScroll && workspace) {
           workspace.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+        closeMobileNav();
       }
 
       panelButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const target = button.dataset.panelTarget;
+        button.addEventListener("click", () => openPanel(button.dataset.panelTarget));
+      });
 
-          openPanel(target);
+      /* ─── HAMBURGER / MOBILE NAV ─── */
+      const hamburgerBtn  = document.querySelector("#hamburgerBtn");
+      const mobileNav     = document.querySelector("#mobileNav");
+      const mobileNavClose = document.querySelector("#mobileNavClose");
+
+      function openMobileNav() {
+        mobileNav.classList.add("open");
+        hamburgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMobileNav() {
+        mobileNav.classList.remove("open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      hamburgerBtn?.addEventListener("click", openMobileNav);
+      mobileNavClose?.addEventListener("click", closeMobileNav);
+
+      mobileNav?.addEventListener("click", (e) => {
+        if (e.target === mobileNav) closeMobileNav();
+      });
+
+      /* ─── SIGN-IN MODAL ─── */
+      const signinOverlay = document.querySelector("#signinOverlay");
+      const signinClose   = document.querySelector("#signinClose");
+      const signinBtn     = document.querySelector("#signinBtn");
+      const mobileSigninBtn = document.querySelector("#mobileSigninBtn");
+
+      function openSignin() {
+        closeMobileNav();
+        signinOverlay.classList.add("open");
+        signinOverlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        signinOverlay.querySelector(".signin-field")?.focus();
+      }
+
+      function closeSignin() {
+        signinOverlay.classList.remove("open");
+        signinOverlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      signinBtn?.addEventListener("click", openSignin);
+      mobileSigninBtn?.addEventListener("click", openSignin);
+      signinClose?.addEventListener("click", closeSignin);
+
+      signinOverlay?.addEventListener("click", (e) => {
+        if (e.target === signinOverlay) closeSignin();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") { closeSignin(); closeMobileNav(); }
+      });
+
+      /* Sign-in type toggle (Individual / Business) */
+      document.querySelectorAll(".signin-type-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".signin-type-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const type = btn.dataset.signin;
+          document.querySelectorAll(".signin-form").forEach((f) => f.classList.remove("active"));
+          document.querySelector(type === "individual" ? "#formIndividual" : "#formBusiness")?.classList.add("active");
         });
       });
 
-      document.querySelector(".mobile-menu")?.addEventListener("change", (event) => {
-        openPanel(event.target.value);
+      /* Sign-in form submit (demo — shows alert) */
+      document.querySelectorAll(".signin-form").forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          closeSignin();
+        });
       });
 
+      /* ─── ACCORDION ─── */
       document.querySelectorAll(".accordion-trigger").forEach((trigger) => {
         trigger.addEventListener("click", () => {
           const panel = trigger.nextElementSibling;
           const isOpen = trigger.getAttribute("aria-expanded") === "true";
-
           trigger.setAttribute("aria-expanded", String(!isOpen));
           panel.classList.toggle("open", !isOpen);
         });
       });
 
+      /* ─── REVEAL ON SCROLL ─── */
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -1790,18 +2372,18 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.16 });
+      }, { threshold: 0.14 });
 
       document.querySelectorAll(".reveal").forEach((element, index) => {
         element.style.transitionDelay = `${Math.min(index * 55, 330)}ms`;
         observer.observe(element);
       });
 
+      /* ─── SCHOLARSHIP FINDER ─── */
       function isWithinDeadline(opportunity, filterValue) {
         if (filterValue === "all") return true;
         if (filterValue === "rolling") return opportunity.deadline === "rolling";
         if (opportunity.deadline === "rolling") return false;
-
         const today = new Date();
         const deadline = new Date(`${opportunity.deadline}T00:00:00`);
         const daysRemaining = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
@@ -1834,12 +2416,12 @@
 
       function getFinderFilters() {
         return {
-          query: document.querySelector("#scholarshipSearch")?.value.trim().toLowerCase() || "",
-          level: document.querySelector("#levelFilter")?.value || "all",
-          country: document.querySelector("#countryFilter")?.value || "all",
-          field: document.querySelector("#fieldFilter")?.value || "all",
+          query:    document.querySelector("#scholarshipSearch")?.value.trim().toLowerCase() || "",
+          level:    document.querySelector("#levelFilter")?.value   || "all",
+          country:  document.querySelector("#countryFilter")?.value  || "all",
+          field:    document.querySelector("#fieldFilter")?.value    || "all",
           deadline: document.querySelector("#deadlineFilter")?.value || "all",
-          funding: document.querySelector("#fundingFilter")?.value || "all"
+          funding:  document.querySelector("#fundingFilter")?.value  || "all"
         };
       }
 
@@ -1855,7 +2437,6 @@
       function scoreOpportunity(opportunity, profile) {
         let score = 0;
         const haystack = searchableText(opportunity);
-
         if (profile.level && includesValue(opportunity.levels || [], profile.level)) score += 5;
         if (profile.funding && includesValue(opportunity.fundingTypes || [], profile.funding)) score += 4;
         if (profile.preferredRegion && haystack.includes(profile.preferredRegion.toLowerCase())) score += 4;
@@ -1863,25 +2444,20 @@
         if (profile.nationality && haystack.includes(profile.nationality.toLowerCase())) score += 2;
         if (profile.field && haystack.includes(profile.field.toLowerCase())) score += 3;
         if (isWithinDeadline(opportunity, profile.deadline || "all")) score += 1;
-
         profile.keywords.forEach((keyword) => {
           if (keyword && haystack.includes(keyword)) score += 2;
         });
-
         return score;
       }
 
       function renderOpportunities(entries = scholarshipEntries, recommended = false) {
         const list = document.querySelector("#opportunityList");
         if (!list) return;
-
         const filtered = recommended ? entries : entries.filter((opportunity) => matchesFilters(opportunity, getFinderFilters()));
-
         if (!filtered.length) {
           list.innerHTML = '<div class="empty-state">No matching scholarship sources yet. Adjust filters or add entries to data/scholarships.json.</div>';
           return;
         }
-
         list.innerHTML = filtered.map((opportunity) => `
           <article class="opportunity-card ${recommended ? "recommended" : ""}">
             <h3>${opportunity.title}</h3>
@@ -1893,7 +2469,7 @@
               <span class="tag">${formatDeadline(opportunity.deadline)}</span>
             </div>
             <p>${opportunity.summary}</p>
-            <a href="${opportunity.source}" target="_blank" rel="noopener" aria-label="Open ${opportunity.provider} official website">Open official source</a>
+            <a href="${opportunity.source}" target="_blank" rel="noopener" aria-label="Open ${opportunity.provider} official website">Open official source →</a>
           </article>
         `).join("");
       }
@@ -1919,28 +2495,22 @@
 
       document.querySelector("#scholarshipProfileForm")?.addEventListener("submit", (event) => {
         event.preventDefault();
-
         const profile = {
-          nationality: document.querySelector("#nationalityInput")?.value.trim() || "",
-          residence: document.querySelector("#residenceInput")?.value.trim() || "",
-          level: document.querySelector("#profileLevel")?.value || "",
-          field: document.querySelector("#profileField")?.value.trim() || "",
-          preferredRegion: document.querySelector("#preferredRegion")?.value.trim() || "",
-          funding: document.querySelector("#profileFunding")?.value || "",
-          deadline: document.querySelector("#profileDeadline")?.value || "all",
-          keywords: (document.querySelector("#keywordInput")?.value || "")
-            .toLowerCase()
-            .split(",")
-            .map((item) => item.trim())
-            .filter(Boolean)
+          nationality:    document.querySelector("#nationalityInput")?.value.trim() || "",
+          residence:      document.querySelector("#residenceInput")?.value.trim()   || "",
+          level:          document.querySelector("#profileLevel")?.value            || "",
+          field:          document.querySelector("#profileField")?.value.trim()     || "",
+          preferredRegion:document.querySelector("#preferredRegion")?.value.trim()  || "",
+          funding:        document.querySelector("#profileFunding")?.value          || "",
+          deadline:       document.querySelector("#profileDeadline")?.value         || "all",
+          keywords:       (document.querySelector("#keywordInput")?.value || "")
+                            .toLowerCase().split(",").map((k) => k.trim()).filter(Boolean)
         };
-
         const ranked = scholarshipEntries
           .map((opportunity) => ({ ...opportunity, score: scoreOpportunity(opportunity, profile) }))
           .filter((opportunity) => opportunity.score > 0)
           .sort((a, b) => b.score - a.score)
           .slice(0, 8);
-
         const summary = document.querySelector("#recommendationSummary");
         if (summary) {
           summary.textContent = ranked.length
@@ -1948,7 +2518,6 @@
             : "No strong recommendations found yet. Try broader keywords or browse all sources.";
           summary.classList.add("visible");
         }
-
         renderOpportunities(ranked, true);
       });
 

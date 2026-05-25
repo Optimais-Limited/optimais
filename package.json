@@ -8,5 +8,8 @@
     "start": "python3 -m http.server 4173",
     "build": "echo 'Static site: no build step required.'",
     "preview": "python3 -m http.server 4173"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.0.4"
   }
 }
