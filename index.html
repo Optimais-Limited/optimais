@@ -1413,6 +1413,34 @@
         to   { opacity: 1; transform: translateY(0); }
       }
 
+      /* ─── CAREER / DEEP TECH LINKS ─── */
+      .career-links { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+
+      .career-link-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border-radius: var(--radius);
+        border: 1px solid rgba(201, 169, 97, 0.12);
+        background: rgba(11, 45, 74, 0.2);
+        color: var(--muted-2);
+        font-size: 0.86rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.18s, border-color 0.18s, color 0.18s;
+        cursor: pointer;
+      }
+
+      .career-link-item:hover {
+        background: rgba(201, 169, 97, 0.1);
+        border-color: rgba(201, 169, 97, 0.35);
+        color: var(--gold-light);
+      }
+
+      .career-link-item svg { flex-shrink: 0; opacity: 0.5; transition: opacity 0.18s, transform 0.18s; }
+      .career-link-item:hover svg { opacity: 1; transform: translateX(3px); }
+
       /* ─── VIDEO SECTION ─── */
       .video-section { border-top: 1px solid rgba(201, 169, 97, 0.1); }
 
@@ -1844,10 +1872,12 @@
       <!-- ─── MOBILE NAV OVERLAY ─── -->
       <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Site navigation">
         <button class="mobile-nav-close" type="button" id="mobileNavClose" aria-label="Close menu">✕</button>
-        <button class="mobile-nav-link" type="button" data-panel-target="capabilities">Capabilities</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="capabilities">Industries</button>
         <button class="mobile-nav-link" type="button" data-panel-target="innovation">R&amp;D &amp; Innovation</button>
         <button class="mobile-nav-link" type="button" data-panel-target="markets">Markets</button>
         <button class="mobile-nav-link" type="button" data-panel-target="opportunities">Scholarships &amp; Grants</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="careers">Careers</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="deeptech">Deep Tech</button>
         <button class="mobile-nav-link" type="button" data-panel-target="contact">Contact</button>
         <div class="mobile-nav-actions">
           <button class="button secondary" type="button" id="mobileSigninBtn">Sign In</button>
@@ -1940,10 +1970,12 @@
             <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
           </a>
           <div class="nav-links" aria-label="Page sections">
-            <button class="panel-link active" type="button" data-panel-target="capabilities">Capabilities</button>
+            <button class="panel-link active" type="button" data-panel-target="capabilities">Industries</button>
             <button class="panel-link" type="button" data-panel-target="innovation">Innovation</button>
             <button class="panel-link" type="button" data-panel-target="markets">Markets</button>
             <button class="panel-link" type="button" data-panel-target="opportunities">Opportunities</button>
+            <button class="panel-link" type="button" data-panel-target="careers">Careers</button>
+            <button class="panel-link" type="button" data-panel-target="deeptech">Deep Tech</button>
             <button class="panel-link" type="button" data-panel-target="contact">Contact</button>
           </div>
           <div class="nav-actions">
@@ -1970,7 +2002,7 @@
                 Optimais Limited designs, develops, implements and operates advanced technology, renewable energy and engineering solutions for businesses, governments and institutions.
               </p>
               <div class="hero-actions">
-                <button class="button panel-link" type="button" data-panel-target="capabilities">Explore Capabilities</button>
+                <button class="button panel-link" type="button" data-panel-target="capabilities">Explore Industries</button>
                 <button class="button secondary panel-link" type="button" data-panel-target="innovation">View Approach</button>
               </div>
             </div>
@@ -2157,7 +2189,7 @@
                 <p>Open a focus area</p>
                 <button class="console-tab active" type="button" data-panel-target="capabilities">
                   <strong>01</strong>
-                  <span>Capabilities</span>
+                  <span>Industries</span>
                 </button>
                 <button class="console-tab" type="button" data-panel-target="innovation">
                   <strong>02</strong>
@@ -2171,8 +2203,16 @@
                   <strong>04</strong>
                   <span>Scholarships &amp; Grants</span>
                 </button>
+                <button class="console-tab" type="button" data-panel-target="careers">
+                  <strong>06</strong>
+                  <span>Careers</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="deeptech">
+                  <strong>07</strong>
+                  <span>Deep Tech</span>
+                </button>
                 <button class="console-tab" type="button" data-panel-target="contact">
-                  <strong>05</strong>
+                  <strong>08</strong>
                   <span>Contact</span>
                 </button>
               </div>
@@ -2181,10 +2221,10 @@
                 <article class="panel active" id="panel-capabilities">
                   <div class="panel-layout">
                     <div>
-                      <p class="kicker">What Optimais Builds</p>
-                      <h2>Capabilities that connect research to real infrastructure.</h2>
+                      <p class="kicker">Sectors We Serve</p>
+                      <h2>Industries where Optimais delivers intelligent, lasting impact.</h2>
                       <p class="panel-lede">
-                        From software platforms and automation to clean power and industrial delivery, Optimais Limited brings multidisciplinary execution to complex development work.
+                        From AI-driven platforms and clean energy systems to engineering and advisory, Optimais brings deep technical capability across a wide range of industry verticals.
                       </p>
                       <div class="accordion">
                         <div class="accordion-item">
@@ -2245,6 +2285,56 @@
                           </button>
                           <div class="accordion-panel">
                             <div><p>Technical programs, workshops, innovation hubs, incubation centers and applied training for technology, engineering and energy talent.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">07</span>
+                            Aerospace
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Advanced AI systems, autonomous technologies, engineering solutions, and precision materials science for aerospace design, manufacturing, and operations.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">08</span>
+                            Agritech
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Smart farming systems, IoT sensors, data analytics, and precision agriculture technologies that improve yields, reduce waste, and strengthen food security.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">09</span>
+                            Retail &amp; Logistics
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Intelligent supply chain systems, optimization algorithms, demand forecasting, and warehouse automation for retail and logistics operators.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">10</span>
+                            Pharmaceuticals
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Research support systems, digital lab infrastructure, regulatory data management, and biotech engineering solutions for pharmaceutical development pipelines.</p></div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <button class="accordion-trigger" type="button" aria-expanded="false">
+                            <span class="icon">11</span>
+                            Telecommunications
+                            <span class="plus">+</span>
+                          </button>
+                          <div class="accordion-panel">
+                            <div><p>Network optimization, AI-driven infrastructure planning, smart connectivity systems, and digital platform development for telecoms operators and service providers.</p></div>
                           </div>
                         </div>
                       </div>
@@ -2452,6 +2542,99 @@
                   <p class="disclaimer">
                     Scholarship information is provided as a resource hub. Users must verify current deadlines, eligibility, application requirements and official instructions on the scholarship provider's website before applying.
                   </p>
+                </article>
+
+                <article class="panel" id="panel-careers">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Join the Team</p>
+                      <h2>Build the future of intelligent systems with us.</h2>
+                      <p class="panel-lede">
+                        We're looking for passionate individuals who thrive in collaborative environments, value openness, and are eager to learn, grow, and help others succeed.
+                      </p>
+                      <p class="panel-lede" style="margin-top:12px;">
+                        If you're ready to apply your knowledge, skills, and experience to meaningful and innovative challenges, this is your opportunity to take your career to the next level with us.
+                      </p>
+                      <button class="button" type="button" id="careersApplyBtn" style="margin-top:24px;">Apply Now — Sign Up First</button>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Explore Opportunities</h3>
+                      <div class="career-links">
+                        <a href="#" class="career-link-item" data-career="early">
+                          <span>Early Careers</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item" data-career="experienced">
+                          <span>Experienced Professionals</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item" data-career="culture">
+                          <span>Culture &amp; Benefits</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item" data-career="stories">
+                          <span>Our Stories</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item" data-career="alerts">
+                          <span>Job Alerts</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </aside>
+                  </div>
+                </article>
+
+                <article class="panel" id="panel-deeptech">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Advanced Technology</p>
+                      <h2>Inventing solutions at the frontier of science and engineering.</h2>
+                      <p class="panel-lede">
+                        Are you curious about new technologies, and how they can lead to long-term sustainable value?
+                      </p>
+                      <p class="panel-lede" style="margin-top:12px;">
+                        We think creatively at the intersection of business and technology, inventing solutions to redefine what you do.
+                      </p>
+                      <a href="deep-tech.html" class="button" style="margin-top:24px;display:inline-flex;align-items:center;gap:8px;">
+                        Explore Deep Tech
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      </a>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Deep Tech Areas</h3>
+                      <div class="career-links">
+                        <a href="deep-tech.html#robotics" class="career-link-item">
+                          <span>Robotics &amp; Autonomous Systems</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#decision" class="career-link-item">
+                          <span>Decision Intelligence &amp; Optimization</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#hci" class="career-link-item">
+                          <span>Human-Computer Interaction &amp; XR</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#twins" class="career-link-item">
+                          <span>Digital Twins &amp; Simulation</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#materials" class="career-link-item">
+                          <span>Advanced Materials &amp; Nanotechnology</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#energy" class="career-link-item">
+                          <span>EnergyTech</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="deep-tech.html#defense" class="career-link-item">
+                          <span>Defense &amp; Dual-Use Technologies</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </aside>
+                  </div>
                 </article>
 
                 <article class="panel" id="panel-contact">
@@ -2976,9 +3159,33 @@
       loadScholarshipData();
 
       const hashTarget = window.location.hash.replace("#", "");
-      if (["capabilities", "innovation", "markets", "opportunities", "contact"].includes(hashTarget)) {
+      if (["capabilities", "innovation", "markets", "opportunities", "careers", "deeptech", "contact"].includes(hashTarget)) {
         openPanel(hashTarget, false);
       }
+
+      /* ─── CAREERS APPLY BUTTON → SIGN-IN MODAL ─── */
+      var careersApplyBtn = document.getElementById("careersApplyBtn");
+      if (careersApplyBtn) {
+        careersApplyBtn.addEventListener("click", function () {
+          var overlay = document.getElementById("signinOverlay");
+          if (overlay) {
+            overlay.classList.add("open");
+            document.body.style.overflow = "hidden";
+          }
+        });
+      }
+
+      /* ─── CAREER LINK ITEMS → SIGN-IN GATE ─── */
+      document.querySelectorAll(".career-link-item[data-career]").forEach(function (el) {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          var overlay = document.getElementById("signinOverlay");
+          if (overlay) {
+            overlay.classList.add("open");
+            document.body.style.overflow = "hidden";
+          }
+        });
+      });
 
       /* ─── CALENDAR ─── */
       (function () {
