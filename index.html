@@ -1437,6 +1437,7 @@
         height: 100%;
         object-fit: cover;
         transition: opacity 0.5s ease;
+        pointer-events: none;
       }
 
       .video-media video { opacity: 0; }
@@ -1447,7 +1448,8 @@
         position: absolute;
         bottom: 20px;
         right: 20px;
-        z-index: 10;
+        z-index: 20;
+        isolation: isolate;
         width: 56px;
         height: 56px;
         border-radius: 50%;
@@ -2768,27 +2770,42 @@
       }
 
       /* ─── VIDEO PLAYER ─── */
-      const videoBlock = document.getElementById("videoBlock");
-      const heroVideo = document.getElementById("heroVideo");
-      const videoPlayBtn = document.getElementById("videoPlayBtn");
+      (function () {
+        const videoBlock = document.getElementById("videoBlock");
+        const heroVideo = document.getElementById("heroVideo");
+        const videoPlayBtn = document.getElementById("videoPlayBtn");
 
-      if (videoBlock && heroVideo && videoPlayBtn) {
-        videoPlayBtn.addEventListener("click", () => {
-          if (heroVideo.paused) {
-            heroVideo.play();
-            videoBlock.classList.remove("paused");
-            videoBlock.classList.add("playing");
+        if (!videoBlock || !heroVideo || !videoPlayBtn) return;
+
+        function setPlaying(active) {
+          videoBlock.classList.toggle("playing", active);
+          videoBlock.classList.toggle("paused", !active && heroVideo.currentTime > 0);
+        }
+
+        videoPlayBtn.addEventListener("click", function () {
+          if (heroVideo.paused || heroVideo.ended) {
+            var promise = heroVideo.play();
+            if (promise !== undefined) {
+              promise.then(function () {
+                setPlaying(true);
+              }).catch(function () {
+                setPlaying(false);
+              });
+            } else {
+              setPlaying(true);
+            }
           } else {
             heroVideo.pause();
-            videoBlock.classList.remove("playing");
-            videoBlock.classList.add("paused");
+            setPlaying(false);
           }
         });
 
-        heroVideo.addEventListener("ended", () => {
+        heroVideo.addEventListener("playing", function () { setPlaying(true); });
+        heroVideo.addEventListener("pause",   function () { setPlaying(false); });
+        heroVideo.addEventListener("ended",   function () {
           videoBlock.classList.remove("playing", "paused");
         });
-      }
+      }());
     </script>
   </body>
 </html>
