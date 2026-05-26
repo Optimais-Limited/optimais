@@ -11,5 +11,10 @@
   },
   "devDependencies": {
     "puppeteer": "^25.0.4"
+  },
+  "dependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1"
   }
 }
