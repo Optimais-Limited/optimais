@@ -1886,6 +1886,7 @@
         <button class="mobile-nav-link" type="button" data-panel-target="innovation">R&amp;D &amp; Innovation</button>
         <button class="mobile-nav-link" type="button" data-panel-target="markets">Markets</button>
         <button class="mobile-nav-link" type="button" data-panel-target="opportunities">Scholarships &amp; Grants</button>
+        <button class="mobile-nav-link" type="button" data-panel-target="insights">Insights</button>
         <button class="mobile-nav-link" type="button" data-panel-target="careers">Careers</button>
         <button class="mobile-nav-link" type="button" data-panel-target="deeptech">Deep Tech</button>
         <button class="mobile-nav-link" type="button" data-panel-target="contact">Contact</button>
@@ -1984,6 +1985,7 @@
             <button class="panel-link" type="button" data-panel-target="innovation">Innovation</button>
             <button class="panel-link" type="button" data-panel-target="markets">Markets</button>
             <button class="panel-link" type="button" data-panel-target="opportunities">Opportunities</button>
+            <button class="panel-link" type="button" data-panel-target="insights">Insights</button>
             <button class="panel-link" type="button" data-panel-target="careers">Careers</button>
             <button class="panel-link" type="button" data-panel-target="deeptech">Deep Tech</button>
             <button class="panel-link" type="button" data-panel-target="contact">Contact</button>
@@ -2212,6 +2214,10 @@
                 <button class="console-tab" type="button" data-panel-target="opportunities">
                   <strong>04</strong>
                   <span>Scholarships &amp; Grants</span>
+                </button>
+                <button class="console-tab" type="button" data-panel-target="insights">
+                  <strong>05</strong>
+                  <span>Insights</span>
                 </button>
                 <button class="console-tab" type="button" data-panel-target="careers">
                   <strong>06</strong>
@@ -2552,6 +2558,50 @@
                   <p class="disclaimer">
                     Scholarship information is provided as a resource hub. Users must verify current deadlines, eligibility, application requirements and official instructions on the scholarship provider's website before applying.
                   </p>
+                </article>
+
+                <article class="panel" id="panel-insights">
+                  <div class="panel-layout">
+                    <div>
+                      <p class="kicker">Ideas &amp; Perspectives</p>
+                      <h2>Insights from the frontier of technology and innovation.</h2>
+                      <p class="panel-lede">
+                        Explore the latest insights, ideas, and perspectives from Optimais.
+                      </p>
+                      <p class="panel-lede" style="margin-top:12px;">
+                        Discover research-driven thinking, emerging deep-tech trends, and innovative solutions shaping the future of business, industry, technology, and society. From artificial intelligence and intelligent systems to energy, infrastructure, manufacturing, and digital transformation, our insights highlight the ideas driving sustainable innovation and long-term impact.
+                      </p>
+                      <a href="#" class="button" style="margin-top:24px;display:inline-flex;align-items:center;gap:8px;">
+                        Read Insights
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      </a>
+                    </div>
+                    <aside class="insight-card">
+                      <h3>Explore by Topic</h3>
+                      <div class="career-links">
+                        <a href="#" class="career-link-item">
+                          <span>Expert Perspectives</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item">
+                          <span>Client Stories</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item">
+                          <span>Latest Publications</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item">
+                          <span>Newsroom</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="career-link-item">
+                          <span>Events</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                      </div>
+                    </aside>
+                  </div>
                 </article>
 
                 <article class="panel" id="panel-careers">
@@ -3201,7 +3251,7 @@
       loadScholarshipData();
 
       const hashTarget = window.location.hash.replace("#", "");
-      if (["capabilities", "innovation", "markets", "opportunities", "careers", "deeptech", "contact"].includes(hashTarget)) {
+      if (["capabilities", "innovation", "markets", "opportunities", "insights", "careers", "deeptech", "contact"].includes(hashTarget)) {
         openPanel(hashTarget, false);
       }
 
