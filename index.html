@@ -1413,6 +1413,70 @@
         to   { opacity: 1; transform: translateY(0); }
       }
 
+      /* ─── VIDEO SECTION ─── */
+      .video-section { border-top: 1px solid rgba(201, 169, 97, 0.1); }
+
+      .video-section .section-head { margin-bottom: 40px; }
+
+      .video-media {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(201, 169, 97, 0.1);
+      }
+
+      .video-media img,
+      .video-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.5s ease;
+      }
+
+      .video-media video { opacity: 0; }
+      .video-media.playing video { opacity: 1; }
+      .video-media.playing .video-poster { opacity: 0; }
+
+      .video-play-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .video-play-btn:hover { background: rgba(255, 255, 255, 0.32); }
+
+      .video-play-btn svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+        color: white;
+      }
+
+      .video-play-btn .icon-play { display: block; }
+      .video-play-btn .icon-pause { display: none; }
+      .video-media.playing .video-play-btn .icon-play { display: none; }
+      .video-media.playing .video-play-btn .icon-pause { display: block; }
+      .video-media.paused .video-play-btn .icon-play { display: block; }
+      .video-media.paused .video-play-btn .icon-pause { display: none; }
+
       /* ─── FOUNDER ─── */
       .founder-section {
         border-top: 1px solid rgba(201, 169, 97, 0.1);
@@ -1872,6 +1936,38 @@
           </div>
         </section>
 
+        <!-- ─── VIDEO ─── -->
+        <section class="video-section">
+          <div class="shell">
+            <div class="section-head reveal">
+              <div>
+                <p class="section-label">In Action</p>
+                <h2>Innovation Meets Simplicity</h2>
+              </div>
+              <p>See how Optimais brings together intelligent systems, renewable energy, and engineering excellence into practical, scalable outcomes.</p>
+            </div>
+            <div class="video-media reveal" id="videoBlock">
+              <img
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80"
+                alt="Earth from space — technology and innovation"
+                class="video-poster"
+                loading="lazy"
+              />
+              <video
+                id="heroVideo"
+                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+                playsinline
+                muted
+                preload="none"
+              ></video>
+              <button class="video-play-btn" id="videoPlayBtn" aria-label="Play video">
+                <svg class="icon-play" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
         <!-- ─── INTERACTIVE CONSOLE ─── -->
         <section class="interactive" id="workspace">
           <div class="shell">
@@ -2251,7 +2347,7 @@
             <div class="founder-card reveal">
               <div class="founder-photo-wrap">
                 <img
-                  src="brand_assets/founder_nobg.png"
+                  src="brand_assets/CEO_image.png"
                   alt="Ahmed Senior Ismail, Founder and CEO of Optimais Limited"
                   class="founder-photo"
                   loading="lazy"
@@ -2266,7 +2362,7 @@
                 <div class="founder-bio">
                   <p>Ahmed Senior Ismail is a Ph.D. Candidate in Integrated Applied Mathematics at the University of New Hampshire, specializing in applied mathematics, machine learning, reinforcement learning, robust optimization, and mathematical optimization. His research focuses on developing risk-sensitive algorithms for decision-making under uncertainty, with applications in finance, operations, autonomous systems, and high-stakes environments.</p>
                   <p>He holds advanced degrees in Mathematical Engineering, Financial Mathematics and Economics, and Mathematics from institutions in the United States, Italy, Poland, and Nigeria. He has also gained international research and industry experience, including high-performance computing work at Capgemini Engineering in France, where he developed neural-network-based surrogate models for mechanical simulations.</p>
-                  <p>Ahmed has served as a teaching assistant in Reinforcement Learning, Machine Learning, Mathematical Optimization, and Engineering Computing with MATLAB. He has presented research internationally and published peer-reviewed work in applied mathematics, thermofluids, and computational modeling. As Founder of Optimais, he brings together research, technology, innovation, and practical problem-solving to support responsible AI, intelligent systems, energy solutions, infrastructure development, and capacity building.</p>
+                  <p>Ahmed has served as a teaching assistant in Reinforcement Learning, Machine Learning, Mathematical Optimization, and Engineering Computing. He has presented research internationally and published peer-reviewed work in applied mathematics, thermofluids, and computational modeling. As Founder of Optimais, he brings together research, technology, innovation, and practical problem-solving to support responsible AI, intelligent systems, energy solutions, infrastructure development, and capacity building.</p>
                 </div>
                 <a
                   href="https://www.linkedin.com/in/ahmed-senior-ismail-4a9569156"
@@ -2669,6 +2765,29 @@
       const hashTarget = window.location.hash.replace("#", "");
       if (["capabilities", "innovation", "markets", "opportunities", "contact"].includes(hashTarget)) {
         openPanel(hashTarget, false);
+      }
+
+      /* ─── VIDEO PLAYER ─── */
+      const videoBlock = document.getElementById("videoBlock");
+      const heroVideo = document.getElementById("heroVideo");
+      const videoPlayBtn = document.getElementById("videoPlayBtn");
+
+      if (videoBlock && heroVideo && videoPlayBtn) {
+        videoPlayBtn.addEventListener("click", () => {
+          if (heroVideo.paused) {
+            heroVideo.play();
+            videoBlock.classList.remove("paused");
+            videoBlock.classList.add("playing");
+          } else {
+            heroVideo.pause();
+            videoBlock.classList.remove("playing");
+            videoBlock.classList.add("paused");
+          }
+        });
+
+        heroVideo.addEventListener("ended", () => {
+          videoBlock.classList.remove("playing", "paused");
+        });
       }
     </script>
   </body>
