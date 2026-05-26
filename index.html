@@ -1413,6 +1413,16 @@
         to   { opacity: 1; transform: translateY(0); }
       }
 
+      /* ─── LOCATIONS ─── */
+      .location-card:hover {
+        border-color: rgba(201, 169, 97, 0.45) !important;
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 680px) {
+        .location-card-grid { grid-template-columns: 1fr !important; }
+      }
+
       /* ─── CAREER / DEEP TECH LINKS ─── */
       .career-links { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
 
@@ -2568,11 +2578,11 @@
                           <span>Experienced Professionals</span>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
-                        <a href="#" class="career-link-item" data-career="culture">
+                        <a href="culture-benefits.html" class="career-link-item">
                           <span>Culture &amp; Benefits</span>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
-                        <a href="#" class="career-link-item" data-career="stories">
+                        <a href="our-stories.html" class="career-link-item">
                           <span>Our Stories</span>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
@@ -2773,6 +2783,38 @@
                   LinkedIn Profile
                 </a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── LOCATIONS ─── -->
+        <section style="padding:80px 0;border-top:1px solid rgba(201,169,97,0.1);">
+          <div class="shell">
+            <div class="section-head reveal" style="margin-bottom:40px;">
+              <div>
+                <p class="section-label">Where We Are</p>
+                <h2>Our Locations</h2>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;" class="reveal">
+              <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer"
+                style="display:flex;align-items:center;justify-content:space-between;padding:32px 36px;border:1px solid rgba(201,169,97,0.18);border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(11,45,74,0.3),rgba(5,21,32,0.4));text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;" class="location-card">
+                <div>
+                  <p style="margin:0 0 6px;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--gold);">Africa</p>
+                  <h3 style="margin:0;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.4px;">Nigeria</h3>
+                  <p style="margin:6px 0 0;font-size:0.88rem;color:var(--muted);">West Africa · Primary operations hub</p>
+                </div>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,97,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </a>
+              <a href="https://www.google.com/maps/place/New+Hampshire,+United+States" target="_blank" rel="noopener noreferrer"
+                style="display:flex;align-items:center;justify-content:space-between;padding:32px 36px;border:1px solid rgba(201,169,97,0.18);border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(11,45,74,0.3),rgba(5,21,32,0.4));text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;" class="location-card">
+                <div>
+                  <p style="margin:0 0 6px;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--gold);">North America</p>
+                  <h3 style="margin:0;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.4px;">United States</h3>
+                  <p style="margin:6px 0 0;font-size:0.88rem;color:var(--muted);">New Hampshire · Research presence</p>
+                </div>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,97,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </a>
             </div>
           </div>
         </section>

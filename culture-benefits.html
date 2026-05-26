@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Culture and Benefits at Optimais Limited — a people-centered workplace built on innovation, collaboration, and purpose.">
+    <title>Culture &amp; Benefits | Optimais Limited</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --black:   #051520;
+        --white:   #ffffff;
+        --gold:         #C9A961;
+        --gold-light:   #d9be7a;
+        --navy:         #0B2D4A;
+        --muted:        rgba(255, 255, 255, 0.52);
+        --muted-2:      rgba(255, 255, 255, 0.78);
+        --card-border:  rgba(255, 255, 255, 0.09);
+        --radius:    10px;
+        --radius-lg: 16px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--black);
+        color: var(--white);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      h1,h2,h3,p { margin-top: 0; }
+
+      .shell { width: min(1100px, calc(100% - 48px)); margin: 0 auto; }
+
+      /* ─── HEADER ─── */
+      .site-header {
+        position: sticky; top: 0; z-index: 20;
+        border-bottom: 1px solid rgba(201,169,97,0.12);
+        background: rgba(5,21,32,0.92);
+        backdrop-filter: blur(22px);
+      }
+      .nav {
+        display: flex; align-items: center; justify-content: space-between;
+        min-height: 72px; gap: 16px;
+      }
+      .brand {
+        display: inline-flex; align-items: center; height: 46px;
+        padding: 7px 12px; border-radius: var(--radius);
+        border: 1px solid rgba(201,169,97,0.2); gap: 10px;
+      }
+      .brand img { height: 30px; width: auto; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 18px; border-radius: 999px;
+        border: 1px solid rgba(201,169,97,0.3);
+        background: rgba(201,169,97,0.07);
+        color: var(--gold-light); font-size: 0.84rem; font-weight: 600;
+        transition: background 0.2s;
+      }
+      .back-link:hover { background: rgba(201,169,97,0.15); }
+
+      /* ─── HERO ─── */
+      .cb-hero {
+        padding: 96px 0 72px;
+        border-bottom: 1px solid rgba(201,169,97,0.08);
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        margin: 0 0 28px; padding: 6px 16px; border-radius: 999px;
+        border: 1px solid rgba(201,169,97,0.4);
+        background: rgba(201,169,97,0.08);
+        color: var(--gold-light); font-size: 0.76rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.9px;
+      }
+      .cb-hero h1 {
+        max-width: 760px; margin-bottom: 28px;
+        font-size: clamp(2.4rem,5vw,4.2rem);
+        line-height: 1.04; font-weight: 800; letter-spacing: -1.2px;
+      }
+      .cb-hero h1 span { color: var(--gold); }
+      .cb-hero .lead {
+        max-width: 720px; color: var(--muted-2);
+        font-size: 1.05rem; line-height: 1.85;
+      }
+      .cb-hero .lead p { margin-bottom: 18px; }
+      .cb-hero .lead p:last-child { margin-bottom: 0; }
+
+      /* ─── WHAT IT'S LIKE ─── */
+      .section-label {
+        display: inline-block; margin-bottom: 16px; padding: 5px 14px;
+        border-radius: 999px; border: 1px solid rgba(201,169,97,0.3);
+        background: rgba(201,169,97,0.07); color: var(--gold);
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.9px;
+      }
+      .like-section { padding: 96px 0; border-bottom: 1px solid rgba(201,169,97,0.08); }
+      .like-section > .shell > h2 {
+        margin-bottom: 48px;
+        font-size: clamp(1.7rem,2.8vw,2.6rem);
+        font-weight: 800; letter-spacing: -0.5px;
+      }
+
+      /* ─── ACCORDION ─── */
+      .cb-accordion { display: flex; flex-direction: column; gap: 12px; }
+
+      .cb-item {
+        border: 1px solid rgba(201,169,97,0.13);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, rgba(11,45,74,0.22), rgba(5,21,32,0.3));
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .cb-item:has(.cb-panel.open) { border-color: rgba(201,169,97,0.32); }
+
+      .cb-trigger {
+        display: flex; align-items: center; justify-content: space-between;
+        width: 100%; padding: 24px 28px; background: none; border: none;
+        color: var(--white); cursor: pointer; text-align: left; gap: 16px;
+        transition: background 0.18s;
+      }
+      .cb-trigger:hover { background: rgba(201,169,97,0.06); }
+
+      .cb-trigger-left { display: flex; align-items: center; gap: 18px; }
+      .cb-trigger-num {
+        width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+        background: rgba(201,169,97,0.1); border: 1px solid rgba(201,169,97,0.2);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.75rem; font-weight: 800; color: var(--gold); letter-spacing: 0.5px;
+      }
+      .cb-trigger h3 {
+        margin: 0; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.2px;
+      }
+
+      .cb-chevron {
+        flex-shrink: 0; transition: transform 0.3s;
+        color: rgba(201,169,97,0.6);
+      }
+      .cb-panel.open ~ .cb-trigger .cb-chevron,
+      .cb-item.open .cb-chevron { transform: rotate(180deg); }
+
+      .cb-panel {
+        display: grid; grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s ease;
+      }
+      .cb-panel.open { grid-template-rows: 1fr; }
+      .cb-panel > div { overflow: hidden; }
+
+      .cb-panel-body {
+        padding: 0 28px 28px 82px;
+        color: var(--muted-2); font-size: 0.95rem; line-height: 1.82;
+      }
+      .cb-panel-body p { margin-bottom: 16px; }
+      .cb-panel-body p:last-child { margin-bottom: 0; }
+      .cb-panel-body ul {
+        margin: 12px 0 16px 0; padding-left: 0; list-style: none;
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .cb-panel-body ul li {
+        display: flex; align-items: baseline; gap: 10px;
+        color: var(--muted-2);
+      }
+      .cb-panel-body ul li::before {
+        content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0;
+      }
+
+      /* ─── JOIN SECTION ─── */
+      .join-section {
+        padding: 96px 0 80px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(11,45,74,0.15) 0%, transparent 100%);
+      }
+      .join-section h2 {
+        max-width: 640px; margin: 0 auto 24px;
+        font-size: clamp(1.8rem,3.2vw,3rem);
+        font-weight: 800; letter-spacing: -0.6px;
+      }
+      .join-section .lead {
+        max-width: 680px; margin: 0 auto 40px;
+        color: var(--muted-2); font-size: 1rem; line-height: 1.82;
+      }
+      .join-section .lead p { margin-bottom: 14px; }
+      .join-section .lead p:last-child { margin-bottom: 0; }
+      .join-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 14px 34px; border-radius: 999px;
+        background: var(--gold); color: var(--black);
+        font-size: 0.9rem; font-weight: 800; letter-spacing: 0.2px;
+        border: none; cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+        text-decoration: none;
+      }
+      .join-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+      /* ─── FOOTER ─── */
+      .dt-footer {
+        padding: 32px 0;
+        border-top: 1px solid rgba(201,169,97,0.1);
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 16px;
+        color: var(--muted); font-size: 0.84rem;
+      }
+      .footer-mark { color: var(--gold); font-weight: 800; }
+
+      @media (max-width: 680px) {
+        .shell { width: calc(100% - 28px); }
+        .cb-panel-body { padding: 0 20px 24px 20px; }
+        .cb-trigger { padding: 20px; }
+        .cb-trigger-left { gap: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <nav class="shell nav">
+        <a class="brand" href="index.html" aria-label="Optimais home">
+          <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
+        </a>
+        <a href="index.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Optimais
+        </a>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- ─── HERO ─── -->
+      <section class="cb-hero">
+        <div class="shell">
+          <p class="eyebrow">People &amp; Culture</p>
+          <h1>Culture &amp; <span>Benefits</span></h1>
+          <div class="lead">
+            <h2 style="font-size:clamp(1.4rem,2.4vw,2rem);font-weight:700;margin-bottom:20px;letter-spacing:-0.3px;color:var(--white);">A Different Kind of Workplace</h2>
+            <p>Optimais is a place where innovation, collaboration, and purpose come together. No two days are ever the same. The challenges we tackle are diverse, meaningful, and often at the forefront of technology, engineering, research, and infrastructure development.</p>
+            <p>At Optimais, we are not a single like-minded group, but a diverse community of thinkers, builders, researchers, engineers, and innovators united by a shared commitment to solving complex real-world problems. We believe that breakthrough ideas emerge when people with different backgrounds, perspectives, and experiences collaborate openly.</p>
+            <p>Because we work across a broad range of technological and societal challenges, we know that building an inclusive and equitable workplace is essential to our success. We are committed to creating an environment where everyone has the opportunity to grow, contribute, and thrive.</p>
+            <p>Most importantly, our people are at the heart of everything we do. We understand that every individual's journey is different, which is why we foster a flexible, supportive, and people-centered culture that empowers our team to do their best work while maintaining balance and well-being.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── WHAT IT'S LIKE ─── -->
+      <section class="like-section">
+        <div class="shell">
+          <p class="section-label">Inside Optimais</p>
+          <h2>What It's Like Working at Optimais</h2>
+
+          <div class="cb-accordion">
+
+            <!-- Career Development -->
+            <div class="cb-item open" id="item-career">
+              <button class="cb-trigger" type="button" aria-expanded="true" onclick="toggleCB('item-career')">
+                <div class="cb-trigger-left">
+                  <div class="cb-trigger-num">01</div>
+                  <h3>Career Development</h3>
+                </div>
+                <svg class="cb-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="cb-panel open" id="panel-career">
+                <div>
+                  <div class="cb-panel-body">
+                    <p>We believe that the growth of our people drives the success of our company. From the moment you join Optimais, we work closely with you to define clear goals, development pathways, and opportunities for long-term success.</p>
+                    <p>Our career development approach includes:</p>
+                    <ul>
+                      <li>Regular check-ins and mentorship with managers and team leads</li>
+                      <li>Structured performance and growth reviews</li>
+                      <li>Merit-based promotion opportunities</li>
+                      <li>Opportunities to deepen expertise or explore entirely new disciplines</li>
+                      <li>Internal mobility across projects, sectors, and research areas</li>
+                      <li>Exposure to international collaborations and multidisciplinary work</li>
+                    </ul>
+                    <p>At Optimais, career growth does not only mean moving into management. We equally value technical leadership, research excellence, innovation, and specialist expertise.</p>
+                    <p>Whether your passion lies in engineering, AI, energy systems, research, manufacturing, consulting, or education, we encourage continuous learning and professional advancement.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Community -->
+            <div class="cb-item" id="item-social">
+              <button class="cb-trigger" type="button" aria-expanded="false" onclick="toggleCB('item-social')">
+                <div class="cb-trigger-left">
+                  <div class="cb-trigger-num">02</div>
+                  <h3>Social Community</h3>
+                </div>
+                <svg class="cb-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="cb-panel" id="panel-social">
+                <div>
+                  <div class="cb-panel-body">
+                    <p>We believe strong teams are built through meaningful human connections. Optimais fosters an active and engaging social culture where employees can collaborate, connect, and unwind beyond project work.</p>
+                    <p>Throughout the year, we support a variety of social and community activities, including:</p>
+                    <ul>
+                      <li>Team gatherings and networking events</li>
+                      <li>Innovation workshops and hackathons</li>
+                      <li>Sports and wellness activities</li>
+                      <li>Game nights and informal meetups</li>
+                      <li>Community outreach initiatives</li>
+                      <li>Professional and cultural events</li>
+                    </ul>
+                    <p>We encourage employees to bring new ideas and initiatives to the community, helping shape a vibrant and inclusive workplace culture.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Technology for Good -->
+            <div class="cb-item" id="item-tech">
+              <button class="cb-trigger" type="button" aria-expanded="false" onclick="toggleCB('item-tech')">
+                <div class="cb-trigger-left">
+                  <div class="cb-trigger-num">03</div>
+                  <h3>Technology for Good</h3>
+                </div>
+                <svg class="cb-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="cb-panel" id="panel-tech">
+                <div>
+                  <div class="cb-panel-body">
+                    <p>At Optimais, we believe technology should be a force for positive impact. Innovation should not only advance industries, but also improve lives, strengthen communities, and support a more sustainable future.</p>
+                    <p>Our mission is to develop and apply technology responsibly across areas such as:</p>
+                    <ul>
+                      <li>Artificial intelligence and intelligent systems</li>
+                      <li>Renewable energy and sustainable infrastructure</li>
+                      <li>Advanced manufacturing and automation</li>
+                      <li>Research and education</li>
+                      <li>Data-driven decision-making and optimization</li>
+                    </ul>
+                    <p>We strive to help both our organization and our partners create solutions that generate meaningful economic, social, and environmental value.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work-Life Balance -->
+            <div class="cb-item" id="item-balance">
+              <button class="cb-trigger" type="button" aria-expanded="false" onclick="toggleCB('item-balance')">
+                <div class="cb-trigger-left">
+                  <div class="cb-trigger-num">04</div>
+                  <h3>Sustainable Work-Life Balance</h3>
+                </div>
+                <svg class="cb-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="cb-panel" id="panel-balance">
+                <div>
+                  <div class="cb-panel-body">
+                    <p>We recognize that exceptional work happens when people are supported, trusted, and given flexibility.</p>
+                    <p>Optimais promotes a healthy and sustainable work culture by encouraging:</p>
+                    <ul>
+                      <li>Flexible working arrangements</li>
+                      <li>Respect for personal time and well-being</li>
+                      <li>Balanced workloads and realistic expectations</li>
+                      <li>Comfortable and collaborative work environments</li>
+                      <li>Hybrid and remote collaboration where appropriate</li>
+                    </ul>
+                    <p>We maintain a professional yet relaxed atmosphere where individuals can feel comfortable, creative, and productive. Across our workspaces, we aim to provide environments that support both collaboration and focused independent work.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── JOIN THE TEAM ─── -->
+      <section class="join-section">
+        <div class="shell">
+          <p class="section-label" style="display:block;text-align:center;margin-bottom:20px;">Careers</p>
+          <h2>Join the Team</h2>
+          <div class="lead">
+            <p>At Optimais, we bring together bright minds in research, engineering, technology, science, design, and innovation.</p>
+            <p>We are passionate problem-solvers, forward-thinking researchers, experienced specialists, and ambitious innovators working to build impactful solutions for businesses, governments, institutions, and society.</p>
+            <p>If you are driven by curiosity, innovation, and the desire to make a meaningful difference, we invite you to build the future with us.</p>
+          </div>
+          <a href="index.html" class="join-btn">
+            Explore Open Roles
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="shell dt-footer">
+      <span><span class="footer-mark">Optimais Limited</span> — Intelligent Systems. Sustainable Futures.</span>
+      <a href="index.html" style="color:var(--gold-light);font-weight:600;">← Back to main site</a>
+    </footer>
+
+    <script>
+      function toggleCB(itemId) {
+        var item = document.getElementById(itemId);
+        var panelId = 'panel-' + itemId.replace('item-', '');
+        var panel = document.getElementById(panelId);
+        var trigger = item.querySelector('.cb-trigger');
+        var isOpen = panel.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.cb-panel').forEach(function(p) { p.classList.remove('open'); });
+        document.querySelectorAll('.cb-item').forEach(function(i) { i.classList.remove('open'); });
+        document.querySelectorAll('.cb-trigger').forEach(function(t) { t.setAttribute('aria-expanded','false'); });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          panel.classList.add('open');
+          item.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      }
+    </script>
+
+  </body>
+</html>
