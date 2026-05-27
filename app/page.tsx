@@ -1,63 +1,19 @@
-import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { OptimaisLanding } from "@/components/optimais-landing";
 
-export default function HomePage() {
-  return (
-    <main className="gate-page">
-      <header className="gate-nav">
-        <Link className="gate-logo" href="/" aria-label="Optimais Limited home">
-          <img src="/optimais-logo.svg" alt="Optimais" />
-        </Link>
-      </header>
+export const dynamic = "force-dynamic";
 
-      <section className="gate-hero" aria-labelledby="gate-title">
-        <div className="gate-copy">
-          <h1 id="gate-title">Intelligent systems for sustainable industrial growth.</h1>
-          <p>
-            Optimais Limited designs, develops, implements and operates advanced technology,
-            renewable energy and engineering solutions for businesses, governments and institutions.
-          </p>
-          <div className="gate-actions">
-            <Link className="button gate-primary" href="/signup">Sign up</Link>
-            <Link className="gate-login" href="/login">Already registered? Sign in</Link>
-          </div>
-        </div>
+function initialsFromName(name?: string | null, email?: string | null) {
+  const source = name?.trim() || email?.split("@")[0] || "OU";
+  const parts = source.split(/\s+/).filter(Boolean);
+  return (parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : source.slice(0, 2)).toUpperCase();
+}
 
-        <div className="phone-shell" aria-label="Optimais platform preview">
-          <div className="phone">
-            <div className="phone-top">
-              <span>9:41</span>
-              <span>•••</span>
-            </div>
-            <div className="phone-header">
-              <strong>Optimais</strong>
-              <span>AI</span>
-            </div>
-            <div className="phone-metrics">
-              <div><small>Domains</small><b>6</b></div>
-              <div><small>Disciplines</small><b>12+</b></div>
-              <div><small>Markets</small><b>4</b></div>
-              <div><small>Reach</small><b>Global</b></div>
-            </div>
-            <div className="coverage">
-              <small>Capability coverage</small>
-              <span><b>AI Systems</b><i className="coverage-92" /></span>
-              <span><b>Renewable</b><i className="coverage-85" /></span>
-              <span><b>Engineering</b><i className="coverage-78" /></span>
-              <span><b>Advisory</b><i className="coverage-70" /></span>
-            </div>
-            <div className="phone-alert">
-              <span />
-              All systems operational · Nigeria & international
-            </div>
-            <nav className="phone-tabs" aria-label="Preview tabs">
-              <span>Home</span>
-              <span>Services</span>
-              <span>Markets</span>
-              <span>Contact</span>
-            </nav>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+  const isAuthenticated = !!session?.user;
+  const initials = initialsFromName(session?.user?.name, session?.user?.email);
+
+  return <OptimaisLanding isAuthenticated={isAuthenticated} initials={initials} />;
 }

@@ -15,11 +15,31 @@ export const newsletterSchema = z.object({
   interests: z.array(z.string().min(1).max(80)).default([])
 });
 
-export const signupSchema = z.object({
-  name: z.string().min(2).max(120),
+const individualSignup = z.object({
+  accountType: z.literal("individual"),
+  firstName: z.string().min(1).max(80),
+  lastName: z.string().min(1).max(80),
   email: z.string().email(),
-  password: z.string().min(8).max(128)
+  phone: z.string().max(40).optional().or(z.literal("")),
+  country: z.string().max(100),
+  serviceInterest: z.string().max(100).optional().or(z.literal("")),
+  password: z.string().min(8).max(128),
 });
+
+const businessSignup = z.object({
+  accountType: z.literal("business"),
+  company: z.string().min(1).max(160),
+  contactName: z.string().min(1).max(160),
+  jobTitle: z.string().max(100).optional().or(z.literal("")),
+  email: z.string().email(),
+  phone: z.string().max(40).optional().or(z.literal("")),
+  industry: z.string().max(100).optional().or(z.literal("")),
+  country: z.string().max(100),
+  serviceInterest: z.string().max(100).optional().or(z.literal("")),
+  password: z.string().min(8).max(128),
+});
+
+export const signupSchema = z.discriminatedUnion("accountType", [individualSignup, businessSignup]);
 
 export const scholarshipSchema = z.object({
   title: z.string().min(3).max(220),

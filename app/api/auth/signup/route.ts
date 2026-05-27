@@ -10,28 +10,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signup details.", details: parsed.error.flatten() }, { status: 400 });
   }
 
-  const existing = await prisma.user.findUnique({
-    where: { email: parsed.data.email }
-  });
+  const data = parsed.data;
 
+  const existing = await prisma.user.findUnique({ where: { email: data.email } });
   if (existing) {
     return NextResponse.json({ error: "An account with this email already exists." }, { status: 409 });
   }
 
-  const passwordHash = await bcrypt.hash(parsed.data.password, 12);
+  const passwordHash = await bcrypt.hash(data.password, 12);
+
+  const name =
+    data.accountType === "individual"
+      ? `${data.firstName} ${data.lastName}`.trim()
+      : data.contactName;
+
   const user = await prisma.user.create({
     data: {
-      name: parsed.data.name,
-      email: parsed.data.email,
+      name,
+      email: data.email,
       passwordHash,
-      role: "USER"
+      role: "USER",
+      accountType: data.accountType,
+      phone: data.phone || null,
+      country: data.country || null,
+      serviceInterest: data.serviceInterest || null,
+      ...(data.accountType === "individual"
+        ? { firstName: data.firstName, lastName: data.lastName }
+        : {
+            company: data.company,
+            contactName: data.contactName,
+            jobTitle: data.jobTitle || null,
+            industry: data.industry || null,
+          }),
     },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true
-    }
+    select: { id: true, name: true, email: true, role: true },
   });
 
   return NextResponse.json({ user }, { status: 201 });

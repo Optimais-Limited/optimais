@@ -63,6 +63,16 @@ model User {
   image              String?
   passwordHash       String?
   role               Role                 @default(USER)
+  accountType        String?
+  firstName          String?
+  lastName           String?
+  phone              String?
+  country            String?
+  serviceInterest    String?
+  company            String?
+  contactName        String?
+  jobTitle           String?
+  industry           String?
   accounts           Account[]
   sessions           Session[]
   savedScholarships  SavedScholarship[]
