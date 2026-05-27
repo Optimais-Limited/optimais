@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Optimais Deep Tech — Robotics, Decision Intelligence, Digital Twins, and more frontier technology domains.">
+    <title>Deep Tech | Optimais Limited</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --black:   #051520;
+        --white:   #ffffff;
+        --gold:         #C9A961;
+        --gold-light:   #d9be7a;
+        --navy:         #0B2D4A;
+        --muted:        rgba(255, 255, 255, 0.52);
+        --muted-2:      rgba(255, 255, 255, 0.72);
+        --card-bg:      rgba(255, 255, 255, 0.03);
+        --card-border:  rgba(255, 255, 255, 0.09);
+        --radius:    10px;
+        --radius-lg: 16px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--black);
+        color: var(--white);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      h1, h2, h3, p { margin-top: 0; }
+
+      .shell {
+        width: min(1160px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      /* ─── HEADER ─── */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.12);
+        background: rgba(5, 21, 32, 0.92);
+        backdrop-filter: blur(22px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        height: 46px;
+        padding: 7px 12px;
+        border-radius: var(--radius);
+        border: 1px solid rgba(201, 169, 97, 0.2);
+        gap: 10px;
+      }
+
+      .brand img { height: 30px; width: auto; }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(201, 169, 97, 0.3);
+        background: rgba(201, 169, 97, 0.07);
+        color: var(--gold-light);
+        font-size: 0.84rem;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+
+      .back-link:hover { background: rgba(201, 169, 97, 0.15); }
+
+      /* ─── HERO ─── */
+      .dt-hero {
+        padding: 100px 0 80px;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.08);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 28px;
+        padding: 6px 16px;
+        border: 1px solid rgba(201, 169, 97, 0.4);
+        border-radius: 999px;
+        background: rgba(201, 169, 97, 0.08);
+        color: var(--gold-light);
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+      }
+
+      .dt-hero h1 {
+        max-width: 760px;
+        margin-bottom: 24px;
+        font-size: clamp(2.4rem, 5vw, 4.4rem);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -1.2px;
+      }
+
+      .dt-hero h1 span { color: var(--gold); }
+
+      /* ─── WHAT IS DEEP TECH ─── */
+      .what-section {
+        padding: 96px 0;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.08);
+      }
+
+      .section-label {
+        display: inline-block;
+        margin-bottom: 16px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(201, 169, 97, 0.3);
+        background: rgba(201, 169, 97, 0.07);
+        color: var(--gold);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+      }
+
+      .what-section h2 {
+        max-width: 680px;
+        margin-bottom: 32px;
+        font-size: clamp(1.8rem, 3.2vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.6px;
+        line-height: 1.1;
+      }
+
+      .what-body {
+        max-width: 780px;
+        color: var(--muted-2);
+        font-size: 1.05rem;
+        line-height: 1.85;
+      }
+
+      /* ─── DEEP TECH CARDS ─── */
+      .cards-section {
+        padding: 96px 0 120px;
+      }
+
+      .cards-section h2 {
+        margin-bottom: 56px;
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .dt-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .dt-card {
+        border: 1px solid rgba(201, 169, 97, 0.13);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(160deg, rgba(11, 45, 74, 0.3), rgba(5, 21, 32, 0.4));
+        overflow: hidden;
+        transition: border-color 0.25s, transform 0.25s;
+      }
+
+      .dt-card:hover {
+        border-color: rgba(201, 169, 97, 0.35);
+        transform: translateY(-4px);
+      }
+
+      .dt-card-img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.1);
+      }
+
+      .dt-card-body { padding: 28px; }
+
+      .dt-card-num {
+        display: inline-block;
+        margin-bottom: 14px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+
+      .dt-card h3 {
+        margin: 0 0 14px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        color: var(--white);
+      }
+
+      .dt-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.75;
+      }
+
+      /* ─── FOOTER ─── */
+      .dt-footer {
+        padding: 32px 0;
+        border-top: 1px solid rgba(201, 169, 97, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .footer-mark { color: var(--gold); font-weight: 800; }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 860px) {
+        .dt-cards { grid-template-columns: 1fr; }
+        .dt-hero { padding: 72px 0 56px; }
+      }
+
+      @media (max-width: 560px) {
+        .shell { width: calc(100% - 28px); }
+        .dt-cards { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <nav class="shell nav">
+        <a class="brand" href="index.html" aria-label="Optimais home">
+          <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
+        </a>
+        <a href="index.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Optimais
+        </a>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- ─── HERO ─── -->
+      <section class="dt-hero">
+        <div class="shell">
+          <p class="eyebrow">Advanced Technology</p>
+          <h1>Deep Tech at <span>Optimais</span></h1>
+          <p style="max-width:640px;color:var(--muted-2);font-size:1.1rem;line-height:1.8;margin:0;">
+            We think creatively at the intersection of business, engineering, and science — inventing solutions to redefine what is possible.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─── WHAT IS DEEP TECH ─── -->
+      <section class="what-section" id="what">
+        <div class="shell">
+          <p class="section-label">Definition</p>
+          <h2>What is Deep Tech?</h2>
+          <div class="what-body">
+            <p>For the Optimais CEO, deep tech is more than innovation — it is a mindset with the power to transform businesses, industries, and society. Rather than simply reacting to emerging technologies, he believes leaders must proactively harness science, engineering, and advanced technology to create market-defining strategies.</p>
+            <p>The future belongs to visionary innovators who combine first-principles thinking, technology, and engineering to build sustainable competitive advantages and fundamentally reshape their industries.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── CARDS ─── -->
+      <section class="cards-section">
+        <div class="shell">
+          <p class="section-label">Focus Areas</p>
+          <h2>Frontier technology domains</h2>
+          <div class="dt-cards">
+
+            <!-- Card 1 -->
+            <div class="dt-card" id="robotics">
+              <img
+                src="brand_assets/robotics.png"
+                alt="Robotics and Autonomous Systems"
+                class="dt-card-img"
+                loading="lazy"
+              />
+              <div class="dt-card-body">
+                <span class="dt-card-num">01</span>
+                <h3>Robotics &amp; Autonomous Systems</h3>
+                <p>Autonomous robots are evolving from fixed-task machines into adaptive systems that perceive, plan, and act in changing environments. With better sensors, edge AI, and motion planning, they can support logistics, inspection, manufacturing, and field operations with less human intervention.</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="dt-card" id="decision">
+              <img
+                src="brand_assets/decision-intelligence.png"
+                alt="Decision Intelligence and Optimization"
+                class="dt-card-img"
+                loading="lazy"
+              />
+              <div class="dt-card-body">
+                <span class="dt-card-num">02</span>
+                <h3>Decision Intelligence &amp; Optimization</h3>
+                <p>Decision intelligence combines AI, simulation, and optimization to help teams choose better actions under uncertainty. It is especially powerful in supply chains, energy systems, finance, defense planning, and complex operations where tradeoffs shift constantly.</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="dt-card" id="twins">
+              <img
+                src="brand_assets/digital-twins.png"
+                alt="Digital Twins and Simulation Technologies"
+                class="dt-card-img"
+                loading="lazy"
+              />
+              <div class="dt-card-body">
+                <span class="dt-card-num">03</span>
+                <h3>Digital Twins &amp; Simulation Technologies</h3>
+                <p>Digital twins create live virtual models of physical systems, letting teams test changes before deploying them in the real world. They reduce downtime, improve design decisions, and make factories, infrastructure, aircraft, and energy systems easier to monitor and optimize.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="shell dt-footer">
+      <span><span class="footer-mark">Optimais Limited</span> — Intelligent Systems. Sustainable Futures.</span>
+      <a href="index.html" style="color:var(--gold-light);font-weight:600;">← Back to main site</a>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Our Stories — the Optimais journey from research to real-world impact.">
+    <title>Our Stories | Optimais Limited</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --black:   #051520;
+        --white:   #ffffff;
+        --gold:         #C9A961;
+        --gold-light:   #d9be7a;
+        --navy:         #0B2D4A;
+        --muted:        rgba(255, 255, 255, 0.52);
+        --muted-2:      rgba(255, 255, 255, 0.78);
+        --radius:    10px;
+        --radius-lg: 16px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--black);
+        color: var(--white);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      h1,h2,h3,p { margin-top: 0; }
+
+      .shell { width: min(1100px, calc(100% - 48px)); margin: 0 auto; }
+
+      /* ─── HEADER ─── */
+      .site-header {
+        position: sticky; top: 0; z-index: 20;
+        border-bottom: 1px solid rgba(201,169,97,0.12);
+        background: rgba(5,21,32,0.92);
+        backdrop-filter: blur(22px);
+      }
+      .nav {
+        display: flex; align-items: center; justify-content: space-between;
+        min-height: 72px; gap: 16px;
+      }
+      .brand {
+        display: inline-flex; align-items: center; height: 46px;
+        padding: 7px 12px; border-radius: var(--radius);
+        border: 1px solid rgba(201,169,97,0.2); gap: 10px;
+      }
+      .brand img { height: 30px; width: auto; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 18px; border-radius: 999px;
+        border: 1px solid rgba(201,169,97,0.3);
+        background: rgba(201,169,97,0.07);
+        color: var(--gold-light); font-size: 0.84rem; font-weight: 600;
+        transition: background 0.2s;
+      }
+      .back-link:hover { background: rgba(201,169,97,0.15); }
+
+      /* ─── HERO ─── */
+      .os-hero {
+        padding: 96px 0 80px;
+        border-bottom: 1px solid rgba(201,169,97,0.08);
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        margin: 0 0 28px; padding: 6px 16px; border-radius: 999px;
+        border: 1px solid rgba(201,169,97,0.4);
+        background: rgba(201,169,97,0.08);
+        color: var(--gold-light); font-size: 0.76rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.9px;
+      }
+      .os-hero h1 {
+        max-width: 680px; margin-bottom: 0;
+        font-size: clamp(2.4rem,5vw,4.2rem);
+        line-height: 1.04; font-weight: 800; letter-spacing: -1.2px;
+      }
+      .os-hero h1 span { color: var(--gold); }
+
+      /* ─── STORIES ─── */
+      .story-block {
+        padding: 88px 0;
+        border-bottom: 1px solid rgba(201,169,97,0.08);
+      }
+      .story-block:last-of-type { border-bottom: none; }
+
+      .story-inner {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 64px;
+        align-items: start;
+      }
+
+      .story-label-col { position: sticky; top: 96px; }
+
+      .section-label {
+        display: inline-block; margin-bottom: 16px; padding: 5px 14px;
+        border-radius: 999px; border: 1px solid rgba(201,169,97,0.3);
+        background: rgba(201,169,97,0.07); color: var(--gold);
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.9px;
+      }
+
+      .story-num {
+        font-size: 4rem; font-weight: 800; letter-spacing: -2px;
+        color: rgba(201,169,97,0.15); line-height: 1;
+        margin: 0 0 16px;
+      }
+
+      .story-label-col h2 {
+        font-size: clamp(1.3rem,2vw,1.8rem); font-weight: 800;
+        letter-spacing: -0.4px; line-height: 1.2;
+        margin: 0;
+        color: var(--gold-light);
+      }
+
+      .story-body {
+        color: var(--muted-2); font-size: 1rem; line-height: 1.85;
+      }
+      .story-body p { margin-bottom: 20px; }
+      .story-body p:last-child { margin-bottom: 0; }
+
+      /* ─── FOOTER ─── */
+      .dt-footer {
+        padding: 32px 0;
+        border-top: 1px solid rgba(201,169,97,0.1);
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 16px;
+        color: var(--muted); font-size: 0.84rem;
+      }
+      .footer-mark { color: var(--gold); font-weight: 800; }
+
+      @media (max-width: 860px) {
+        .story-inner { grid-template-columns: 1fr; gap: 32px; }
+        .story-label-col { position: static; }
+        .story-num { font-size: 2.8rem; }
+      }
+      @media (max-width: 560px) {
+        .shell { width: calc(100% - 28px); }
+        .os-hero { padding: 72px 0 56px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <nav class="shell nav">
+        <a class="brand" href="index.html" aria-label="Optimais home">
+          <img src="brand_assets/optimais_logo_clean.svg" alt="Optimais">
+        </a>
+        <a href="index.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Optimais
+        </a>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- ─── HERO ─── -->
+      <section class="os-hero">
+        <div class="shell">
+          <p class="eyebrow">About Us</p>
+          <h1>Our <span>Stories</span></h1>
+        </div>
+      </section>
+
+      <!-- ─── STORY 1 ─── -->
+      <section class="story-block">
+        <div class="shell">
+          <div class="story-inner">
+            <div class="story-label-col">
+              <p class="story-num">01</p>
+              <h2>From Research to Real-World Impact</h2>
+            </div>
+            <div class="story-body">
+              <p>Optimais was founded on the belief that advanced research should not remain confined to academic papers or laboratories. What began as a vision rooted in applied mathematics, artificial intelligence, optimization, and engineering evolved into a mission to build practical solutions for real-world challenges.</p>
+              <p>Inspired by global innovation ecosystems and driven by the growing need for sustainable development, Optimais was created to bridge the gap between research, technology, and industry. Today, we work at the intersection of intelligent systems, renewable energy, infrastructure, manufacturing, and strategic consulting to help shape a smarter and more resilient future.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── STORY 2 ─── -->
+      <section class="story-block">
+        <div class="shell">
+          <div class="story-inner">
+            <div class="story-label-col">
+              <p class="story-num">02</p>
+              <h2>Building Technology for Africa's Future</h2>
+            </div>
+            <div class="story-body">
+              <p>Africa is home to immense talent, opportunity, and innovation potential. Yet many industries and institutions still face challenges in infrastructure, energy access, automation, digital transformation, and technical capacity development.</p>
+              <p>Optimais was built with a long-term vision to contribute to solving these challenges through research-driven innovation. We believe the future of Africa will be shaped not only by consuming technology, but by designing, developing, and deploying it locally.</p>
+              <p>From intelligent systems and energy solutions to advanced manufacturing and education, our goal is to support sustainable growth by creating technologies and partnerships that empower businesses, governments, institutions, and communities.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── STORY 3 ─── -->
+      <section class="story-block">
+        <div class="shell">
+          <div class="story-inner">
+            <div class="story-label-col">
+              <p class="story-num">03</p>
+              <h2>A Culture of Innovation and Possibility</h2>
+            </div>
+            <div class="story-body">
+              <p>At Optimais, innovation is more than creating technology — it is about creating possibilities. We are a diverse community of researchers, engineers, designers, strategists, and problem-solvers united by curiosity and purpose.</p>
+              <p>Every project we take on is an opportunity to rethink what is possible, whether through AI-powered systems, sustainable infrastructure, industrial automation, or advanced research initiatives. We believe meaningful innovation happens when bold ideas meet collaboration, technical excellence, and a commitment to positive impact.</p>
+              <p>Our story is still being written, and we are building a future where technology, research, and human potential come together to solve complex challenges and create lasting value for society.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="shell dt-footer">
+      <span><span class="footer-mark">Optimais Limited</span> — Intelligent Systems. Sustainable Futures.</span>
+      <a href="index.html" style="color:var(--gold-light);font-weight:600;">← Back to main site</a>
+    </footer>
+
+  </body>
+</html>
