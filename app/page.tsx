@@ -1,81 +1,62 @@
 import Link from "next/link";
 
-const features = [
-  {
-    title: "Scholarship Finder",
-    text: "Browse curated scholarship sources, save opportunities, and get AI-assisted recommendations."
-  },
-  {
-    title: "Application Tracker",
-    text: "Track deadlines, status, next steps, notes, and documents for every opportunity."
-  },
-  {
-    title: "Research & Proposal Tools",
-    text: "Use AI helpers for research planning, proposal drafting, infrastructure scoping, and recommendations."
-  }
-];
-
 export default function HomePage() {
   return (
-    <main className="site-page">
-      <header className="site-nav">
-        <Link className="site-brand" href="/">
-          Optimais Limited
+    <main className="gate-page">
+      <header className="gate-nav">
+        <Link className="gate-logo" href="/" aria-label="Optimais Limited home">
+          <img src="/optimais-logo.svg" alt="Optimais" />
         </Link>
-        <nav className="site-nav-links" aria-label="Public navigation">
-          <Link href="/dashboard">Dashboard</Link>
-          <Link href="/login">Sign in</Link>
-          <Link className="button" href="/signup">Create account</Link>
-        </nav>
       </header>
 
-      <section className="site-hero">
-        <div>
-          <p className="eyebrow">Intelligent systems. Sustainable futures.</p>
-          <h1>Build, discover, and track opportunities with Optimais.</h1>
-          <p className="site-lede">
-            Optimais Limited connects technology, renewable energy, strategic advisory, research resources, and scholarship tools in one professional platform.
-          </p>
-          <div className="site-actions">
-            <Link className="button" href="/signup">Create free account</Link>
-            <Link className="button secondary" href="/login">Sign in</Link>
-          </div>
-        </div>
-        <aside className="site-card">
-          <p className="eyebrow">User Portal</p>
-          <h2>For students, researchers, and project teams</h2>
+      <section className="gate-hero" aria-labelledby="gate-title">
+        <div className="gate-copy">
+          <h1 id="gate-title">Intelligent systems for sustainable industrial growth.</h1>
           <p>
-            Create an account to save scholarship opportunities and track applications. Admin users can manage scholarships, blog posts, contacts, and newsletters.
+            Optimais Limited designs, develops, implements and operates advanced technology,
+            renewable energy and engineering solutions for businesses, governments and institutions.
           </p>
-          <div className="mini-list">
-            <span>Scholarships</span>
-            <span>Application tracker</span>
-            <span>AI assistance</span>
+          <div className="gate-actions">
+            <Link className="button gate-primary" href="/signup">Sign up</Link>
+            <Link className="gate-login" href="/login">Already registered? Sign in</Link>
           </div>
-        </aside>
-      </section>
+        </div>
 
-      <section className="site-section">
-        <div className="section-heading">
-          <p className="eyebrow">Frontend account access</p>
-          <h2>Users can sign up and log in from the public website.</h2>
+        <div className="phone-shell" aria-label="Optimais platform preview">
+          <div className="phone">
+            <div className="phone-top">
+              <span>9:41</span>
+              <span>•••</span>
+            </div>
+            <div className="phone-header">
+              <strong>Optimais</strong>
+              <span>AI</span>
+            </div>
+            <div className="phone-metrics">
+              <div><small>Domains</small><b>6</b></div>
+              <div><small>Disciplines</small><b>12+</b></div>
+              <div><small>Markets</small><b>4</b></div>
+              <div><small>Reach</small><b>Global</b></div>
+            </div>
+            <div className="coverage">
+              <small>Capability coverage</small>
+              <span><b>AI Systems</b><i className="coverage-92" /></span>
+              <span><b>Renewable</b><i className="coverage-85" /></span>
+              <span><b>Engineering</b><i className="coverage-78" /></span>
+              <span><b>Advisory</b><i className="coverage-70" /></span>
+            </div>
+            <div className="phone-alert">
+              <span />
+              All systems operational · Nigeria & international
+            </div>
+            <nav className="phone-tabs" aria-label="Preview tabs">
+              <span>Home</span>
+              <span>Services</span>
+              <span>Markets</span>
+              <span>Contact</span>
+            </nav>
+          </div>
         </div>
-        <div className="feature-grid">
-          {features.map((feature) => (
-            <article className="site-card" key={feature.title}>
-              <h3>{feature.title}</h3>
-              <p>{feature.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="site-section site-cta">
-        <div>
-          <p className="eyebrow">Get started</p>
-          <h2>Create an account to access the user dashboard.</h2>
-        </div>
-        <Link className="button" href="/signup">Sign up now</Link>
       </section>
     </main>
   );

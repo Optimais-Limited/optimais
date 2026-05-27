@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export function SignupForm() {
@@ -30,22 +29,8 @@ export function SignupForm() {
       return;
     }
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-      callbackUrl: "/dashboard"
-    });
-
     setLoading(false);
-
-    if (result?.error) {
-      router.push("/login?callbackUrl=/dashboard");
-      return;
-    }
-
-    router.push("/dashboard");
-    router.refresh();
+    router.push("/login?registered=1&callbackUrl=/dashboard");
   }
 
   return (
