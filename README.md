@@ -1,27 +1,68 @@
-# Optimais Limited Website
+# Optimais Limited Platform
 
-Static, responsive landing page for Optimais Limited with interactive content panels, contact information, and a Scholarships, Grants & Fellowships Finder.
+Next.js backend architecture for the Optimais Limited website, scholarship finder, admin CMS, contact workflows, newsletter, authentication, saved scholarships, application tracker, and AI-assisted tools.
+
+## Stack
+
+- Next.js App Router
+- Next.js API routes
+- Prisma ORM
+- PostgreSQL on Supabase
+- NextAuth credentials authentication
+- Zod validation
+- OpenAI API via `OPENAI_API_KEY`
+- Vercel-ready deployment
+
+## Security Note
+
+Do not store personal account passwords in the app. ChatGPT account email/password credentials are not used for integrations. AI features use an OpenAI API key stored in environment variables.
 
 ## Project Structure
 
-- `index.html` - Main website, embedded CSS, and JavaScript.
-- `data/scholarships.json` - Admin-friendly scholarship source and opportunity data.
-- `brand_assets/` - Optimais logo assets.
-- `package.json` - Local run and deployment scripts.
-- `netlify.toml` - Netlify deployment configuration.
-- `vercel.json` - Vercel deployment configuration.
+- `app/api/*` - Backend API routes.
+- `app/admin/*` - Responsive admin dashboard and CRUD pages.
+- `components/admin/*` - Admin UI shell and reusable CRUD client.
+- `lib/prisma.ts` - Prisma client singleton.
+- `lib/auth.ts` - NextAuth configuration.
+- `lib/validators.ts` - Zod request validation schemas.
+- `prisma/schema.prisma` - Database schema.
+- `prisma/seed.ts` - Admin user seed script.
+- `data/scholarships.json` - Static curated scholarship source data used by the public finder.
+- `.env.example` - Required environment variables.
 
-## Requirements
+## Backend Modules
 
-- Node.js is optional but useful for deployment platforms.
-- Python 3 is used by the local preview script.
+- Contact form handling: `POST /api/contact`
+- Newsletter subscriptions: `POST /api/newsletter`
+- Scholarship opportunities: `GET/POST /api/scholarships`
+- Scholarship CRUD by ID: `GET/PUT/DELETE /api/scholarships/:id`
+- Blog/insights CMS: `GET/POST /api/blog`
+- Blog CRUD by ID: `PUT/DELETE /api/blog/:id`
+- Authentication: `/api/auth/*`
+- Saved scholarships: `GET/POST /api/saved-scholarships`
+- Application tracker: `GET/POST /api/application-tracker`
+- AI tools: `POST /api/ai`
+- Admin stats: `GET /api/admin/stats`
 
-No npm dependencies are required.
+Admin pages are under `/admin`.
 
-## Run Locally
+## Local Development
+
+Install dependencies:
 
 ```bash
-cd optimais
+npm install
+```
+
+Copy environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Run the dev server:
+
+```bash
 npm run dev
 ```
 
@@ -31,109 +72,161 @@ Open:
 http://localhost:4173
 ```
 
-You can also open `index.html` directly in a browser, but the local server is closer to deployed behavior.
+## Supabase Database Setup
 
-## Build
+1. Create a Supabase project.
+2. Open Project Settings -> Database.
+3. Copy the pooled connection string into `DATABASE_URL`.
+4. Copy the direct connection string into `DIRECT_URL`.
+5. Keep both values secret.
 
-```bash
-npm run build
+Example:
+
+```env
+DATABASE_URL="postgresql://postgres:[PASSWORD]@[HOST]:5432/postgres?pgbouncer=true&connection_limit=1"
+DIRECT_URL="postgresql://postgres:[PASSWORD]@[HOST]:5432/postgres"
 ```
 
-This is a static site, so the build command is intentionally a no-op.
+`DATABASE_URL` is used by the app at runtime. `DIRECT_URL` is used by Prisma migrations.
 
-## Scholarship Finder
+## Environment Variables
 
-The Scholarships, Grants & Fellowships Finder lets users:
+Required:
 
-- Browse curated opportunity sources by category.
-- Search by provider, title, field, country/region, keyword, or funding type.
-- Filter by degree level, country/region, field, deadline, and funding type.
-- Submit a profile and receive recommended scholarship sources and official links.
+```env
+DATABASE_URL=""
+DIRECT_URL=""
+NEXTAUTH_SECRET=""
+NEXTAUTH_URL="http://localhost:4173"
+ADMIN_EMAIL=""
+ADMIN_PASSWORD=""
+OPENAI_API_KEY=""
+OPENAI_MODEL="gpt-5.4-mini"
+```
 
-The finder currently uses manually curated JSON data. It does not assume that source websites have public APIs.
+Generate a strong `NEXTAUTH_SECRET`:
 
-Future integrations can replace or enrich `data/scholarships.json` with:
+```bash
+openssl rand -base64 32
+```
 
-- Approved API integrations.
-- RSS feed ingestion.
-- Internal database records.
-- Approved scraping tools run outside the static website.
+## Prisma
 
-## Updating Scholarship Data
+Generate the Prisma client:
 
-Scholarships, grants, fellowships, research programs, and funded training source entries are stored in:
+```bash
+npm run prisma:generate
+```
+
+Create and run a migration:
+
+```bash
+npm run prisma:migrate
+```
+
+For a quick schema sync during early development:
+
+```bash
+npm run db:push
+```
+
+Open Prisma Studio:
+
+```bash
+npm run prisma:studio
+```
+
+Seed the first admin:
+
+```bash
+npm run seed
+```
+
+Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` before seeding.
+
+## AI Features
+
+`POST /api/ai` supports:
+
+- `scholarship-recommender`
+- `research-assistant`
+- `government-search`
+- `proposal-writer`
+- `infrastructure-planner`
+- `recommendations`
+
+Request shape:
+
+```json
+{
+  "feature": "proposal-writer",
+  "prompt": "Draft a renewable energy proposal outline.",
+  "context": {
+    "country": "Nigeria",
+    "sector": "solar mini-grid"
+  }
+}
+```
+
+The route uses `OPENAI_API_KEY` and `OPENAI_MODEL`. It does not use ChatGPT account credentials.
+
+## Scholarship Data
+
+The public finder still reads curated data from:
 
 ```text
 data/scholarships.json
 ```
 
-Each entry supports:
+The database-backed scholarship admin uses `ScholarshipOpportunity` in Prisma. You can keep both during migration:
 
-```json
-{
-  "title": "Program or source title",
-  "provider": "Provider name",
-  "source": "https://official-website.example",
-  "levels": ["Bachelor's", "Master's", "PhD", "Postdoc", "Professional Training"],
-  "countries": ["Africa", "Nigeria", "Global"],
-  "fields": ["Engineering", "AI & Data", "Climate"],
-  "deadline": "rolling",
-  "fundingTypes": ["Fully funded", "Fellowship"],
-  "summary": "Short description shown on the card.",
-  "keywords": ["search", "matching", "terms"]
-}
+- Use JSON for fast public curated source updates.
+- Use PostgreSQL for admin-managed opportunity records.
+- Later, replace JSON loading with `GET /api/scholarships` when the database has enough entries.
+
+Future integrations can import from APIs, RSS feeds, or approved scraping tools into PostgreSQL.
+
+## Deployment on Vercel
+
+1. Create a Supabase project and run Prisma migrations.
+2. Push the repo to your Git provider.
+3. Import the project into Vercel.
+4. If this folder is inside a larger repo, set the Vercel root directory to `optimais`.
+5. Add environment variables in Vercel Project Settings.
+6. Use:
+   - Build command: `npm run build`
+   - Install command: `npm install`
+7. Deploy.
+
+Do not expose `.env` or credentials in Git.
+
+## Deployment on Netlify
+
+The included `netlify.toml` uses the official Next.js plugin.
+
+1. Set the project base directory to `optimais` if needed.
+2. Add the same environment variables in Netlify.
+3. Build command: `npm run build`
+4. Publish directory: `.next`
+
+## Testing Locally
+
+Recommended checks:
+
+```bash
+npm run prisma:generate
+npm run build
+npm run dev
 ```
 
-Use `deadline: "rolling"` for rolling opportunities, or an ISO date like `2026-08-30`.
+Then test:
 
-Use official provider URLs in `source`. Users are shown a disclaimer to verify deadlines, eligibility, application requirements, and instructions on official scholarship websites.
+- `/api/contact`
+- `/api/newsletter`
+- `/api/scholarships`
+- `/admin`
+- `/api/ai` with `OPENAI_API_KEY` set
 
-## Included Source Websites
+## Notes
 
-The initial JSON data includes source entries for:
-
-- Opportunities for Africans
-- ScholarshipAir
-- ScholarshipSet
-- Association of African Universities Scholarships & Grants
-- Mastercard Foundation Scholars Program
-- Chevening Scholarships
-- Commonwealth Scholarships
-- DAAD Scholarships
-- Erasmus Mundus Joint Masters
-- Fulbright Foreign Student Program
-- Joint Japan/World Bank Graduate Scholarship Program
-- World Bank Africa Fellowship Program
-- Science for Africa Foundation
-- SSRC African Peacebuilding and Developmental Dynamics Fellowships
-- Yale Young African Scholars Resources
-
-## Deploy on Netlify
-
-1. Push the `optimais` folder to a Git repository.
-2. In Netlify, create a new site from the repository.
-3. Use these settings:
-   - Base directory: `optimais` if this folder is inside a larger repo.
-   - Build command: `npm run build`
-   - Publish directory: `.`
-4. Deploy.
-
-The included `netlify.toml` already defines the build and publish settings.
-
-## Deploy on Vercel
-
-1. Push the `optimais` folder to a Git repository.
-2. In Vercel, import the repository.
-3. Use these settings:
-   - Root directory: `optimais` if this folder is inside a larger repo.
-   - Build command: `npm run build`
-   - Output directory: `.`
-4. Deploy.
-
-The included `vercel.json` defines the static output configuration.
-
-## Environment Variables
-
-No environment variables are required for the current static version.
-
-If the contact form is later connected to a form API, email service, CRM, or database, add the required variables in Netlify or Vercel project settings instead of hard-coding secrets.
+No auto-deploy or GitHub push is performed by this project setup.

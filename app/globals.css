@@ -1,0 +1,372 @@
+:root {
+  --bg: #051520;
+  --panel: #0b2235;
+  --panel-2: #0f2d45;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f7f3ea;
+  --muted: rgba(247, 243, 234, 0.68);
+  --gold: #c9a961;
+  --danger: #d96c5f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.admin-shell {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 24px;
+  border-right: 1px solid var(--line);
+  background: rgba(7, 26, 42, 0.95);
+}
+
+.admin-brand {
+  display: block;
+  margin-bottom: 28px;
+  color: var(--gold);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.admin-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-nav a {
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.admin-nav a:hover {
+  border-color: var(--line);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-main {
+  padding: clamp(20px, 4vw, 44px);
+}
+
+.admin-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card,
+.admin-panel {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.card {
+  padding: 22px;
+}
+
+.card strong {
+  display: block;
+  color: var(--gold);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.card span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.admin-panel {
+  padding: 22px;
+  margin-top: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+.field {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+textarea.field {
+  min-height: 130px;
+  padding-top: 12px;
+  resize: vertical;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  border-radius: 10px;
+  background: var(--gold);
+  color: #071a2a;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--text);
+}
+
+.status {
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.list-item p {
+  color: var(--muted);
+}
+
+.site-page {
+  min-height: 100vh;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(201, 169, 97, 0.16), transparent 28%),
+    radial-gradient(circle at 84% 18%, rgba(26, 82, 118, 0.28), transparent 30%),
+    var(--bg);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 14px 0;
+}
+
+.site-brand {
+  color: var(--gold);
+  font-size: 1.1rem;
+  font-weight: 950;
+}
+
+.site-nav-links,
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.site-nav-links a:not(.button) {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.site-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.45fr);
+  gap: 30px;
+  align-items: center;
+  width: min(1180px, 100%);
+  min-height: calc(100vh - 100px);
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.site-hero h1 {
+  max-width: 860px;
+  font-size: clamp(3.4rem, 8vw, 7.6rem);
+  letter-spacing: -0.04em;
+}
+
+.site-lede {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.site-actions {
+  margin-top: 30px;
+}
+
+.site-card {
+  padding: clamp(22px, 4vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
+}
+
+.site-card p {
+  color: var(--muted);
+}
+
+.mini-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.mini-list span {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  font-weight: 850;
+}
+
+.site-section {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.site-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .admin-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-nav,
+  .site-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-hero,
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-hero {
+    min-height: auto;
+    padding: 46px 0;
+  }
+
+  .site-nav-links .button,
+  .site-actions .button,
+  .site-cta .button {
+    width: 100%;
+  }
+}

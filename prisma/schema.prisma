@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  USER
+}
+
+enum ScholarshipLevel {
+  BACHELORS
+  MASTERS
+  PHD
+  POSTDOC
+  PROFESSIONAL_TRAINING
+}
+
+enum FundingType {
+  FULLY_FUNDED
+  PARTIAL_FUNDING
+  RESEARCH_GRANT
+  FELLOWSHIP
+  INTERNSHIP
+  TRAINING
+}
+
+enum ApplicationStatus {
+  SAVED
+  SHORTLISTED
+  IN_PROGRESS
+  SUBMITTED
+  INTERVIEW
+  AWARDED
+  REJECTED
+  ARCHIVED
+}
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  RESPONDED
+  ARCHIVED
+}
+
+model User {
+  id                 String               @id @default(cuid())
+  name               String?
+  email              String               @unique
+  emailVerified      DateTime?
+  image              String?
+  passwordHash       String?
+  role               Role                 @default(USER)
+  accounts           Account[]
+  sessions           Session[]
+  savedScholarships  SavedScholarship[]
+  applicationRecords ApplicationRecord[]
+  posts              BlogPost[]           @relation("PostAuthor")
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  subject   String?
+  message   String
+  status    ContactStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  interests String[] @default([])
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ScholarshipOpportunity {
+  id                 String              @id @default(cuid())
+  title              String
+  slug               String              @unique
+  provider           String
+  summary            String
+  description        String?
+  applicationUrl     String
+  sourceUrl          String?
+  eligibleLevels     ScholarshipLevel[]
+  eligibleCountries  String[]            @default([])
+  regions            String[]            @default([])
+  fields             String[]            @default([])
+  fundingTypes       FundingType[]
+  deadline           DateTime?
+  deadlineLabel      String?
+  amount             String?
+  isPublished        Boolean             @default(false)
+  savedBy            SavedScholarship[]
+  applicationRecords ApplicationRecord[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model SavedScholarship {
+  id            String                 @id @default(cuid())
+  userId        String
+  scholarshipId String
+  notes         String?
+  user          User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scholarship   ScholarshipOpportunity @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
+  createdAt     DateTime               @default(now())
+
+  @@unique([userId, scholarshipId])
+}
+
+model ApplicationRecord {
+  id            String                 @id @default(cuid())
+  userId        String
+  scholarshipId String?
+  title         String
+  provider      String?
+  status        ApplicationStatus      @default(SAVED)
+  deadline      DateTime?
+  nextStep      String?
+  notes         String?
+  documents     String[]               @default([])
+  user          User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scholarship   ScholarshipOpportunity? @relation(fields: [scholarshipId], references: [id], onDelete: SetNull)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+}
+
+model BlogPost {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  tags        String[]   @default([])
+  status      BlogStatus @default(DRAFT)
+  publishedAt DateTime?
+  authorId    String?
+  author      User?      @relation("PostAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model AiRequestLog {
+  id        String   @id @default(cuid())
+  feature   String
+  prompt    String
+  result    String?
+  userId    String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
