@@ -48,16 +48,16 @@ function buildCalendar(date: Date) {
 
 // ── Scholarship type ─────────────────────────────────────────────────────
 interface Scholarship {
-  id: string;
   title: string;
   provider: string;
   summary: string;
-  applicationUrl: string;
-  eligibleLevels?: string[];
-  eligibleCountries?: string[];
+  source: string;
+  levels?: string[];
+  countries?: string[];
   fields?: string[];
-  deadlineLabel?: string;
+  deadline?: string;
   fundingTypes?: string[];
+  keywords?: string[];
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -205,7 +205,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
     const q = scholarshipQuery.toLowerCase();
     return scholarships.filter(s => {
       if (q && !s.title.toLowerCase().includes(q) && !s.provider.toLowerCase().includes(q) && !(s.summary || "").toLowerCase().includes(q)) return false;
-      if (levelFilter && !(s.eligibleLevels || []).includes(levelFilter)) return false;
+      if (levelFilter && !(s.levels || []).includes(levelFilter)) return false;
       if (fieldFilter && !(s.fields || []).includes(fieldFilter)) return false;
       return true;
     }).slice(0, 10);
@@ -544,15 +544,15 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                       <div className="empty-state">No opportunities match your filters — try broadening your search.</div>
                     )}
                     {filteredScholarships.map(s => (
-                      <div key={s.id} className="opportunity-card">
+                      <div key={s.title} className="opportunity-card">
                         <h3>{s.title}</h3>
                         <div className="opportunity-meta">
                           <span className="tag">{s.provider}</span>
-                          {(s.eligibleLevels || []).map(l => <span key={l} className="tag">{l}</span>)}
+                          {(s.levels || []).map(l => <span key={l} className="tag">{l}</span>)}
                           {(s.fundingTypes || []).slice(0, 1).map(f => <span key={f} className="tag">{f.replace("_", " ")}</span>)}
                         </div>
                         <p>{s.summary}</p>
-                        <a href={s.applicationUrl} target="_blank" rel="noopener noreferrer">
+                        <a href={s.source} target="_blank" rel="noopener noreferrer">
                           Apply / Learn more <ArrowRight />
                         </a>
                       </div>
