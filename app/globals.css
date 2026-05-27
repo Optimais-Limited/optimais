@@ -1290,10 +1290,62 @@ select.opt-auth-field { cursor: pointer; }
 .opt-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .opt-auth-error { margin: 2px 0 0; color: #d96c5f; font-size: 0.84rem; text-align: center; }
+.opt-auth-success { margin: 0 0 10px; color: #6fcf97; font-size: 0.84rem; text-align: center; background: rgba(111,207,151,0.08); border: 1px solid rgba(111,207,151,0.25); border-radius: 8px; padding: 8px 12px; }
 .opt-auth-footer-note { margin: 4px 0 0; text-align: center; color: rgba(255,255,255,0.52); font-size: 0.82rem; }
 .opt-auth-text-link { border: 0; background: transparent; color: #C9A961; font: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
 
 @media (max-width: 560px) {
   .opt-auth-modal { padding: 28px 20px; }
   .opt-auth-row { grid-template-columns: 1fr; }
+}
+
+/* ── Splash page ──────────────────────────────────────────────────────────── */
+.opt-root.splash-root { min-height: 100vh; display: flex; flex-direction: column; }
+.splash-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+.splash-main { flex: 1; display: flex; align-items: center; position: relative; overflow: hidden; min-height: 100vh; background: var(--bg, #051520); }
+.splash-content { position: relative; z-index: 2; max-width: 720px; }
+.splash-content h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -1.5px; color: #fff; margin: 0 0 20px; }
+.splash-content .eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold, #c9a961); margin: 0 0 20px; }
+.splash-content .hero-copy { font-size: 1.05rem; line-height: 1.65; color: rgba(247,243,234,0.72); max-width: 560px; margin: 0 0 36px; }
+.splash-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+/* ── Avatar dropdown ─────────────────────────────────────────────────────── */
+.opt-root .profile-avatar { cursor: pointer; border: none; font: inherit; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.5px; background: linear-gradient(135deg, #c9a961, #a07c3a); color: #051520; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; user-select: none; transition: transform 0.15s, box-shadow 0.15s; }
+.opt-root .profile-avatar:hover { transform: scale(1.07); box-shadow: 0 0 0 3px rgba(201,169,97,0.28); }
+.avatar-backdrop { position: fixed; inset: 0; z-index: 199; }
+.avatar-dropdown { position: absolute; top: calc(100% + 10px); right: 0; z-index: 200; min-width: 180px; background: #0f2d45; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 6px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); animation: dropIn 0.15s ease; }
+@keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+.avatar-dropdown-item { display: flex; align-items: center; width: 100%; padding: 10px 14px; border: none; background: transparent; color: rgba(247,243,234,0.88); font: inherit; font-size: 0.88rem; border-radius: 8px; cursor: pointer; text-align: left; transition: background 0.12s, color 0.12s; }
+.avatar-dropdown-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.avatar-dropdown-item--danger { color: #e07070; }
+.avatar-dropdown-item--danger:hover { background: rgba(224,112,112,0.1); color: #f08080; }
+.avatar-dropdown-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+
+/* ── Profile page ────────────────────────────────────────────────────────── */
+.profile-page { padding: 120px 0 80px; }
+.profile-loading { color: rgba(247,243,234,0.6); font-size: 1rem; text-align: center; padding: 80px 0; }
+.profile-card { text-align: center; margin-bottom: 48px; }
+.profile-avatar-lg { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #c9a961, #a07c3a); color: #051520; font-size: 1.8rem; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.profile-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 6px; }
+.profile-type { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold, #c9a961); margin: 0 0 6px; }
+.profile-email { font-size: 0.9rem; color: rgba(247,243,234,0.6); margin: 0; }
+.profile-form { max-width: 640px; margin: 0 auto; }
+.profile-section-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0 0 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.profile-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.profile-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.profile-field label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(247,243,234,0.55); }
+.profile-field input, .profile-field select { min-height: 48px; padding: 0 16px; border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; background: rgba(255,255,255,0.03); color: #f7f3ea; font: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.15s; }
+.profile-field input:focus, .profile-field select:focus { border-color: rgba(201,169,97,0.5); }
+.profile-field--disabled { opacity: 0.45; cursor: not-allowed; }
+.profile-field-note { font-size: 0.76rem; color: rgba(247,243,234,0.4); }
+.profile-field select option { background: #0f2d45; color: #f7f3ea; }
+.profile-error { color: #d96c5f; font-size: 0.84rem; margin: 0 0 14px; }
+.profile-success { color: #6fcf97; font-size: 0.84rem; margin: 0 0 14px; background: rgba(111,207,151,0.08); border: 1px solid rgba(111,207,151,0.25); border-radius: 8px; padding: 10px 14px; }
+.profile-save-btn { width: 100%; min-height: 52px; background: #c9a961; color: #051520; border: none; border-radius: 999px; font: inherit; font-size: 1rem; font-weight: 800; cursor: pointer; transition: opacity 0.15s, transform 0.1s; margin-top: 8px; }
+.profile-save-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.profile-save-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+@media (max-width: 600px) {
+  .profile-row { grid-template-columns: 1fr; }
+  .splash-content h1 { font-size: 2rem; }
 }

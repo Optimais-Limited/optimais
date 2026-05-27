@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import * as THREE from "three";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { AuthModal } from "@/components/auth-modal";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
@@ -67,9 +69,12 @@ export interface OptimaisLandingProps {
 }
 
 export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: OptimaisLandingProps) {
+  const router = useRouter();
+
   /* ── layout state ── */
   const [activePanel, setActivePanel] = useState("capabilities");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
 
   /* ── auth modal ── */
   const [authModal, setAuthModal] = useState<{
@@ -262,7 +267,33 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
           <div className="nav-actions">
             {!isAuthenticated
               ? <button className="button secondary opt-signin-btn" type="button" onClick={() => openSignModal("signin")}>Sign In</button>
-              : <span className="profile-avatar">{initials}</span>
+              : (
+                <div className="avatar-wrap" style={{ position: "relative" }}>
+                  <button
+                    className="profile-avatar"
+                    type="button"
+                    aria-label="Account menu"
+                    aria-expanded={avatarDropdownOpen}
+                    onClick={() => setAvatarDropdownOpen(o => !o)}
+                  >
+                    {initials}
+                  </button>
+                  {avatarDropdownOpen && (
+                    <>
+                      <div className="avatar-backdrop" onClick={() => setAvatarDropdownOpen(false)} />
+                      <div className="avatar-dropdown" role="menu">
+                        <button role="menuitem" type="button" className="avatar-dropdown-item" onClick={() => { setAvatarDropdownOpen(false); router.push("/dashboard/profile"); }}>
+                          Profile
+                        </button>
+                        <div className="avatar-dropdown-divider" />
+                        <button role="menuitem" type="button" className="avatar-dropdown-item avatar-dropdown-item--danger" onClick={() => signOut({ callbackUrl: "/" })}>
+                          Log Out
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )
             }
             <button className="button" type="button" onClick={() => openPanel("contact")}>Start a Project</button>
             <button className="hamburger" type="button" onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>

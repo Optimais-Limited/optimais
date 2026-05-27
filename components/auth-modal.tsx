@@ -62,6 +62,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   const [tab, setTab] = useState<SignupTab>(initialTab);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   /* ── shared fields ── */
   const [email, setEmail] = useState("");
@@ -81,7 +82,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   const [industry, setIndustry] = useState("");
 
   function reset() {
-    setError(""); setLoading(false);
+    setError(""); setSuccess(""); setLoading(false);
     setEmail(""); setPassword(""); setPhone(""); setCountry(""); setServiceInterest("");
     setFirstName(""); setLastName("");
     setCompany(""); setContactName(""); setJobTitle(""); setIndustry("");
@@ -111,18 +112,17 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
       return;
     }
 
-    /* auto sign-in after registration */
-    const result = await signIn("credentials", { email, password, redirect: false, callbackUrl: "/dashboard" });
+    /* account created — prompt user to sign in */
     setLoading(false);
-    if (result?.error) { setError("Account created — please sign in."); switchMode("signin"); return; }
-    onClose();
-    router.push(result?.url || "/dashboard");
-    router.refresh();
+    setMode("signin");
+    setEmail(body.email as string);
+    setPassword("");
+    setSuccess("Account created! Please sign in to continue.");
   }
 
   async function handleSignin(e: FormEvent) {
     e.preventDefault();
-    setLoading(true); setError("");
+    setLoading(true); setError(""); setSuccess("");
     const result = await signIn("credentials", { email, password, redirect: false, callbackUrl: "/dashboard" });
     setLoading(false);
     if (result?.error) { setError("Invalid email or password."); return; }
@@ -246,6 +246,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
         {/* ── SIGN-IN ── */}
         {mode === "signin" && (
           <form onSubmit={handleSignin} className="opt-auth-form">
+            {success && <p className="opt-auth-success">{success}</p>}
             <input className="opt-auth-field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
             <input className="opt-auth-field" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required autoComplete="current-password" />
             {error && <p className="opt-auth-error">{error}</p>}
