@@ -15,17 +15,16 @@ const ArrowRight = ({ size = 14 }: { size?: number }) => (
 
 // ── Industries list ──────────────────────────────────────────────────────
 const INDUSTRIES = [
-  { id: "01", label: "Intelligent Systems & AI", body: "Software, hardware, digital platforms, automation systems, artificial intelligence, data systems and smart connected technologies." },
-  { id: "02", label: "Renewable Energy", body: "Solar energy, energy storage, smart grids, clean power infrastructure and efficiency programs for public and private sector applications." },
-  { id: "03", label: "Engineering Services", body: "Mechanical, electrical, civil, industrial, environmental and systems engineering across design, construction, installation and support." },
-  { id: "04", label: "Strategic Advisory", body: "Clear guidance for organizations navigating development, technology adoption, infrastructure strategy and operational transformation." },
-  { id: "05", label: "Research Commercialization", body: "Commercialization of research outputs, intellectual property, industrial solutions, licensing arrangements and strategic technology partnerships." },
-  { id: "06", label: "Training & Capacity Building", body: "Technical programs, workshops, innovation hubs, incubation centers and applied training for technology, engineering and energy talent." },
-  { id: "07", label: "Aerospace", body: "Advanced AI systems, autonomous technologies, engineering solutions, and precision materials science for aerospace design, manufacturing, and operations." },
-  { id: "08", label: "Agritech", body: "Smart farming systems, IoT sensors, data analytics, and precision agriculture technologies that improve yields, reduce waste, and strengthen food security." },
-  { id: "09", label: "Retail & Logistics", body: "Intelligent supply chain systems, optimization algorithms, demand forecasting, and warehouse automation for retail and logistics operators." },
-  { id: "10", label: "Pharmaceuticals", body: "Research support systems, digital lab infrastructure, regulatory data management, and biotech engineering solutions for pharmaceutical development pipelines." },
-  { id: "11", label: "Telecommunications", body: "Network optimization, AI-driven infrastructure planning, smart connectivity systems, and digital platform development for telecoms operators and service providers." },
+  { id: "01", label: "Artificial Intelligence", body: "Developing intelligent systems, machine learning solutions, decision-support tools, and advanced analytics that enable smarter and more efficient decision-making." },
+  { id: "02", label: "Robotics & Automation", body: "Designing autonomous systems, robotics technologies, industrial automation solutions, and intelligent control systems that enhance productivity and operational efficiency." },
+  { id: "03", label: "Aerospace & Advanced Systems", body: "Supporting innovation in aerospace technologies, unmanned aerial systems (UAS), remote sensing, satellite applications, autonomous platforms, and advanced engineering systems." },
+  { id: "04", label: "Agritech & Food Systems", body: "Applying technology, automation, data analytics, and intelligent systems to improve agricultural productivity, food security, supply chains, and sustainable farming practices." },
+  { id: "05", label: "Energy Systems", body: "Advancing renewable energy technologies, smart energy infrastructure, energy optimization, and sustainable power solutions for communities, businesses, and industries." },
+  { id: "06", label: "Advanced Manufacturing", body: "Supporting the development of modern manufacturing systems through automation, digital technologies, process optimization, and industrial innovation." },
+  { id: "07", label: "Pharmaceutical & Biotechnology Innovation", body: "Leveraging computational methods, data-driven research, biotechnology, and emerging technologies to accelerate innovation in healthcare, pharmaceuticals, and life sciences." },
+  { id: "08", label: "Infrastructure & Smart Systems", body: "Developing intelligent infrastructure solutions that integrate technology, data, and engineering to improve transportation, utilities, public services, and urban development." },
+  { id: "09", label: "Research & Education", body: "Conducting interdisciplinary research, promoting knowledge creation, supporting academic collaboration, and delivering education, training, and workforce development programs." },
+  { id: "10", label: "Strategic Consulting", body: "Providing expert advisory services in technology, innovation, business transformation, policy, research, and organizational development to help clients achieve sustainable growth and impact." },
 ];
 
 // ── Innovation accordion ─────────────────────────────────────────────────
@@ -309,13 +308,12 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
           <div ref={dottedRef} className="opt-dotted-surface" aria-hidden="true" />
           <div className="shell">
             <div className="hero-content reveal">
-              <p className="eyebrow">R&amp;D driven technology, energy and infrastructure</p>
               <h1>Intelligent systems for sustainable industrial growth.</h1>
               <p className="hero-copy">
-                Optimais Limited designs, develops, implements and operates advanced technology, renewable energy and engineering solutions for businesses, governments and institutions.
+                Optimais is a research-driven Artificial Intelligence and Robotics Research Laboratory and consulting company dedicated to advancing technology, innovation, and sustainable development. We bring together cutting-edge research, engineering expertise, and strategic advisory services to solve complex challenges across industries and society.
               </p>
               <div className="hero-actions">
-                <button className="button" type="button" onClick={() => openPanel("capabilities")}>Explore Industries</button>
+                <a className="button" href="/industries">Explore Industries</a>
                 <button className="button secondary" type="button" onClick={() => openPanel("innovation")}>View Approach</button>
               </div>
             </div>

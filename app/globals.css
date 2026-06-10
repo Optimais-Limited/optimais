@@ -1349,3 +1349,19 @@ select.opt-auth-field { cursor: pointer; }
   .profile-row { grid-template-columns: 1fr; }
   .splash-content h1 { font-size: 2rem; }
 }
+
+/* ── Industries Page ─────────────────────────────────────────────────── */
+.industries-page { min-height: 100vh; background: #051520; color: #f7f3ea; }
+.industries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-bottom: 64px; }
+.industry-card { padding: 32px 28px; border: 1px solid rgba(201,169,97,0.15); border-radius: 16px; background: linear-gradient(135deg, rgba(11,45,74,0.3), rgba(5,21,32,0.4)); transition: border-color 0.2s, transform 0.2s; }
+.industry-card:hover { border-color: rgba(201,169,97,0.4); transform: translateY(-2px); }
+.industry-id { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 1.5px; color: #c9a961; margin-bottom: 14px; }
+.industry-label { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; color: #f7f3ea; margin: 0 0 12px; }
+.industry-body { font-size: 0.9rem; line-height: 1.7; color: rgba(247,243,234,0.62); margin: 0; }
+.industries-closing { max-width: 760px; margin: 0 auto; padding: 48px 40px; border: 1px solid rgba(201,169,97,0.15); border-radius: 16px; background: linear-gradient(135deg, rgba(201,169,97,0.06), rgba(5,21,32,0.4)); text-align: center; }
+.industries-closing p { font-size: 1.05rem; line-height: 1.8; color: rgba(247,243,234,0.75); margin: 0; font-style: italic; }
+
+@media (max-width: 640px) {
+  .industries-grid { grid-template-columns: 1fr; }
+  .industries-closing { padding: 32px 20px; }
+}

@@ -112,11 +112,9 @@ export function HeroSplash() {
       <main className="splash-main">
         <div ref={dottedRef} className="opt-dotted-surface" aria-hidden="true" />
         <div className="shell splash-content">
-          <p className="eyebrow">R&amp;D driven technology, energy and infrastructure</p>
           <h1>Intelligent systems for<br />sustainable industrial growth.</h1>
           <p className="hero-copy">
-            Optimais Limited designs, develops, implements and operates advanced technology,
-            renewable energy and engineering solutions for businesses, governments and institutions.
+            Optimais is a research-driven Artificial Intelligence and Robotics Research Laboratory and consulting company dedicated to advancing technology, innovation, and sustainable development. We bring together cutting-edge research, engineering expertise, and strategic advisory services to solve complex challenges across industries and society.
           </p>
           <div className="splash-actions">
             <button
