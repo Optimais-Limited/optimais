@@ -403,19 +403,13 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               <p>See how Optimais brings together intelligent systems, renewable energy, and engineering excellence into practical, scalable outcomes.</p>
             </div>
             <div className={`video-media reveal${videoPlaying ? " playing" : ""}`}>
-              <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80"
-                alt="Earth from space — technology and innovation"
-                className="video-poster"
-                loading="lazy"
-              />
               <video
                 ref={videoRef}
-                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
                 playsInline
-                muted
-                preload="none"
+                preload="metadata"
                 onEnded={() => setVideoPlaying(false)}
+                style={{ width: "100%", display: "block" }}
               />
               <button className="video-play-btn" type="button" onClick={toggleVideo} aria-label={videoPlaying ? "Pause video" : "Play video"}>
                 {!videoPlaying

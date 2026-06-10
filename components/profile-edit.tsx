@@ -67,13 +67,28 @@ export function ProfileEdit() {
   async function handleSave(e: FormEvent) {
     e.preventDefault();
     setSaving(true); setError(""); setSuccess("");
+    const payload: Record<string, string | undefined> = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phone,
+      country: data.country,
+      serviceInterest: data.serviceInterest,
+      company: data.company,
+      contactName: data.contactName,
+      jobTitle: data.jobTitle,
+      industry: data.industry,
+    };
     const res = await fetch("/api/user/profile", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
     setSaving(false);
-    if (!res.ok) { setError("Could not save changes."); return; }
+    if (!res.ok) {
+      const d = await res.json().catch(() => null);
+      setError(d?.error || "Could not save changes. Please try again.");
+      return;
+    }
     setSuccess("Profile updated successfully.");
   }
 

@@ -40,7 +40,7 @@ const INDUSTRIES = [
   "Financial Services","Manufacturing","Other",
 ];
 
-type ModalMode = "signup" | "signin";
+type ModalMode = "signup" | "signin" | "forgot";
 type SignupTab = "individual" | "business";
 
 interface Props {
@@ -63,6 +63,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [forgotSent, setForgotSent] = useState(false);
 
   /* ── shared fields ── */
   const [email, setEmail] = useState("");
@@ -82,7 +83,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   const [industry, setIndustry] = useState("");
 
   function reset() {
-    setError(""); setSuccess(""); setLoading(false);
+    setError(""); setSuccess(""); setLoading(false); setForgotSent(false);
     setEmail(""); setPassword(""); setPhone(""); setCountry(""); setServiceInterest("");
     setFirstName(""); setLastName("");
     setCompany(""); setContactName(""); setJobTitle(""); setIndustry("");
@@ -90,6 +91,18 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
 
   function switchMode(next: ModalMode) { reset(); setMode(next); }
   function switchTab(next: SignupTab) { reset(); setTab(next); }
+
+  async function handleForgot(e: FormEvent) {
+    e.preventDefault();
+    setLoading(true); setError("");
+    await fetch("/api/auth/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setLoading(false);
+    setForgotSent(true);
+  }
 
   async function handleSignup(e: FormEvent) {
     e.preventDefault();
@@ -152,11 +165,13 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
         </div>
 
         <h2 className="opt-auth-heading">
-          {mode === "signup" ? "Create your account" : "Welcome back"}
+          {mode === "signup" ? "Create your account" : mode === "forgot" ? "Reset your password" : "Welcome back"}
         </h2>
         <p className="opt-auth-sub">
           {mode === "signup"
             ? "Join Optimais Limited — individual or business"
+            : mode === "forgot"
+            ? "Enter your email and we'll send a reset link"
             : "Sign in to your Optimais account"}
         </p>
 
@@ -249,6 +264,11 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
             {success && <p className="opt-auth-success">{success}</p>}
             <input className="opt-auth-field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
             <input className="opt-auth-field" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required autoComplete="current-password" />
+            <div style={{ textAlign: "right", marginTop: -6 }}>
+              <button type="button" className="opt-auth-text-link" style={{ fontSize: "0.82rem" }} onClick={() => switchMode("forgot")}>
+                Forgot password?
+              </button>
+            </div>
             {error && <p className="opt-auth-error">{error}</p>}
             <button className="opt-auth-submit" type="submit" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"} {!loading && ARROW_SVG}
@@ -259,6 +279,36 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
                 Create one
               </button>
             </p>
+          </form>
+        )}
+
+        {/* ── FORGOT PASSWORD ── */}
+        {mode === "forgot" && (
+          <form onSubmit={handleForgot} className="opt-auth-form">
+            {forgotSent ? (
+              <>
+                <p className="opt-auth-success">
+                  If an account exists for <strong>{email}</strong>, a reset link has been sent. Check your inbox.
+                </p>
+                <button type="button" className="opt-auth-submit" style={{ marginTop: 8 }} onClick={() => switchMode("signin")}>
+                  Back to Sign In {ARROW_SVG}
+                </button>
+              </>
+            ) : (
+              <>
+                <input className="opt-auth-field" type="email" placeholder="Your account email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
+                {error && <p className="opt-auth-error">{error}</p>}
+                <button className="opt-auth-submit" type="submit" disabled={loading}>
+                  {loading ? "Sending…" : "Send Reset Link"} {!loading && ARROW_SVG}
+                </button>
+                <p className="opt-auth-footer-note">
+                  Remembered it?{" "}
+                  <button type="button" className="opt-auth-text-link" onClick={() => switchMode("signin")}>
+                    Sign in
+                  </button>
+                </p>
+              </>
+            )}
           </form>
         )}
       </div>
