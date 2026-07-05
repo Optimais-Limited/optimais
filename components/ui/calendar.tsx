@@ -27,7 +27,7 @@ const CalendarDay: React.FC<{ day: number | string; isHeader?: boolean }> = ({
   );
 };
 
-const bookingLink = "mailto:optimaislimited@gmail.com";
+const bookingLink = "mailto:optimaislabs@gmail.com";
 
 export function Calendar() {
   const currentDate = new Date();

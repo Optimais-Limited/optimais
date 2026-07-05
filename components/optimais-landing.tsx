@@ -681,7 +681,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                       <p className="panel-lede">
                         Bring Optimais Limited into early strategy, feasibility, engineering design, implementation planning or long-term operations for technology, energy and infrastructure programs.
                       </p>
-                      <form className="contact-form" action="mailto:optimaislimited@gmail.com" method="post" encType="text/plain">
+                      <form className="contact-form" action="mailto:optimaislabs@gmail.com" method="post" encType="text/plain">
                         <input className="opt-field" type="text" name="name" placeholder="Name" aria-label="Name" />
                         <input className="opt-field" type="email" name="email" placeholder="Email" aria-label="Email" />
                         <textarea className="opt-field" name="message" placeholder="Project brief" aria-label="Project brief" />
@@ -691,7 +691,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                     <aside className="insight-card">
                       <h3>Get in Touch</h3>
                       <div className="contact-list">
-                        <a href="mailto:optimaislimited@gmail.com">✉ optimaislimited@gmail.com</a>
+                        <a href="mailto:optimaislabs@gmail.com">✉ optimaislabs@gmail.com</a>
                         <a href="https://www.linkedin.com/company/optimais" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                       </div>
                     </aside>
@@ -724,7 +724,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               </div>
               <p>Book a strategy call to discuss how Optimais can support your goals in technology, energy, or infrastructure.</p>
             </div>
-            <a href="mailto:optimaislimited@gmail.com" className="calendar-bento reveal" aria-label="Book a call with Optimais">
+            <a href="mailto:optimaislabs@gmail.com" className="calendar-bento reveal" aria-label="Book a call with Optimais">
               <div className="cal-left">
                 <h2>Ready to build something exceptional?</h2>
                 <p>Book a 30-minute strategy call — no strings attached. We&apos;ll map out how Optimais can support your mission.</p>
