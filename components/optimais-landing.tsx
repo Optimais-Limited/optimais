@@ -656,7 +656,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                       <h3>Get in Touch</h3>
                       <div className="contact-list">
                         <a href="mailto:optimaislabs@gmail.com">✉ optimaislabs@gmail.com</a>
-                        <a href="https://www.linkedin.com/company/optimais-labs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://www.linkedin.com/company/109876771/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                       </div>
                     </aside>
                   </div>
