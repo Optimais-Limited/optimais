@@ -86,9 +86,6 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
   const [openIndustry, setOpenIndustry] = useState(0);
   const [openInnovation, setOpenInnovation] = useState(0);
 
-  /* ── video ── */
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoPlaying, setVideoPlaying] = useState(false);
 
   /* ── calendar ── */
   const calDate = useMemo(() => new Date(), []);
@@ -192,18 +189,14 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
   }, []);
 
   /* ── helpers ── */
-  const openPanel = useCallback((name: string) => setActivePanel(name), []);
+  const openPanel = useCallback((name: string) => {
+    setActivePanel(name);
+    document.getElementById("workspace")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const openSignModal = useCallback((mode: "signup" | "signin" = "signup") => {
     setAuthModal({ open: true, mode, tab: "individual" });
   }, []);
-
-  function toggleVideo() {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) { v.play().catch(() => {}); setVideoPlaying(true); }
-    else { v.pause(); setVideoPlaying(false); }
-  }
 
   const filteredScholarships = useMemo(() => {
     const q = scholarshipQuery.toLowerCase();
@@ -388,35 +381,6 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── VIDEO ── */}
-        <section className="video-section">
-          <div className="shell">
-            <div className="section-head reveal">
-              <div>
-                <p className="section-label">In Action</p>
-                <h2>Innovation Meets Simplicity</h2>
-              </div>
-              <p>See how Optimais brings together intelligent systems, renewable energy, and engineering excellence into practical, scalable outcomes.</p>
-            </div>
-            <div className={`video-media reveal${videoPlaying ? " playing" : ""}`}>
-              <video
-                ref={videoRef}
-                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-                playsInline
-                preload="metadata"
-                onEnded={() => setVideoPlaying(false)}
-                style={{ width: "100%", display: "block" }}
-              />
-              <button className="video-play-btn" type="button" onClick={toggleVideo} aria-label={videoPlaying ? "Pause video" : "Play video"}>
-                {!videoPlaying
-                  ? <svg className="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  : <svg className="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                }
-              </button>
             </div>
           </div>
         </section>
