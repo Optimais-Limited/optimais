@@ -98,6 +98,13 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
   const [levelFilter, setLevelFilter] = useState("");
   const [fieldFilter, setFieldFilter] = useState("");
 
+  /* ── contact form ── */
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+  const [contactLoading, setContactLoading] = useState(false);
+  const [contactStatus, setContactStatus] = useState<"idle" | "success" | "error">("idle");
+
   /* ── Three.js dotted surface ── */
   const dottedRef = useRef<HTMLDivElement>(null);
 
@@ -645,12 +652,36 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                       <p className="panel-lede">
                         Bring Optimais into early strategy, feasibility, engineering design, implementation planning or long-term operations for technology, energy and infrastructure programs.
                       </p>
-                      <form className="contact-form" action="mailto:optimaislabs@gmail.com" method="post" encType="text/plain">
-                        <input className="opt-field" type="text" name="name" placeholder="Name" aria-label="Name" />
-                        <input className="opt-field" type="email" name="email" placeholder="Email" aria-label="Email" />
-                        <textarea className="opt-field" name="message" placeholder="Project brief" aria-label="Project brief" />
-                        <button className="button" type="submit">Send Inquiry</button>
-                      </form>
+                      {contactStatus === "success" ? (
+                        <div className="contact-success">
+                          <p>✓ Message received! We'll be in touch shortly.</p>
+                        </div>
+                      ) : (
+                        <form className="contact-form" onSubmit={async e => {
+                          e.preventDefault();
+                          setContactLoading(true); setContactStatus("idle");
+                          const res = await fetch("/api/contact", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ name: contactName, email: contactEmail, message: contactMessage }),
+                          });
+                          setContactLoading(false);
+                          if (res.ok) {
+                            setContactStatus("success");
+                            setContactName(""); setContactEmail(""); setContactMessage("");
+                          } else {
+                            setContactStatus("error");
+                          }
+                        }}>
+                          <input className="opt-field" type="text" placeholder="Name" aria-label="Name" value={contactName} onChange={e => setContactName(e.target.value)} required />
+                          <input className="opt-field" type="email" placeholder="Email" aria-label="Email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} required />
+                          <textarea className="opt-field" placeholder="Project brief" aria-label="Project brief" value={contactMessage} onChange={e => setContactMessage(e.target.value)} required minLength={10} />
+                          {contactStatus === "error" && <p style={{ color: "#d96c5f", fontSize: "0.85rem", margin: "0 0 8px" }}>Something went wrong. Please try again.</p>}
+                          <button className="button" type="submit" disabled={contactLoading}>
+                            {contactLoading ? "Sending…" : "Send Inquiry"}
+                          </button>
+                        </form>
+                      )}
                     </div>
                     <aside className="insight-card">
                       <h3>Get in Touch</h3>

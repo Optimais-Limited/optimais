@@ -1365,3 +1365,5 @@ select.opt-auth-field { cursor: pointer; }
   .industries-grid { grid-template-columns: 1fr; }
   .industries-closing { padding: 32px 20px; }
 }
+
+.contact-success { padding: 24px; background: rgba(111,207,151,0.08); border: 1px solid rgba(111,207,151,0.25); border-radius: 12px; color: #6fcf97; font-size: 1rem; line-height: 1.6; }
