@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Industries | Optimais Limited",
+  title: "Industries | Optimais",
   description: "Explore the industries and sectors where Optimais delivers intelligent, lasting impact.",
 };
 
@@ -64,7 +64,7 @@ export default function IndustriesPage() {
     <div className="opt-root industries-page">
       <header className="site-header">
         <nav className="shell nav">
-          <Link className="brand" href="/" aria-label="Optimais Limited">
+          <Link className="brand" href="/" aria-label="Optimais">
             <img src="/brand_assets/optimais_logo_clean.svg" alt="Optimais" />
           </Link>
           <div className="nav-actions" style={{ marginLeft: "auto" }}>
@@ -125,10 +125,10 @@ export default function IndustriesPage() {
       <footer style={{ padding: "32px 0", borderTop: "1px solid rgba(201,169,97,0.08)" }}>
         <div className="shell" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
           <span style={{ fontSize: "0.84rem", color: "rgba(255,255,255,0.4)" }}>
-            <strong style={{ color: "rgba(255,255,255,0.7)" }}>Optimais Limited</strong> — Intelligent Systems. Sustainable Futures.
+            <strong style={{ color: "rgba(255,255,255,0.7)" }}>Optimais</strong> — Intelligent Systems. Sustainable Futures.
           </span>
           <span style={{ fontSize: "0.84rem", color: "rgba(255,255,255,0.4)" }}>
-            © {new Date().getFullYear()} Optimais Limited. All rights reserved.
+            © {new Date().getFullYear()} Optimais. All rights reserved.
           </span>
         </div>
       </footer>

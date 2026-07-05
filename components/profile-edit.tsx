@@ -108,7 +108,7 @@ export function ProfileEdit() {
     <div className="opt-root">
       <header className="site-header">
         <nav className="shell nav">
-          <a className="brand" href="/dashboard" aria-label="Optimais Limited">
+          <a className="brand" href="/dashboard" aria-label="Optimais">
             <img src="/brand_assets/optimais_logo_clean.svg" alt="Optimais" />
           </a>
           <div className="nav-actions">

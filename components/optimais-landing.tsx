@@ -255,7 +255,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
       {/* Header */}
       <header className="site-header">
         <nav className="shell nav">
-          <a className="brand" href="/" aria-label="Optimais Limited">
+          <a className="brand" href="/" aria-label="Optimais">
             <img src="/brand_assets/optimais_logo_clean.svg" alt="Optimais" />
           </a>
           <div className="nav-links" aria-label="Page sections">
@@ -425,7 +425,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
         <section className="interactive" id="workspace">
           <div className="shell">
             <div className="section-head reveal">
-              <div><h2>Explore Optimais Limited without leaving the page.</h2></div>
+              <div><h2>Explore Optimais without leaving the page.</h2></div>
               <p>Use the tabs to open each focus area in place. Detailed services expand as needed, keeping the experience fast, clean and focused.</p>
             </div>
             <div className="console reveal">
@@ -677,9 +677,9 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                   <div className="panel-layout">
                     <div>
                       <p className="kicker">Start the Conversation</p>
-                      <h2>Plan, build and operate smarter systems with Optimais Limited.</h2>
+                      <h2>Plan, build and operate smarter systems with Optimais.</h2>
                       <p className="panel-lede">
-                        Bring Optimais Limited into early strategy, feasibility, engineering design, implementation planning or long-term operations for technology, energy and infrastructure programs.
+                        Bring Optimais into early strategy, feasibility, engineering design, implementation planning or long-term operations for technology, energy and infrastructure programs.
                       </p>
                       <form className="contact-form" action="mailto:optimaislabs@gmail.com" method="post" encType="text/plain">
                         <input className="opt-field" type="text" name="name" placeholder="Name" aria-label="Name" />
@@ -781,7 +781,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               <div className="founder-photo-wrap">
                 <img
                   src="/brand_assets/CEO_image.png"
-                  alt="Ahmed Senior Ismail, Founder and CEO of Optimais Limited"
+                  alt="Ahmed Senior Ismail, Founder and CEO of Optimais"
                   className="founder-photo"
                   loading="lazy"
                   width={300}
@@ -791,7 +791,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               <div className="founder-bio-wrap">
                 <p className="kicker">Ph.D. Candidate · University of New Hampshire</p>
                 <h3 className="founder-name">Ahmed Senior Ismail</h3>
-                <p className="founder-role">Founder &amp; CEO, Optimais Limited</p>
+                <p className="founder-role">Founder &amp; CEO, Optimais</p>
                 <div className="founder-bio">
                   <p>Ahmed Senior Ismail is a Ph.D. Candidate in Integrated Applied Mathematics at the University of New Hampshire, specializing in applied mathematics, machine learning, reinforcement learning, robust optimization, and mathematical optimization. His research focuses on developing risk-sensitive algorithms for decision-making under uncertainty, with applications in finance, operations, autonomous systems, and high-stakes environments.</p>
                   <p>He holds advanced degrees in Mathematical Engineering, Financial Mathematics and Economics, and Mathematics from institutions in the United States, Italy, Poland, and Nigeria. He has also gained international research and industry experience, including high-performance computing work at Capgemini Engineering in France, where he developed neural-network-based surrogate models for mechanical simulations.</p>
@@ -847,8 +847,8 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               <button className="button" type="button" onClick={() => openPanel("contact")}>Start a Project</button>
             </div>
             <div className="footer">
-              <span><span className="footer-mark">Optimais Limited</span> — Intelligent Systems. Sustainable Futures.</span>
-              <span>© {new Date().getFullYear()} Optimais Limited. All rights reserved.</span>
+              <span><span className="footer-mark">Optimais</span> — Intelligent Systems. Sustainable Futures.</span>
+              <span>© {new Date().getFullYear()} Optimais. All rights reserved.</span>
             </div>
           </div>
         </section>

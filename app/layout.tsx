@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Optimais Limited",
-  description: "Optimais Limited website, scholarship platform, admin CMS, and AI services."
+  title: "Optimais",
+  description: "Optimais website, scholarship platform, admin CMS, and AI services."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

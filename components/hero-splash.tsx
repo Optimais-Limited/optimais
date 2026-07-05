@@ -93,7 +93,7 @@ export function HeroSplash() {
       {/* Header — logo only */}
       <header className="site-header splash-header">
         <nav className="shell nav">
-          <a className="brand" href="/" aria-label="Optimais Limited">
+          <a className="brand" href="/" aria-label="Optimais">
             <img src="/brand_assets/optimais_logo_clean.svg" alt="Optimais" />
           </a>
           <div className="nav-actions">

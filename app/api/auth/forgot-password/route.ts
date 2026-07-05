@@ -29,7 +29,7 @@ export async function POST(req: Request) {
   const resetUrl = `${baseUrl}/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
 
   await mailer.sendMail({
-    from: `Optimais Limited <${SMTP_FROM}>`,
+    from: `Optimais <${SMTP_FROM}>`,
     to: email,
     subject: "Reset your Optimais password",
     html: `

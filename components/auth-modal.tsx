@@ -169,7 +169,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
         </h2>
         <p className="opt-auth-sub">
           {mode === "signup"
-            ? "Join Optimais Limited — individual or business"
+            ? "Join Optimais — individual or business"
             : mode === "forgot"
             ? "Enter your email and we'll send a reset link"
             : "Sign in to your Optimais account"}
