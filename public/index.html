@@ -1439,6 +1439,70 @@
         to   { opacity: 1; transform: translateY(0); }
       }
 
+      /* ─── EXECUTIVES ─── */
+      .exec-section { border-top: 1px solid rgba(201, 169, 97, 0.1); }
+
+      .exec-card {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 60px;
+        align-items: start;
+        padding: clamp(44px, 6vw, 80px);
+        border: 1px solid rgba(201, 169, 97, 0.13);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, rgba(11, 45, 74, 0.28) 0%, rgba(5, 21, 32, 0.35) 100%);
+      }
+
+      .exec-photo-wrap {
+        position: sticky;
+        top: 100px;
+      }
+
+      .exec-photo {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        object-position: center 10%;
+        border-radius: var(--radius);
+        border: 1px solid rgba(201, 169, 97, 0.18);
+      }
+
+      .exec-name {
+        margin: 16px 0 2px;
+        font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+        font-weight: 800;
+        letter-spacing: -0.6px;
+        color: var(--white);
+      }
+
+      .exec-role {
+        margin: 0 0 28px;
+        color: var(--gold);
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+
+      .exec-statement {
+        margin: 0;
+        padding: 0 0 0 20px;
+        border-left: 3px solid var(--gold);
+        color: var(--muted-2);
+        font-size: 1.05rem;
+        font-style: italic;
+        line-height: 1.75;
+      }
+
+      @media (max-width: 980px) {
+        .exec-card { grid-template-columns: 1fr; }
+        .exec-photo-wrap { position: static; }
+        .exec-photo { max-width: 260px; }
+      }
+
+      @media (max-width: 680px) {
+        .exec-photo { max-width: 200px; }
+      }
+
       /* ─── LOCATIONS ─── */
       .location-card:hover {
         border-color: rgba(201, 169, 97, 0.45) !important;
@@ -2687,6 +2751,37 @@
           </div>
         </section>
 
+        <!-- ─── EXECUTIVES ─── -->
+        <section class="exec-section">
+          <div class="shell">
+            <div class="section-head reveal">
+              <div>
+                <p class="section-label">Leadership</p>
+                <h2>Executives</h2>
+              </div>
+            </div>
+            <div class="exec-card reveal">
+              <div class="exec-photo-wrap">
+                <img
+                  src="brand_assets/Uthman_Nabil.jpg"
+                  alt="Uthman Nabil, CEO of Optimais Labs"
+                  class="exec-photo"
+                  loading="lazy"
+                  width="300"
+                  height="400"
+                />
+              </div>
+              <div class="exec-bio-wrap">
+                <p class="kicker">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
+                <h3 class="exec-name">Uthman Nabil</h3>
+                <p class="exec-role">CEO, Optimais Labs</p>
+                <blockquote class="exec-statement">
+                  As CEO of Optimais Labs, I lead our mission to advance AI research, optimization, and practical technology solutions across Africa. I focus on building partnerships and translating research into solutions that help businesses and communities thrive.
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- ─── LOCATIONS ─── -->
         <section style="padding:80px 0;border-top:1px solid rgba(201,169,97,0.1);">
@@ -2697,22 +2792,13 @@
                 <h2>Our Locations</h2>
               </div>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;" class="reveal">
+            <div style="display:grid;grid-template-columns:1fr;gap:24px;" class="reveal">
               <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer"
                 style="display:flex;align-items:center;justify-content:space-between;padding:32px 36px;border:1px solid rgba(201,169,97,0.18);border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(11,45,74,0.3),rgba(5,21,32,0.4));text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;" class="location-card">
                 <div>
                   <p style="margin:0 0 6px;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--gold);">Africa</p>
                   <h3 style="margin:0;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.4px;">Nigeria</h3>
                   <p style="margin:6px 0 0;font-size:0.88rem;color:var(--muted);">West Africa · Primary operations hub</p>
-                </div>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,97,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </a>
-              <a href="https://www.google.com/maps/place/New+Hampshire,+United+States" target="_blank" rel="noopener noreferrer"
-                style="display:flex;align-items:center;justify-content:space-between;padding:32px 36px;border:1px solid rgba(201,169,97,0.18);border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(11,45,74,0.3),rgba(5,21,32,0.4));text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;" class="location-card">
-                <div>
-                  <p style="margin:0 0 6px;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--gold);">North America</p>
-                  <h3 style="margin:0;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-0.4px;">United States</h3>
-                  <p style="margin:6px 0 0;font-size:0.88rem;color:var(--muted);">New Hampshire · Research presence</p>
                 </div>
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,97,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </a>

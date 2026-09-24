@@ -1152,6 +1152,15 @@ textarea.field {
 .opt-root .cal-cell.today { border: 1px solid var(--gold); color: var(--gold); font-weight: 700; }
 .opt-root .cal-cell.selected { background: var(--navy-mid); color: var(--white); font-weight: 700; }
 
+/* executives */
+.opt-root .exec-section { border-top: 1px solid rgba(201,169,97,0.1); }
+.opt-root .exec-card { display: grid; grid-template-columns: 300px 1fr; gap: 60px; align-items: start; padding: clamp(44px,6vw,80px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
+.opt-root .exec-photo-wrap { position: sticky; top: 100px; }
+.opt-root .exec-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
+.opt-root .exec-name { margin: 16px 0 2px; font-size: clamp(1.7rem,2.8vw,2.6rem); font-weight: 800; letter-spacing: -0.6px; color: var(--white); }
+.opt-root .exec-role { margin: 0 0 28px; color: var(--gold); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.4px; }
+.opt-root .exec-statement { margin: 0; padding: 0 0 0 20px; border-left: 3px solid var(--gold); color: var(--muted-2); font-size: 1.05rem; font-style: italic; line-height: 1.75; }
+
 
 /* career / deep tech links */
 .opt-root .career-links { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
@@ -1169,7 +1178,9 @@ textarea.field {
   .opt-root .hamburger { display: inline-flex; }
   .opt-root .hero { min-height: auto; }
   .opt-root .hero .shell, .opt-root .section-head, .opt-root .contact-panel,
-  .opt-root .console, .opt-root .panel-layout { grid-template-columns: 1fr; }
+  .opt-root .console, .opt-root .panel-layout, .opt-root .exec-card { grid-template-columns: 1fr; }
+  .opt-root .exec-photo-wrap { position: static; }
+  .opt-root .exec-photo { max-width: 260px; }
   .opt-root .console { min-height: 0; }
   .opt-root .console-nav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; border-right: none; border-bottom: 1px solid var(--card-border); }
   .opt-root .console-nav p { grid-column: 1 / -1; margin-bottom: 4px; }
@@ -1197,6 +1208,7 @@ textarea.field {
   .opt-root .accordion-panel p { padding: 0 14px 16px 64px; }
   .opt-root .stat { border-right: 0; border-bottom: 1px solid var(--card-border); }
   .opt-root .stat:last-child { border-bottom: 0; }
+  .opt-root .exec-photo { max-width: 200px; }
   .opt-root .step-card { grid-template-columns: 1fr; gap: 8px; }
   .opt-root .step-num { font-size: 1.8rem; opacity: 0.4; }
   .opt-root .iphone { width: 240px; height: 490px; }
