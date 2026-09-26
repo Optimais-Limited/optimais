@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import OpenAI from "openai";
 import type { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -16,7 +17,7 @@ const featurePrompts: Record<string, string> = {
 export async function POST(request: Request) {
   const parsed = aiRequestSchema.safeParse(await request.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid AI request.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid AI request.", parsed.error);
   }
 
   if (!process.env.OPENAI_API_KEY) {

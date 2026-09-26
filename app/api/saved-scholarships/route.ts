@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
 
   const parsed = savedScholarshipSchema.safeParse(await request.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid saved scholarship.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid saved scholarship.", parsed.error);
   }
 
   const saved = await prisma.savedScholarship.upsert({

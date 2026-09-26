@@ -2,11 +2,25 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/mailer";
+import { clientIp, consume, normalizeEmail } from "@/lib/rate-limit";
+
+const RESET_WINDOW_MS = 15 * 60 * 1000;
 
 export async function POST(req: Request) {
   const { email } = await req.json().catch(() => ({}));
   if (!email || typeof email !== "string") {
     return NextResponse.json({ error: "Email is required." }, { status: 400 });
+  }
+
+  // Every request counts (known or unknown address), so limits reveal nothing about accounts.
+  const ipLimit = consume(`forgot:ip:${clientIp(req.headers)}`, 5, RESET_WINDOW_MS);
+  const emailLimit = consume(`forgot:email:${normalizeEmail(email)}`, 3, RESET_WINDOW_MS);
+  if (ipLimit.limited || emailLimit.limited) {
+    const retryAfter = Math.max(ipLimit.retryAfterSeconds, emailLimit.retryAfterSeconds);
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+    );
   }
 
   const user = await prisma.user.findUnique({ where: { email } });

@@ -95,12 +95,13 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   async function handleForgot(e: FormEvent) {
     e.preventDefault();
     setLoading(true); setError("");
-    await fetch("/api/auth/forgot-password", {
+    const res = await fetch("/api/auth/forgot-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
     setLoading(false);
+    if (res.status === 429) { setError("Too many requests. Please try again later."); return; }
     setForgotSent(true);
   }
 
@@ -138,7 +139,10 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
     setLoading(true); setError(""); setSuccess("");
     const result = await signIn("credentials", { email, password, redirect: false, callbackUrl: "/dashboard" });
     setLoading(false);
-    if (result?.error) { setError("Invalid email or password."); return; }
+    if (result?.error) {
+      setError(result.error === "RATE_LIMITED" ? "Too many attempts. Please wait a few minutes and try again." : "Invalid email or password.");
+      return;
+    }
     onClose();
     router.push(result?.url || "/dashboard");
     router.refresh();

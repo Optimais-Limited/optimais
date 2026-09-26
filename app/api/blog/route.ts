@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { blogPostSchema } from "@/lib/validators";
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
 
   const parsed = blogPostSchema.safeParse(await request.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid post data.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid post data.", parsed.error);
   }
 
   const post = await prisma.blogPost.create({

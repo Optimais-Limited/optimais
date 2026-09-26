@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { scholarshipSchema } from "@/lib/validators";
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
 
   const parsed = scholarshipSchema.safeParse(await request.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid scholarship data.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid scholarship data.", parsed.error);
   }
 
   const data = parsed.data;

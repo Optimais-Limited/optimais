@@ -28,7 +28,11 @@ export function LoginForm() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid email or password. Please check your credentials and try again.");
+      setError(
+        result.error === "RATE_LIMITED"
+          ? "Too many attempts. Please wait a few minutes and try again."
+          : "Invalid email or password. Please check your credentials and try again."
+      );
       return;
     }
 

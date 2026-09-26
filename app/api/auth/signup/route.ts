@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
@@ -7,7 +8,7 @@ export async function POST(request: Request) {
   const parsed = signupSchema.safeParse(await request.json());
 
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid signup details.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid signup details.", parsed.error);
   }
 
   const data = parsed.data;
@@ -50,7 +51,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ user }, { status: 201 });
   } catch (err) {
     console.error("Signup error:", err);
-    const message = err instanceof Error ? err.message : "Unexpected error";
-    return NextResponse.json({ error: `Could not create account: ${message}` }, { status: 500 });
+    return NextResponse.json({ error: "Could not create account. Please try again." }, { status: 500 });
   }
 }

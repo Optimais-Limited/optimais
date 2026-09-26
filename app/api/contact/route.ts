@@ -1,3 +1,4 @@
+import { validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/validators";
@@ -7,7 +8,7 @@ import { sendEmail } from "@/lib/mailer";
 export async function POST(request: Request) {
   const parsed = contactSchema.safeParse(await request.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid contact form.", details: parsed.error.flatten() }, { status: 400 });
+    return validationFailure("Invalid contact form.", parsed.error);
   }
 
   const message = await prisma.contactMessage.create({ data: parsed.data });
