@@ -796,24 +796,45 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                 <h2>Executives</h2>
               </div>
             </div>
-            <div className="exec-card reveal">
-              <div className="exec-photo-wrap">
-                <img
-                  src="/brand_assets/Uthman_Nabil.jpg"
-                  alt="Uthman Nabil, CEO of Optimais Labs"
-                  className="exec-photo"
-                  loading="lazy"
-                  width={300}
-                  height={400}
-                />
+            <div className="exec-list">
+              <div className="exec-card reveal">
+                <div className="exec-photo-wrap">
+                  <img
+                    src="/brand_assets/Uthman_Nabil.jpg"
+                    alt="Uthman Nabil, CEO of Optimais Labs"
+                    className="exec-photo"
+                    loading="lazy"
+                    width={300}
+                    height={400}
+                  />
+                </div>
+                <div className="exec-bio-wrap">
+                  <p className="kicker">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
+                  <h3 className="exec-name">Uthman Nabil</h3>
+                  <p className="exec-role">CEO, Optimais Labs</p>
+                  <blockquote className="exec-statement">
+                    As CEO of Optimais Labs, I lead our mission to advance AI research, optimization, and practical technology solutions across Africa. I focus on building partnerships and translating research into solutions that help businesses and communities thrive.
+                  </blockquote>
+                </div>
               </div>
-              <div className="exec-bio-wrap">
-                <p className="kicker">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
-                <h3 className="exec-name">Uthman Nabil</h3>
-                <p className="exec-role">CEO, Optimais Labs</p>
-                <blockquote className="exec-statement">
-                  As CEO of Optimais Labs, I lead our mission to advance AI research, optimization, and practical technology solutions across Africa. I focus on building partnerships and translating research into solutions that help businesses and communities thrive.
-                </blockquote>
+              <div className="exec-card reveal">
+                <div className="exec-photo-wrap">
+                  <img
+                    src="/brand_assets/Durojaiye_Abeeb.jpg"
+                    alt="Durojaiye Abeeb, Chief Investment and Product Officer of Optimais Labs"
+                    className="exec-photo"
+                    loading="lazy"
+                    width={300}
+                    height={400}
+                  />
+                </div>
+                <div className="exec-bio-wrap">
+                  <h3 className="exec-name">Durojaiye Abeeb</h3>
+                  <p className="exec-role">Chief Investment and Product Officer (CIPO), Optimais Labs</p>
+                  <blockquote className="exec-statement">
+                    As CIPO of Optimais Labs, I lead investment strategy and product development to turn AI research into practical, market-ready solutions. I focus on identifying investment opportunities and shaping products that meet the needs of businesses and communities across Africa.
+                  </blockquote>
+                </div>
               </div>
             </div>
           </div>

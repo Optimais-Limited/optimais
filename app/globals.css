@@ -1154,6 +1154,7 @@ textarea.field {
 
 /* executives */
 .opt-root .exec-section { border-top: 1px solid rgba(201,169,97,0.1); }
+.opt-root .exec-list { display: grid; gap: 32px; }
 .opt-root .exec-card { display: grid; grid-template-columns: 300px 1fr; gap: 60px; align-items: start; padding: clamp(44px,6vw,80px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
 .opt-root .exec-photo-wrap { position: sticky; top: 100px; }
 .opt-root .exec-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
