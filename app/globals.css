@@ -1375,6 +1375,32 @@ select.opt-auth-field { cursor: pointer; }
 .contact-success { padding: 24px; background: rgba(111,207,151,0.08); border: 1px solid rgba(111,207,151,0.25); border-radius: 12px; color: #6fcf97; font-size: 1rem; line-height: 1.6; }
 
 /* ═══════════════════════════════════════════════
+   MULTI-PAGE SITE: header links, section pages, landing link tiles
+   ═══════════════════════════════════════════════ */
+.opt-root .nav-links a { color: inherit; transition: color 0.2s; }
+.opt-root .nav-links a:hover, .opt-root .nav-links a.active { color: var(--gold-light); }
+
+.opt-root .page-main { padding-top: 72px; min-height: 60vh; }
+.opt-root .page-section { padding: clamp(48px, 7vw, 88px) 0; }
+.opt-root .page-title { max-width: 820px; margin-bottom: 18px; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; }
+
+.opt-root .explore-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.opt-root .explore-tile {
+  display: flex; flex-direction: column; gap: 10px; min-height: 200px; padding: 26px 24px;
+  border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card-bg);
+  color: var(--white); transition: border-color 0.2s, transform 0.2s, background 0.2s;
+}
+.opt-root .explore-tile:hover { border-color: rgba(201,169,97,0.4); background: rgba(201,169,97,0.05); transform: translateY(-3px); }
+.opt-root .explore-tile strong { color: var(--gold-light); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.9px; }
+.opt-root .explore-tile h3 { margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.2px; }
+.opt-root .explore-tile p { flex: 1; margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+.opt-root .explore-tile .go { display: inline-flex; align-items: center; gap: 6px; color: var(--gold); font-size: 0.82rem; font-weight: 700; }
+.opt-root .explore-tile .go svg { transition: transform 0.18s; }
+.opt-root .explore-tile:hover .go svg { transform: translateX(3px); }
+@media (max-width: 1100px) { .opt-root .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .opt-root .explore-grid { grid-template-columns: 1fr; } .opt-root .explore-tile { min-height: 0; } }
+
+/* ═══════════════════════════════════════════════
    THEME TOGGLE + LIGHT THEME
    Dark is the default and is defined above. Light is purely additive: it only
    applies under <html data-theme="light"> (set by /theme-init.js before paint).
