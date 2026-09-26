@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { LoginForm } from "./login-form";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default async function LoginPage({
   searchParams
@@ -10,6 +11,7 @@ export default async function LoginPage({
 
   return (
     <main className="admin-main">
+      <ThemeToggle className="theme-toggle-floating" />
       <p className="eyebrow">Optimais Labs Account</p>
       <h1>Sign in</h1>
       {params.registered === "1" && (

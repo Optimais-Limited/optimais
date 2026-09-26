@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import * as THREE from "three";
+import { applyDotsTheme, getTheme, subscribeTheme } from "@/lib/theme";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { AuthModal } from "@/components/auth-modal";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
@@ -136,6 +138,8 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
     const material = new THREE.PointsMaterial({ size: 8, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
     const points = new THREE.Points(geometry, material);
     scene.add(points);
+    applyDotsTheme(scene, geometry, getTheme());
+    const unsubscribeTheme = subscribeTheme(mode => applyDotsTheme(scene, geometry, mode));
 
     let count = 0;
     let animId: number;
@@ -163,6 +167,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
     animate();
 
     return () => {
+      unsubscribeTheme();
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
       scene.traverse(obj => {
@@ -264,6 +269,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
             ))}
           </div>
           <div className="nav-actions">
+            <ThemeToggle />
             {!isAuthenticated
               ? <button className="button secondary opt-signin-btn" type="button" onClick={() => openSignModal("signin")}>Sign In</button>
               : (
@@ -850,11 +856,11 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
               </div>
             </div>
             <div className="reveal location-card-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
-              <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer" className="location-card" style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"32px 36px",border:"1px solid rgba(201,169,97,0.18)",borderRadius:16,background:"linear-gradient(135deg,rgba(11,45,74,0.3),rgba(5,21,32,0.4))",textDecoration:"none",color:"inherit",transition:"border-color 0.2s,transform 0.2s" }}>
+              <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer" className="location-card" style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"32px 36px",border:"1px solid rgba(201,169,97,0.18)",borderRadius:16,background:"var(--card-surface)",textDecoration:"none",color:"inherit",transition:"border-color 0.2s,transform 0.2s" }}>
                 <div>
-                  <p style={{ margin:"0 0 6px",fontSize:"0.74rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.9px",color:"#C9A961" }}>Africa</p>
+                  <p style={{ margin:"0 0 6px",fontSize:"0.74rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.9px",color:"var(--gold)" }}>Africa</p>
                   <h3 style={{ margin:0,fontSize:"clamp(1.4rem,2.5vw,2rem)",fontWeight:800,letterSpacing:"-0.4px" }}>Nigeria</h3>
-                  <p style={{ margin:"6px 0 0",fontSize:"0.88rem",color:"rgba(255,255,255,0.52)" }}>West Africa · Primary operations hub</p>
+                  <p style={{ margin:"6px 0 0",fontSize:"0.88rem",color:"rgba(var(--ink-rgb),0.52)" }}>West Africa · Primary operations hub</p>
                 </div>
                 <svg width={28} height={28} viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,97,0.6)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </a>

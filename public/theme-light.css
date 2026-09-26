@@ -1,0 +1,80 @@
+/* Theme toggle + light theme for the static pages (index, deep-tech, our-stories, culture-benefits).
+   Loaded last in <head>. Dark is each page's own default; everything below only applies
+   under <html data-theme="light">, which /theme-init.js sets before first paint. */
+
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0; flex-shrink: 0;
+  border: 1px solid rgba(var(--ink-rgb, 255, 255, 255), 0.16); border-radius: 999px;
+  background: rgba(var(--ink-rgb, 255, 255, 255), 0.04); color: var(--gold);
+  cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.theme-toggle:hover { background: rgba(var(--ink-rgb, 255, 255, 255), 0.09); border-color: rgba(201, 169, 97, 0.5); transform: translateY(-1px); }
+.theme-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+.theme-toggle-group { display: flex; align-items: center; gap: 12px; }
+
+[data-theme="light"] {
+  --ink-rgb: 5, 21, 32;
+  --black: #f6f1e6; --black-2: #efe8d8; --black-3: #e6dcc6;
+  --white: #0b2235;
+  --gold: #8a6a17; --gold-light: #7a5a10;
+  --muted: rgba(11, 34, 53, 0.66); --muted-2: rgba(11, 34, 53, 0.82);
+  --card-bg: rgba(5, 21, 32, 0.035); --card-border: rgba(5, 21, 32, 0.12);
+  --shadow: 0 24px 70px rgba(5, 21, 32, 0.16);
+}
+
+/* gold fills keep a bright gold with navy text */
+[data-theme="light"] .button:not(.secondary),
+[data-theme="light"] .cal-book-btn,
+[data-theme="light"] .cal-cell.highlighted { background: #c9a961; color: #071a2a; }
+[data-theme="light"] .accordion-trigger[aria-expanded="true"] .plus,
+[data-theme="light"] .cal-cell.selected { color: #ffffff; }
+
+/* chrome + surfaces that were hardcoded dark */
+[data-theme="light"] .site-header { background: rgba(246, 241, 230, 0.92); }
+[data-theme="light"] .mobile-nav { background: rgba(246, 241, 230, 0.98); }
+[data-theme="light"] .signin-overlay { background: rgba(5, 21, 32, 0.5); }
+[data-theme="light"] .hero::before {
+  background: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(26,82,118,0.1) 0%, transparent 68%),
+              radial-gradient(ellipse 55% 45% at 85% 65%, rgba(201,169,97,0.16) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 30% at 10% 80%, rgba(26,82,118,0.06) 0%, transparent 55%);
+}
+[data-theme="light"] .button.secondary:hover { background: rgba(138, 106, 23, 0.1); }
+[data-theme="light"] .console-tab.active,
+[data-theme="light"] .console-tab:hover { background: rgba(26, 82, 118, 0.08); }
+[data-theme="light"] .accordion-trigger .icon,
+[data-theme="light"] .mini-list span,
+[data-theme="light"] .tag,
+[data-theme="light"] .disclaimer,
+[data-theme="light"] .career-link-item { background: rgba(26, 82, 118, 0.07); }
+[data-theme="light"] .tag { border-color: rgba(26, 82, 118, 0.25); }
+[data-theme="light"] .stat:hover { background: rgba(26, 82, 118, 0.06); }
+[data-theme="light"] .contact-panel { background: linear-gradient(135deg, rgba(26, 82, 118, 0.08), transparent 42%); }
+
+/* gradient cards become clean white cards */
+[data-theme="light"] .calendar-bento,
+[data-theme="light"] .exec-card,
+[data-theme="light"] .dt-card,
+[data-theme="light"] .cb-item {
+  background: #ffffff; border-color: rgba(5, 21, 32, 0.12); box-shadow: 0 12px 40px rgba(5, 21, 32, 0.06);
+}
+[data-theme="light"] .join-section { background: linear-gradient(180deg, rgba(26, 82, 118, 0.07) 0%, transparent 100%); }
+[data-theme="light"] .video-media { box-shadow: 0 24px 70px rgba(5, 21, 32, 0.22); }
+[data-theme="light"] .location-card { background: #ffffff !important; }
+[data-theme="light"] .location-card p { color: var(--muted) !important; }
+
+/* the phone mockup is a physical device: keep its screen dark in both themes */
+[data-theme="light"] .iphone {
+  --ink-rgb: 255, 255, 255; --white: #ffffff; --gold: #c9a961; --gold-light: #d9be7a;
+  --black: #051520; --black-2: #091e2e; --black-3: #0d2840;
+  --muted: rgba(255, 255, 255, 0.52); --muted-2: rgba(255, 255, 255, 0.72);
+  --card-bg: rgba(255, 255, 255, 0.03); --card-border: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+/* The toggle adds a header item; keep the nav links on one line and slightly tighter. */
+.nav-links { gap: 20px; }
+.nav-links button { white-space: nowrap; }

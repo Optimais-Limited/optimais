@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   ["/dashboard", "Dashboard"],
@@ -17,6 +18,10 @@ export function UserShell({ children }: { children: React.ReactNode }) {
           ))}
           <Link href="/admin">Admin</Link>
         </nav>
+        <div className="admin-sidebar-theme">
+          <ThemeToggle />
+          <span>Theme</span>
+        </div>
       </aside>
       <main className="admin-main">{children}</main>
     </div>

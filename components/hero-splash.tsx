@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { applyDotsTheme, getTheme, subscribeTheme } from "@/lib/theme";
 import { AuthModal } from "@/components/auth-modal";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function HeroSplash() {
   const dottedRef = useRef<HTMLDivElement>(null);
@@ -40,6 +42,8 @@ export function HeroSplash() {
     const material = new THREE.PointsMaterial({ size: 8, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
     const points = new THREE.Points(geometry, material);
     scene.add(points);
+    applyDotsTheme(scene, geometry, getTheme());
+    const unsubscribeTheme = subscribeTheme(mode => applyDotsTheme(scene, geometry, mode));
 
     let count = 0;
     let animId: number;
@@ -67,6 +71,7 @@ export function HeroSplash() {
     animate();
 
     return () => {
+      unsubscribeTheme();
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
       scene.traverse(obj => {
@@ -97,6 +102,7 @@ export function HeroSplash() {
             <img src="/brand_assets/optimaislabs.png" alt="Optimais Labs" />
           </a>
           <div className="nav-actions">
+            <ThemeToggle />
             <button
               className="button secondary opt-signin-btn"
               type="button"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const COUNTRIES = [
   "Afghanistan","Albania","Algeria","Angola","Argentina","Armenia","Australia","Austria",
@@ -112,6 +113,7 @@ export function ProfileEdit() {
             <img src="/brand_assets/optimaislabs.png" alt="Optimais Labs" />
           </a>
           <div className="nav-actions">
+            <ThemeToggle />
             <button className="button secondary" type="button" onClick={() => router.push("/dashboard")}>
               ← Back to Dashboard
             </button>
