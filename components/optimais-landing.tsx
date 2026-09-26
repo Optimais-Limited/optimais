@@ -358,8 +358,8 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                   />
                 </div>
                 <div className="exec-bio-wrap">
-                  <p className="kicker">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
                   <h3 className="exec-name">Uthman Nabil</h3>
+                  <p className="exec-affiliation">Asst. Operations Manager, Pipeline Infrastructures Nig. Ltd.</p>
                   <p className="exec-role">CEO, Optimais Labs</p>
                   <blockquote className="exec-statement">
                     As CEO of Optimais Labs, I lead our mission to advance AI research, optimization, and practical technology solutions across Africa. I focus on building partnerships and translating research into solutions that help businesses and communities thrive.
@@ -378,7 +378,6 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                   />
                 </div>
                 <div className="exec-bio-wrap">
-                  <p className="kicker exec-kicker-spacer" aria-hidden="true">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
                   <h3 className="exec-name">Durojaiye Abeeb</h3>
                   <p className="exec-affiliation">Decision Maker, Department of Work and Pensions, UK</p>
                   <p className="exec-role">Chief Investment and Product Officer (CIPO), Optimais Labs</p>

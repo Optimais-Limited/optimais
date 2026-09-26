@@ -1162,12 +1162,17 @@ textarea.field {
 .opt-root .exec-card { display: grid; grid-template-columns: 1fr; gap: 28px; align-content: start; padding: clamp(28px,3.2vw,44px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
 .opt-root .exec-photo-wrap { position: static; }
 .opt-root .exec-photo { width: 100%; max-width: 300px; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
-.opt-root .exec-name { margin: 16px 0 2px; font-size: clamp(1.7rem,2.8vw,2.6rem); font-weight: 800; letter-spacing: -0.6px; color: var(--white); }
+.opt-root .exec-name { margin: 0 0 2px; font-size: clamp(1.7rem,2.8vw,2.6rem); font-weight: 800; letter-spacing: -0.6px; color: var(--white); }
 .opt-root .exec-affiliation { margin: 0 0 8px; color: var(--muted-2); font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
 .opt-root .exec-role { margin: 0 0 28px; color: var(--gold); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.4px; }
-/* invisible copy of the line above Uthman's name, so it wraps identically and the two names line up at every width */
-.opt-root .exec-kicker-spacer { visibility: hidden; }
-@media (max-width: 760px) { .opt-root .exec-list { grid-template-columns: 1fr; } .opt-root .exec-kicker-spacer { display: none; } }
+@media (max-width: 760px) { .opt-root .exec-list { grid-template-columns: 1fr; } }
+/* Share row heights between the cards (photo / name / affiliation / title / statement) so each line
+   sits at the same height in both, however the text wraps. Browsers without subgrid keep the plain stack. */
+@supports (grid-template-rows: subgrid) {
+  .opt-root .exec-card { grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; }
+  .opt-root .exec-bio-wrap { display: contents; }
+  .opt-root .exec-photo-wrap { margin-bottom: 28px; }
+}
 .opt-root .exec-statement { margin: 0; padding: 0 0 0 20px; border-left: 3px solid var(--gold); color: var(--muted-2); font-size: 1.05rem; font-style: italic; line-height: 1.75; }
 
 
@@ -1381,8 +1386,15 @@ select.opt-auth-field { cursor: pointer; }
 /* ═══════════════════════════════════════════════
    MULTI-PAGE SITE: header links, section pages, landing link tiles
    ═══════════════════════════════════════════════ */
-.opt-root .nav-links a { color: inherit; transition: color 0.2s; }
+.opt-root .nav-links a { color: inherit; white-space: nowrap; transition: color 0.2s; }
 .opt-root .nav-links a:hover, .opt-root .nav-links a.active { color: var(--gold-light); }
+/* The full menu plus the theme toggle needs ~1160px; below that (down to the 980px mobile layout)
+   it clipped the "Start a Project" button, so switch to the hamburger menu earlier for the header only. */
+@media (max-width: 1180px) {
+  .opt-root .nav-links { display: none; }
+  .opt-root .hamburger { display: inline-flex; }
+  .opt-root .nav-actions .button:not(.hamburger) { display: none; }
+}
 
 .opt-root .page-main { padding-top: 72px; min-height: 60vh; }
 .opt-root .page-section { padding: clamp(48px, 7vw, 88px) 0; }
