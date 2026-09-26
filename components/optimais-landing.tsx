@@ -378,7 +378,9 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
                   />
                 </div>
                 <div className="exec-bio-wrap">
+                  <p className="kicker exec-kicker-spacer" aria-hidden="true">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
                   <h3 className="exec-name">Durojaiye Abeeb</h3>
+                  <p className="exec-affiliation">Decision Maker, Department of Work and Pensions, UK</p>
                   <p className="exec-role">Chief Investment and Product Officer (CIPO), Optimais Labs</p>
                   <blockquote className="exec-statement">
                     As CIPO of Optimais Labs, I lead investment strategy and product development to turn AI research into practical, market-ready solutions. I focus on identifying investment opportunities and shaping products that meet the needs of businesses and communities across Africa.

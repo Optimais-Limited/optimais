@@ -1158,12 +1158,16 @@ textarea.field {
 
 /* executives */
 .opt-root .exec-section { border-top: 1px solid rgba(201,169,97,0.1); }
-.opt-root .exec-list { display: grid; gap: 32px; }
-.opt-root .exec-card { display: grid; grid-template-columns: 300px 1fr; gap: 60px; align-items: start; padding: clamp(44px,6vw,80px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
-.opt-root .exec-photo-wrap { position: sticky; top: 100px; }
-.opt-root .exec-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
+.opt-root .exec-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.opt-root .exec-card { display: grid; grid-template-columns: 1fr; gap: 28px; align-content: start; padding: clamp(28px,3.2vw,44px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
+.opt-root .exec-photo-wrap { position: static; }
+.opt-root .exec-photo { width: 100%; max-width: 300px; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
 .opt-root .exec-name { margin: 16px 0 2px; font-size: clamp(1.7rem,2.8vw,2.6rem); font-weight: 800; letter-spacing: -0.6px; color: var(--white); }
+.opt-root .exec-affiliation { margin: 0 0 8px; color: var(--muted-2); font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
 .opt-root .exec-role { margin: 0 0 28px; color: var(--gold); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.4px; }
+/* invisible copy of the line above Uthman's name, so it wraps identically and the two names line up at every width */
+.opt-root .exec-kicker-spacer { visibility: hidden; }
+@media (max-width: 760px) { .opt-root .exec-list { grid-template-columns: 1fr; } .opt-root .exec-kicker-spacer { display: none; } }
 .opt-root .exec-statement { margin: 0; padding: 0 0 0 20px; border-left: 3px solid var(--gold); color: var(--muted-2); font-size: 1.05rem; font-style: italic; line-height: 1.75; }
 
 

@@ -1444,26 +1444,26 @@
       /* ─── EXECUTIVES ─── */
       .exec-section { border-top: 1px solid rgba(201, 169, 97, 0.1); }
 
-      .exec-list { display: grid; gap: 32px; }
+      .exec-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 
       .exec-card {
         display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: 60px;
-        align-items: start;
-        padding: clamp(44px, 6vw, 80px);
+        grid-template-columns: 1fr;
+        gap: 28px;
+        align-content: start;
+        padding: clamp(28px, 3.2vw, 44px);
         border: 1px solid rgba(201, 169, 97, 0.13);
         border-radius: var(--radius-lg);
         background: linear-gradient(135deg, rgba(11, 45, 74, 0.28) 0%, rgba(5, 21, 32, 0.35) 100%);
       }
 
       .exec-photo-wrap {
-        position: sticky;
-        top: 100px;
+        position: static;
       }
 
       .exec-photo {
         width: 100%;
+        max-width: 300px;
         aspect-ratio: 3 / 4;
         object-fit: cover;
         object-position: center 10%;
@@ -1477,6 +1477,22 @@
         font-weight: 800;
         letter-spacing: -0.6px;
         color: var(--white);
+      }
+
+      .exec-affiliation {
+        margin: 0 0 8px;
+        color: var(--muted-2);
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      /* invisible copy of the line above Uthman's name, so it wraps identically and the two names line up at every width */
+      .exec-kicker-spacer { visibility: hidden; }
+
+      @media (max-width: 760px) {
+        .exec-list { grid-template-columns: 1fr; }
+        .exec-kicker-spacer { display: none; }
       }
 
       .exec-role {
@@ -2802,7 +2818,9 @@
                   />
                 </div>
                 <div class="exec-bio-wrap">
+                  <p class="kicker exec-kicker-spacer" aria-hidden="true">Asst. Operations Manager · Pipeline Infrastructures Nig. Ltd.</p>
                   <h3 class="exec-name">Durojaiye Abeeb</h3>
+                  <p class="exec-affiliation">Decision Maker, Department of Work and Pensions, UK</p>
                   <p class="exec-role">Chief Investment and Product Officer (CIPO), Optimais Labs</p>
                   <blockquote class="exec-statement">
                     As CIPO of Optimais Labs, I lead investment strategy and product development to turn AI research into practical, market-ready solutions. I focus on identifying investment opportunities and shaping products that meet the needs of businesses and communities across Africa.
