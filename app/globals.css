@@ -1386,11 +1386,12 @@ select.opt-auth-field { cursor: pointer; }
 /* ═══════════════════════════════════════════════
    MULTI-PAGE SITE: header links, section pages, landing link tiles
    ═══════════════════════════════════════════════ */
+.opt-root .nav-links { gap: 20px; }
 .opt-root .nav-links a { color: inherit; white-space: nowrap; transition: color 0.2s; }
 .opt-root .nav-links a:hover, .opt-root .nav-links a.active { color: var(--gold-light); }
-/* The full menu plus the theme toggle needs ~1160px; below that (down to the 980px mobile layout)
-   it clipped the "Start a Project" button, so switch to the hamburger menu earlier for the header only. */
-@media (max-width: 1180px) {
+/* The full menu (nine links) plus the theme toggle needs ~1210px; below that (down to the 980px mobile
+   layout) it clipped the "Start a Project" button, so switch to the hamburger menu earlier for the header only. */
+@media (max-width: 1230px) {
   .opt-root .nav-links { display: none; }
   .opt-root .hamburger { display: inline-flex; }
   .opt-root .nav-actions .button:not(.hamburger) { display: none; }
@@ -1400,7 +1401,7 @@ select.opt-auth-field { cursor: pointer; }
 .opt-root .page-section { padding: clamp(48px, 7vw, 88px) 0; }
 .opt-root .page-title { max-width: 820px; margin-bottom: 18px; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -1px; }
 
-.opt-root .explore-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.opt-root .explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .opt-root .explore-tile {
   display: flex; flex-direction: column; gap: 10px; min-height: 200px; padding: 26px 24px;
   border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card-bg);
@@ -1415,6 +1416,61 @@ select.opt-auth-field { cursor: pointer; }
 .opt-root .explore-tile:hover .go svg { transform: translateX(3px); }
 @media (max-width: 1100px) { .opt-root .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .opt-root .explore-grid { grid-template-columns: 1fr; } .opt-root .explore-tile { min-height: 0; } }
+
+/* ═══════════════════════════════════════════════
+   NEWSLETTERS: landing section, public archive, admin screen
+   ═══════════════════════════════════════════════ */
+.opt-root .newsletter-latest { border-top: 1px solid rgba(201,169,97,0.1); }
+.opt-root .newsletter-card {
+  display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start;
+  padding: clamp(24px, 3.2vw, 44px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: var(--card-surface);
+}
+.opt-root .newsletter-image { display: block; overflow: hidden; border: 1px solid rgba(201,169,97,0.18); border-radius: var(--radius); background: #ffffff; }
+.opt-root .newsletter-image img { display: block; width: 100%; height: auto; }
+.opt-root .newsletter-comment { margin: 0 0 24px; color: var(--muted-2); font-size: 1.05rem; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+.opt-root .newsletter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; align-items: start; margin-top: 8px; }
+.opt-root .newsletter-item { display: grid; gap: 18px; padding: 20px; border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card-bg); }
+.opt-root .newsletter-item .newsletter-comment { margin: 0; font-size: 0.95rem; }
+.opt-root .newsletter-date { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; color: var(--gold); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; }
+.opt-root .newsletter-badge { padding: 2px 10px; border: 1px solid rgba(201,169,97,0.4); border-radius: 999px; color: var(--gold-light); font-size: 0.68rem; letter-spacing: 0.9px; }
+@media (max-width: 860px) { .opt-root .newsletter-card { grid-template-columns: 1fr; } }
+
+/* Upload form: give each label breathing room and theme the file picker button */
+.nl-admin-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.nl-admin-form input[type="file"].field {
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.nl-admin-form input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 14px;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nl-admin-preview { max-width: 320px; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; }
+.nl-admin-preview img { display: block; width: 100%; height: auto; }
+.nl-admin-list { display: grid; gap: 22px; }
+.nl-admin-item { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; align-items: start; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.nl-admin-item:last-child { padding-bottom: 0; border-bottom: 0; }
+.nl-admin-thumb { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #ffffff; }
+.nl-admin-thumb img { display: block; width: 100%; height: auto; }
+.nl-admin-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 10px; color: var(--muted); font-size: 0.86rem; font-weight: 700; }
+.nl-badge { padding: 2px 10px; border: 1px solid rgba(201,169,97,0.45); border-radius: 999px; color: var(--gold); font-size: 0.7rem; letter-spacing: 0.6px; text-transform: uppercase; }
+.nl-admin-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.nl-admin-actions .status { margin: 0; }
+@media (max-width: 640px) { .nl-admin-item { grid-template-columns: 1fr; } .nl-admin-thumb { max-width: 240px; } }
 
 /* ═══════════════════════════════════════════════
    THEME TOGGLE + LIGHT THEME

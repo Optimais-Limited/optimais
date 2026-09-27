@@ -7,6 +7,7 @@ import { applyDotsTheme, getTheme, subscribeTheme } from "@/lib/theme";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SITE_NAV, isStaticRoute } from "@/lib/site-nav";
+import { formatNewsletterDate, newsletterImageUrl, type NewsletterSummary } from "@/lib/newsletter-shared";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
@@ -33,9 +34,10 @@ function buildCalendar(date: Date) {
 export interface OptimaisLandingProps {
   isAuthenticated?: boolean;
   initials?: string;
+  latestNewsletter?: NewsletterSummary | null;
 }
 
-export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: OptimaisLandingProps) {
+export function OptimaisLanding({ isAuthenticated = false, initials = "OU", latestNewsletter = null }: OptimaisLandingProps) {
   /* ── calendar ── */
   const calDate = useMemo(() => new Date(), []);
   const cal = useMemo(() => buildCalendar(calDate), [calDate]);
@@ -194,6 +196,34 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU" }: Op
             </div>
           </div>
         </section>
+
+        {/* ── LATEST NEWSLETTER (posted from the admin area) ── */}
+        {latestNewsletter && (
+          <section className="newsletter-latest" id="newsletter" aria-label="Latest newsletter">
+            <div className="shell">
+              <div className="section-head reveal">
+                <div>
+                  <p className="section-label">Latest Newsletter</p>
+                  <h2>{formatNewsletterDate(latestNewsletter.createdAt)}</h2>
+                </div>
+              </div>
+              <div className="newsletter-card reveal">
+                <a className="newsletter-image" href={newsletterImageUrl(latestNewsletter.id)} target="_blank" rel="noopener noreferrer" aria-label="Open the full-size newsletter">
+                  <img
+                    src={newsletterImageUrl(latestNewsletter.id)}
+                    width={latestNewsletter.imageWidth}
+                    height={latestNewsletter.imageHeight}
+                    alt={`Newsletter, ${formatNewsletterDate(latestNewsletter.createdAt)}`}
+                  />
+                </a>
+                <div className="newsletter-body">
+                  {latestNewsletter.comment && <p className="newsletter-comment">{latestNewsletter.comment}</p>}
+                  <Link className="button secondary" href="/newsletters">View all newsletters <ArrowRight /></Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── VIDEO ── */}
         <section className="video-section">
