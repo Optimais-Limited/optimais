@@ -1161,7 +1161,7 @@ textarea.field {
 .opt-root .exec-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 .opt-root .exec-card { display: grid; grid-template-columns: 1fr; gap: 28px; align-content: start; padding: clamp(28px,3.2vw,44px); border: 1px solid rgba(201,169,97,0.13); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(11,45,74,0.28) 0%, rgba(5,21,32,0.35) 100%); }
 .opt-root .exec-photo-wrap { position: static; }
-.opt-root .exec-photo { width: 100%; max-width: 300px; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
+.opt-root .exec-photo { display: block; margin-inline: auto; width: 100%; max-width: 300px; aspect-ratio: 3/4; object-fit: cover; object-position: center 10%; border-radius: var(--radius); border: 1px solid rgba(201,169,97,0.18); }
 .opt-root .exec-name { margin: 0 0 2px; font-size: clamp(1.7rem,2.8vw,2.6rem); font-weight: 800; letter-spacing: -0.6px; color: var(--white); }
 .opt-root .exec-affiliation { margin: 0 0 8px; color: var(--muted-2); font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
 .opt-root .exec-role { margin: 0 0 28px; color: var(--gold); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.4px; }
@@ -1427,6 +1427,11 @@ select.opt-auth-field { cursor: pointer; }
 }
 .opt-root .newsletter-image { display: block; overflow: hidden; border: 1px solid rgba(201,169,97,0.18); border-radius: var(--radius); background: #ffffff; }
 .opt-root .newsletter-image img { display: block; width: 100%; height: auto; }
+/* No comment: the card hugs the image (centered, button underneath) instead of leaving an empty column.
+   --nl-w is the PNG's own width so a small image is never stretched past its size. */
+.opt-root .newsletter-card-solo { display: flex; flex-direction: column; align-items: center; gap: 28px; width: fit-content; max-width: 100%; margin-inline: auto; }
+.opt-root .newsletter-card-solo .newsletter-image { width: min(var(--nl-w, 520px), 520px); max-width: 100%; }
+.opt-root .newsletter-card-solo .newsletter-body { display: flex; justify-content: center; }
 .opt-root .newsletter-comment { margin: 0 0 24px; color: var(--muted-2); font-size: 1.05rem; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
 .opt-root .newsletter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; align-items: start; margin-top: 8px; }
 .opt-root .newsletter-item { display: grid; gap: 18px; padding: 20px; border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card-bg); }

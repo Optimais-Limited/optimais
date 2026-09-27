@@ -207,8 +207,15 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", late
                   <h2>{formatNewsletterDate(latestNewsletter.createdAt)}</h2>
                 </div>
               </div>
-              <div className="newsletter-card reveal">
-                <a className="newsletter-image" href={newsletterImageUrl(latestNewsletter.id)} target="_blank" rel="noopener noreferrer" aria-label="Open the full-size newsletter">
+              <div className={`newsletter-card reveal${latestNewsletter.comment.trim() ? "" : " newsletter-card-solo"}`}>
+                <a
+                  className="newsletter-image"
+                  style={{ "--nl-w": `${latestNewsletter.imageWidth}px` } as React.CSSProperties}
+                  href={newsletterImageUrl(latestNewsletter.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open the full-size newsletter"
+                >
                   <img
                     src={newsletterImageUrl(latestNewsletter.id)}
                     width={latestNewsletter.imageWidth}
