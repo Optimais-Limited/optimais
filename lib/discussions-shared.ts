@@ -11,6 +11,10 @@ export const DISCUSSION_POLL_MS = 4000;
 
 export type DiscussionStatusKind = "OPEN" | "CLOSED";
 
+// A fixed set keeps the reaction bar meaningful and stops the field being used to store arbitrary text.
+export const DISCUSSION_REACTIONS = ["👍", "❤️", "👌", "🎉", "👏", "😮"] as const;
+export type DiscussionReactionEmoji = (typeof DISCUSSION_REACTIONS)[number];
+
 export type DiscussionRoomSummary = {
   id: string;
   title: string;
@@ -29,6 +33,8 @@ export type DiscussionMessage = {
   createdAt: string;
   authorName: string;
   isOwn: boolean;
+  reactionCounts: Partial<Record<DiscussionReactionEmoji, number>>;
+  viewerReaction: DiscussionReactionEmoji | null;
 };
 
 export function formatDiscussionDate(iso: string): string {

@@ -4,9 +4,11 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   DISCUSSION_MESSAGE_MAX,
   DISCUSSION_POLL_MS,
+  DISCUSSION_REACTIONS,
   formatDiscussionDate,
   formatMessageTime,
   type DiscussionMessage,
+  type DiscussionReactionEmoji,
   type DiscussionRoomSummary
 } from "@/lib/discussions-shared";
 import { DiscussionVoicePanel } from "@/components/DiscussionVoicePanel";
@@ -30,6 +32,7 @@ export function DiscussionRoomView({
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [closing, setClosing] = useState(false);
+  const [pickerFor, setPickerFor] = useState<string | null>(null);
   const listEndRef = useRef<HTMLDivElement>(null);
   const lastIdRef = useRef<string | undefined>(initialMessages[initialMessages.length - 1]?.id);
 
@@ -76,6 +79,31 @@ export function DiscussionRoomView({
     }
   }
 
+  async function react(messageId: string, emoji: DiscussionReactionEmoji) {
+    setPickerFor(null);
+    const current = messages.find((m) => m.id === messageId);
+    if (!current) return;
+    const turningOff = current.viewerReaction === emoji;
+
+    // Optimistic update so the pill feels instant; rolled back if the request fails.
+    setMessages((list) => list.map((m) => {
+      if (m.id !== messageId) return m;
+      const counts = { ...m.reactionCounts };
+      if (m.viewerReaction) counts[m.viewerReaction] = Math.max(0, (counts[m.viewerReaction] ?? 1) - 1);
+      if (!turningOff) counts[emoji] = (counts[emoji] ?? 0) + 1;
+      return { ...m, reactionCounts: counts, viewerReaction: turningOff ? null : emoji };
+    }));
+
+    try {
+      const res = turningOff
+        ? await fetch(`/api/discussions/${room.id}/messages/${messageId}/reactions`, { method: "DELETE" })
+        : await fetch(`/api/discussions/${room.id}/messages/${messageId}/reactions`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ emoji }) });
+      if (!res.ok) setMessages((list) => list.map((m) => (m.id === messageId ? current : m)));
+    } catch {
+      setMessages((list) => list.map((m) => (m.id === messageId ? current : m)));
+    }
+  }
+
   async function closeRoom() {
     if (!window.confirm("End this discussion? No one will be able to post new messages afterwards.")) return;
     setClosing(true);
@@ -102,12 +130,39 @@ export function DiscussionRoomView({
 
       <div className="disc-messages">
         {messages.length === 0 && <p className="status">No messages yet. {status === "OPEN" ? "Say hello." : ""}</p>}
-        {messages.map((message) => (
-          <div key={message.id} className={`disc-message${message.isOwn ? " own" : ""}`}>
-            <p className="disc-message-meta"><strong>{message.authorName}</strong> · {formatMessageTime(message.createdAt)}</p>
-            <p className="disc-message-body">{message.body}</p>
-          </div>
-        ))}
+        {messages.map((message) => {
+          const reactionEntries = Object.entries(message.reactionCounts).filter(([, count]) => (count ?? 0) > 0);
+          return (
+            <div key={message.id} className={`disc-message${message.isOwn ? " own" : ""}`}>
+              <p className="disc-message-meta"><strong>{message.authorName}</strong> · {formatMessageTime(message.createdAt)}</p>
+              <p className="disc-message-body">{message.body}</p>
+              {canPost && (
+                <div className="disc-message-reactions">
+                  {reactionEntries.map(([emoji, count]) => (
+                    <button
+                      key={emoji}
+                      type="button"
+                      className={`disc-reaction-pill${message.viewerReaction === emoji ? " active" : ""}`}
+                      onClick={() => react(message.id, emoji as DiscussionReactionEmoji)}
+                    >
+                      {emoji} {count}
+                    </button>
+                  ))}
+                  <button type="button" className="disc-reaction-add" aria-label="Add a reaction" onClick={() => setPickerFor((id) => (id === message.id ? null : message.id))}>
+                    {reactionEntries.length > 0 ? "+" : "React"}
+                  </button>
+                  {pickerFor === message.id && (
+                    <div className="disc-reaction-picker" role="menu">
+                      {DISCUSSION_REACTIONS.map((emoji) => (
+                        <button key={emoji} type="button" onClick={() => react(message.id, emoji)}>{emoji}</button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
         <div ref={listEndRef} />
       </div>
 

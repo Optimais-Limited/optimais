@@ -84,6 +84,7 @@ model User {
   exhibitionReactions   ExhibitionReaction[]
   discussionRoomsHosted DiscussionRoom[]
   discussionMessages    DiscussionMessage[]
+  discussionMessageReactions DiscussionMessageReaction[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
 }
@@ -295,7 +296,7 @@ enum DiscussionStatus {
   CLOSED
 }
 
-// A hosted text discussion. Live voice is a planned follow-up once a real-time media provider is chosen.
+// A hosted text discussion. Live voice runs through LiveKit (see lib/livekit.ts) keyed off this id.
 model DiscussionRoom {
   id          String              @id @default(cuid())
   hostId      String
@@ -311,15 +312,29 @@ model DiscussionRoom {
 }
 
 model DiscussionMessage {
-  id        String         @id @default(cuid())
+  id        String                      @id @default(cuid())
   roomId    String
-  room      DiscussionRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  room      DiscussionRoom              @relation(fields: [roomId], references: [id], onDelete: Cascade)
   authorId  String
-  author    User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author    User                        @relation(fields: [authorId], references: [id], onDelete: Cascade)
   body      String
-  createdAt DateTime       @default(now())
+  reactions DiscussionMessageReaction[]
+  createdAt DateTime                    @default(now())
 
   @@index([roomId, createdAt])
+}
+
+// One reaction per person per message; changing your reaction updates the emoji in place.
+model DiscussionMessageReaction {
+  id        String            @id @default(cuid())
+  messageId String
+  message   DiscussionMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  emoji     String
+  createdAt DateTime          @default(now())
+
+  @@unique([messageId, authorId])
 }
 
 model AiRequestLog {

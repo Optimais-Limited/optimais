@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { endVoiceRoom } from "@/lib/livekit";
-import type { DiscussionMessage, DiscussionRoomSummary, DiscussionStatusKind } from "@/lib/discussions-shared";
+import { DISCUSSION_REACTIONS, type DiscussionMessage, type DiscussionReactionEmoji, type DiscussionRoomSummary, type DiscussionStatusKind } from "@/lib/discussions-shared";
 
 export * from "@/lib/discussions-shared";
 
@@ -8,6 +8,32 @@ const authorSelect = { select: { name: true } } as const;
 
 function displayName(author: { name: string | null } | null): string {
   return author?.name?.trim() || "Member";
+}
+
+const messageInclude = { author: authorSelect, reactions: { select: { emoji: true, authorId: true } } } as const;
+
+function toMessage(row: {
+  id: string; body: string; createdAt: Date; authorId: string;
+  author: { name: string | null } | null; reactions: { emoji: string; authorId: string }[];
+}, viewerId?: string): DiscussionMessage {
+  const reactionCounts: Partial<Record<DiscussionReactionEmoji, number>> = {};
+  let viewerReaction: DiscussionReactionEmoji | null = null;
+  for (const r of row.reactions) {
+    if ((DISCUSSION_REACTIONS as readonly string[]).includes(r.emoji)) {
+      const emoji = r.emoji as DiscussionReactionEmoji;
+      reactionCounts[emoji] = (reactionCounts[emoji] ?? 0) + 1;
+    }
+    if (viewerId && r.authorId === viewerId) viewerReaction = r.emoji as DiscussionReactionEmoji;
+  }
+  return {
+    id: row.id,
+    body: row.body,
+    createdAt: row.createdAt.toISOString(),
+    authorName: displayName(row.author),
+    isOwn: row.authorId === viewerId,
+    reactionCounts,
+    viewerReaction
+  };
 }
 
 function toSummary(row: {
@@ -75,10 +101,10 @@ export async function deleteDiscussionRoom(id: string, requesterId: string, isMo
 
 export async function createDiscussionMessage(roomId: string, authorId: string, body: string): Promise<DiscussionMessage> {
   const [row] = await prisma.$transaction([
-    prisma.discussionMessage.create({ data: { roomId, authorId, body }, include: { author: authorSelect } }),
+    prisma.discussionMessage.create({ data: { roomId, authorId, body }, include: messageInclude }),
     prisma.discussionRoom.update({ where: { id: roomId }, data: { updatedAt: new Date() } })
   ]);
-  return { id: row.id, body: row.body, createdAt: row.createdAt.toISOString(), authorName: displayName(row.author), isOwn: true };
+  return toMessage(row, authorId);
 }
 
 export async function listDiscussionMessages(roomId: string, afterId?: string, viewerId?: string, limit = 300): Promise<DiscussionMessage[]> {
@@ -86,14 +112,24 @@ export async function listDiscussionMessages(roomId: string, afterId?: string, v
     where: { roomId },
     orderBy: [{ createdAt: "asc" }, { id: "asc" }],
     take: limit,
-    include: { author: authorSelect },
+    include: messageInclude,
     ...(afterId ? { cursor: { id: afterId }, skip: 1 } : {})
   });
-  return rows.map((row) => ({
-    id: row.id,
-    body: row.body,
-    createdAt: row.createdAt.toISOString(),
-    authorName: displayName(row.author),
-    isOwn: row.authorId === viewerId
-  }));
+  return rows.map((row) => toMessage(row, viewerId));
+}
+
+/** Sets (or changes) one person's reaction to a message. Returns false if the message isn't in that room. */
+export async function upsertMessageReaction(roomId: string, messageId: string, authorId: string, emoji: DiscussionReactionEmoji): Promise<boolean> {
+  const message = await prisma.discussionMessage.findUnique({ where: { id: messageId }, select: { roomId: true } });
+  if (!message || message.roomId !== roomId) return false;
+  await prisma.discussionMessageReaction.upsert({
+    where: { messageId_authorId: { messageId, authorId } },
+    update: { emoji },
+    create: { messageId, authorId, emoji }
+  });
+  return true;
+}
+
+export async function removeMessageReaction(messageId: string, authorId: string): Promise<void> {
+  await prisma.discussionMessageReaction.deleteMany({ where: { messageId, authorId } });
 }
