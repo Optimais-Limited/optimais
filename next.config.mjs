@@ -5,6 +5,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const isDev = process.env.NODE_ENV !== "production";
 
+// Exhibition photos/videos live in Cloudflare R2 (see lib/storage.ts), a third-party origin, so
+// the CSP needs to name it explicitly: uploads PUT to it directly (connect-src) and the media
+// route's redirect sends <img>/<video> there too (img-src/media-src). The AWS SDK signs R2 URLs
+// virtual-hosted style — https://{bucket}.{account}.r2.cloudflarestorage.com — not the bare
+// R2_ENDPOINT host, so the CSP wildcards every bucket subdomain under this account. Blank (host
+// it off) until R2_ENDPOINT is set. Live voice (lib/livekit.ts) opens a WebSocket to LiveKit Cloud.
+const r2Origin = process.env.R2_ENDPOINT ? process.env.R2_ENDPOINT.replace(/\/$/, "").replace("https://", "https://*.") : "";
+const livekitOrigin = (process.env.LIVEKIT_URL || "").replace(/^wss:/, "https:").replace(/\/$/, "");
+
 // 'unsafe-inline' is required today: Next.js hydration bootstrap scripts and the static
 // public/*.html pages use inline <script>/<style>. A nonce-based script-src would force
 // every route to render dynamically, so it is left as a follow-up.
@@ -13,9 +22,9 @@ const buildCsp = (extraScriptSrc = "") => [
   `script-src 'self' 'unsafe-inline'${extraScriptSrc ? " " + extraScriptSrc : ""}${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: blob:",
-  "media-src 'self'",
-  `connect-src 'self'${isDev ? " ws: wss:" : ""}`,
+  `img-src 'self' data: blob:${r2Origin ? " " + r2Origin : ""}`,
+  `media-src 'self'${r2Origin ? " " + r2Origin : ""}`,
+  `connect-src 'self'${r2Origin ? " " + r2Origin : ""}${livekitOrigin ? ` ${livekitOrigin} ${livekitOrigin.replace("https:", "wss:")}` : ""}${isDev ? " ws: wss:" : ""}`,
   "frame-ancestors 'none'",
   "object-src 'none'",
   "base-uri 'self'",

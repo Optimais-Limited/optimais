@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SITE_NAV, isStaticRoute } from "@/lib/site-nav";
 import { formatNewsletterDate, newsletterImageUrl, type NewsletterSummary } from "@/lib/newsletter-shared";
+import type { ExhibitionSummary } from "@/lib/exhibitions-shared";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
@@ -35,9 +36,10 @@ export interface OptimaisLandingProps {
   isAuthenticated?: boolean;
   initials?: string;
   latestNewsletter?: NewsletterSummary | null;
+  latestExhibition?: ExhibitionSummary | null;
 }
 
-export function OptimaisLanding({ isAuthenticated = false, initials = "OU", latestNewsletter = null }: OptimaisLandingProps) {
+export function OptimaisLanding({ isAuthenticated = false, initials = "OU", latestNewsletter = null, latestExhibition = null }: OptimaisLandingProps) {
   /* ── calendar ── */
   const calDate = useMemo(() => new Date(), []);
   const cal = useMemo(() => buildCalendar(calDate), [calDate]);
@@ -226,6 +228,31 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", late
                 <div className="newsletter-body">
                   {latestNewsletter.comment && <p className="newsletter-comment">{latestNewsletter.comment}</p>}
                   <Link className="button secondary" href="/newsletters">View all newsletters <ArrowRight /></Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── LATEST EXHIBITION (admin posts only; user posts need approval first) ── */}
+        {latestExhibition && (
+          <section className="newsletter-latest" id="exhibition" aria-label="Latest exhibition">
+            <div className="shell">
+              <div className="section-head reveal">
+                <div>
+                  <p className="section-label">Latest Exhibition</p>
+                  <h2>{latestExhibition.title}</h2>
+                </div>
+              </div>
+              <div className="newsletter-card reveal">
+                <div className="newsletter-image">
+                  {latestExhibition.mediaType === "IMAGE"
+                    ? <img src={latestExhibition.mediaUrl} width={latestExhibition.mediaWidth ?? undefined} height={latestExhibition.mediaHeight ?? undefined} alt={latestExhibition.title} />
+                    : <video src={latestExhibition.mediaUrl} controls preload="metadata" />}
+                </div>
+                <div className="newsletter-body">
+                  <p className="newsletter-comment">{latestExhibition.description}</p>
+                  <Link className="button secondary" href="/exhibitions">View all exhibitions <ArrowRight /></Link>
                 </div>
               </div>
             </div>

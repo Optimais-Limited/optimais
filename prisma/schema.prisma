@@ -78,6 +78,12 @@ model User {
   savedScholarships  SavedScholarship[]
   applicationRecords ApplicationRecord[]
   posts              BlogPost[]          @relation("PostAuthor")
+  exhibitionPosts       ExhibitionPost[]     @relation("ExhibitionAuthor")
+  exhibitionReviews     ExhibitionPost[]     @relation("ExhibitionReviewer")
+  exhibitionComments    ExhibitionComment[]
+  exhibitionReactions   ExhibitionReaction[]
+  discussionRoomsHosted DiscussionRoom[]
+  discussionMessages    DiscussionMessage[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
 }
@@ -220,6 +226,100 @@ model NewsletterPost {
   updatedAt   DateTime @updatedAt
 
   @@index([createdAt])
+}
+
+enum ExhibitionMediaType {
+  IMAGE
+  VIDEO
+}
+
+enum ExhibitionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// A project photo or video an admin or a signed-in user shares. Media bytes live in
+// Supabase Storage (see lib/storage.ts); only the storage path is kept here.
+model ExhibitionPost {
+  id           String               @id @default(cuid())
+  authorId     String
+  author       User                 @relation("ExhibitionAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  title        String
+  description  String
+  mediaType    ExhibitionMediaType
+  mediaPath    String
+  mediaMime    String
+  mediaSize    Int
+  mediaWidth   Int?
+  mediaHeight  Int?
+  status       ExhibitionStatus     @default(PENDING)
+  reviewedById String?
+  reviewedBy   User?                @relation("ExhibitionReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewedAt   DateTime?
+  comments     ExhibitionComment[]
+  reactions    ExhibitionReaction[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  @@index([status, createdAt])
+}
+
+model ExhibitionComment {
+  id        String         @id @default(cuid())
+  postId    String
+  post      ExhibitionPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime       @default(now())
+
+  @@index([postId, createdAt])
+}
+
+// One reaction per person per post; changing your reaction updates the emoji in place.
+model ExhibitionReaction {
+  id        String         @id @default(cuid())
+  postId    String
+  post      ExhibitionPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  emoji     String
+  createdAt DateTime       @default(now())
+
+  @@unique([postId, authorId])
+}
+
+enum DiscussionStatus {
+  OPEN
+  CLOSED
+}
+
+// A hosted text discussion. Live voice is a planned follow-up once a real-time media provider is chosen.
+model DiscussionRoom {
+  id          String              @id @default(cuid())
+  hostId      String
+  host        User                @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  status      DiscussionStatus    @default(OPEN)
+  messages    DiscussionMessage[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@index([status, createdAt])
+}
+
+model DiscussionMessage {
+  id        String         @id @default(cuid())
+  roomId    String
+  room      DiscussionRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime       @default(now())
+
+  @@index([roomId, createdAt])
 }
 
 model AiRequestLog {

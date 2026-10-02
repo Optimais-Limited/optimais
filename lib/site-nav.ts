@@ -15,6 +15,8 @@ export const SITE_NAV: SiteNavItem[] = [
   { id: "opportunities", href: "/opportunities", label: "Opportunities", mobileLabel: "Scholarships & Grants", tileLabel: "Scholarships & Grants", blurb: "Curated funding opportunities for your academic journey." },
   { id: "insights", href: "/insights", label: "Insights", mobileLabel: "Insights", tileLabel: "Insights", blurb: "Research-driven ideas and perspectives on technology and industry." },
   { id: "newsletters", href: "/newsletters", label: "Newsletters", mobileLabel: "Newsletters", tileLabel: "Newsletters", blurb: "Our latest edition and every newsletter before it." },
+  { id: "exhibitions", href: "/exhibitions", label: "Exhibitions", mobileLabel: "Exhibitions", tileLabel: "Exhibitions", blurb: "African brilliance on display, shared by admins and our community." },
+  { id: "discussions", href: "/discussions", label: "Discussions", mobileLabel: "Discussions", tileLabel: "Discussions", blurb: "Text and voice conversations for African researchers and innovators." },
   { id: "careers", href: "/careers", label: "Careers", mobileLabel: "Careers", tileLabel: "Careers", blurb: "Join the team building the future of intelligent systems." },
   { id: "deeptech", href: "/deep-tech", label: "Deep Tech", mobileLabel: "Deep Tech", tileLabel: "Deep Tech", blurb: "Frontier science and engineering, from robotics to energy tech." },
   { id: "contact", href: "/contact", label: "Contact", mobileLabel: "Contact", tileLabel: "Contact", blurb: "Start the conversation about your next project." }
