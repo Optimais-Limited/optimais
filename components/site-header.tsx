@@ -14,7 +14,7 @@ function NavLink({ href, className, onClick, children }: { href: string; classNa
   return <Link href={href} className={className} onClick={onClick}>{children}</Link>;
 }
 
-export function SiteHeader({ isAuthenticated = false, initials = "OU" }: { isAuthenticated?: boolean; initials?: string }) {
+export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff = false }: { isAuthenticated?: boolean; initials?: string; isStaff?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -82,6 +82,11 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU" }: { isAut
                         <button role="menuitem" type="button" className="avatar-dropdown-item" onClick={() => { setAvatarDropdownOpen(false); router.push("/dashboard/profile"); }}>
                           Profile
                         </button>
+                        {isStaff && (
+                          <button role="menuitem" type="button" className="avatar-dropdown-item" onClick={() => { setAvatarDropdownOpen(false); router.push("/admin"); }}>
+                            Admin panel
+                          </button>
+                        )}
                         <div className="avatar-dropdown-divider" />
                         <button role="menuitem" type="button" className="avatar-dropdown-item avatar-dropdown-item--danger" onClick={() => signOut({ callbackUrl: "/" })}>
                           Log Out

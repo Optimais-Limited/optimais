@@ -1,13 +1,16 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  // No explicit destination was requested (someone just visited /login directly) — land staff in
+  // the admin panel instead of the consumer dashboard, which is where "Back to the site" leads from.
+  const explicitCallbackUrl = searchParams.get("callbackUrl");
+  const callbackUrl = explicitCallbackUrl || "/dashboard";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +39,12 @@ export function LoginForm() {
       return;
     }
 
-    router.push(result?.url || callbackUrl);
+    let destination = result?.url || callbackUrl;
+    if (!explicitCallbackUrl) {
+      const session = await getSession();
+      if (session?.user?.role === "ADMIN" || session?.user?.role === "EDITOR") destination = "/admin";
+    }
+    router.push(destination);
     router.refresh();
   }
 

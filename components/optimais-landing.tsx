@@ -35,11 +35,12 @@ function buildCalendar(date: Date) {
 export interface OptimaisLandingProps {
   isAuthenticated?: boolean;
   initials?: string;
+  isStaff?: boolean;
   latestNewsletter?: NewsletterSummary | null;
   latestExhibition?: ExhibitionSummary | null;
 }
 
-export function OptimaisLanding({ isAuthenticated = false, initials = "OU", latestNewsletter = null, latestExhibition = null }: OptimaisLandingProps) {
+export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isStaff = false, latestNewsletter = null, latestExhibition = null }: OptimaisLandingProps) {
   /* ── calendar ── */
   const calDate = useMemo(() => new Date(), []);
   const cal = useMemo(() => buildCalendar(calDate), [calDate]);
@@ -133,7 +134,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", late
   // ═══ RENDER ════════════════════════════════════════════════════════════
   return (
     <div className={`opt-root${isAuthenticated ? " authenticated" : ""}`}>
-      <SiteHeader isAuthenticated={isAuthenticated} initials={initials} />
+      <SiteHeader isAuthenticated={isAuthenticated} initials={initials} isStaff={isStaff} />
 
       <main id="top">
         {/* ── HERO ── */}

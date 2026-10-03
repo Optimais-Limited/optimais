@@ -12,6 +12,7 @@ export default async function UserDashboardPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect("/");
   const initials = initialsFromName(session.user.name, session.user.email);
+  const isStaff = session.user.role === "ADMIN" || session.user.role === "EDITOR";
   const [latestNewsletter, latestExhibition] = await Promise.all([getLatestNewsletter(), getLatestAdminExhibition()]);
-  return <OptimaisLanding isAuthenticated={true} initials={initials} latestNewsletter={latestNewsletter} latestExhibition={latestExhibition} />;
+  return <OptimaisLanding isAuthenticated={true} initials={initials} isStaff={isStaff} latestNewsletter={latestNewsletter} latestExhibition={latestExhibition} />;
 }

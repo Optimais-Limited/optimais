@@ -9,7 +9,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const viewer = await getSiteViewer();
   return (
     <div className="opt-root">
-      <SiteHeader isAuthenticated={viewer.isAuthenticated} initials={viewer.initials} />
+      <SiteHeader isAuthenticated={viewer.isAuthenticated} initials={viewer.initials} isStaff={viewer.isStaff} />
       <main className="page-main">{children}</main>
       <SiteFooter />
     </div>

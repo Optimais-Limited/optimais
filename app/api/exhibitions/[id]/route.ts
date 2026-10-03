@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { requireAdminSession } from "@/lib/api-auth";
 import { deleteExhibitionPostAndMedia, getExhibitionForViewer, moderateExhibitionPost } from "@/lib/exhibitions";
+import { logAdminAction } from "@/lib/activity-log";
 import { prisma } from "@/lib/prisma";
 
 type Params = { params: Promise<{ id: string }> };
@@ -33,6 +34,13 @@ export async function PATCH(request: Request, { params }: Params) {
 
   const post = await moderateExhibitionPost(id, session!.user!.id, status);
   if (!post) return NextResponse.json({ error: "Exhibition post not found." }, { status: 404 });
+  await logAdminAction({
+    actor: { name: session!.user!.name ?? null, email: session!.user!.email! },
+    action: status === "APPROVED" ? "exhibition.approved" : "exhibition.rejected",
+    targetType: "ExhibitionPost",
+    targetId: post.id,
+    summary: `${status === "APPROVED" ? "Approved" : "Rejected"} "${post.title}" by ${post.authorName}`
+  });
   return NextResponse.json({ post });
 }
 
@@ -42,12 +50,23 @@ export async function DELETE(_request: Request, { params }: Params) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
 
-  const existing = await prisma.exhibitionPost.findUnique({ where: { id }, select: { authorId: true } });
+  const existing = await prisma.exhibitionPost.findUnique({ where: { id }, select: { authorId: true, title: true } });
   if (!existing) return NextResponse.json({ error: "Exhibition post not found." }, { status: 404 });
-  if (existing.authorId !== session.user.id && !isModeratorRole(session.user.role)) {
+  const isModerator = isModeratorRole(session.user.role);
+  if (existing.authorId !== session.user.id && !isModerator) {
     return NextResponse.json({ error: "You can only delete your own posts." }, { status: 403 });
   }
 
   await deleteExhibitionPostAndMedia(id);
+  // Only log a moderator removing someone else's post — deleting your own isn't a moderation action.
+  if (isModerator && existing.authorId !== session.user.id) {
+    await logAdminAction({
+      actor: { name: session.user.name ?? null, email: session.user.email! },
+      action: "exhibition.deleted",
+      targetType: "ExhibitionPost",
+      targetId: id,
+      summary: `Deleted "${existing.title}"`
+    });
+  }
   return NextResponse.json({ ok: true });
 }

@@ -10,6 +10,7 @@ export function initialsFromName(name?: string | null, email?: string | null) {
 /** Who is looking at the page, for the shared header (avatar vs. Sign In). Public pages never redirect. */
 export async function getSiteViewer() {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return { isAuthenticated: false, initials: "OU" };
-  return { isAuthenticated: true, initials: initialsFromName(session.user.name, session.user.email) };
+  if (!session?.user) return { isAuthenticated: false, initials: "OU", isStaff: false };
+  const role = session.user.role;
+  return { isAuthenticated: true, initials: initialsFromName(session.user.name, session.user.email), isStaff: role === "ADMIN" || role === "EDITOR" };
 }

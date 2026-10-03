@@ -19,6 +19,15 @@ export function SiteFooter() {
             <Link className="button" href="/contact">Start a Project</Link>
           </div>
         )}
+        <div className="footer-policies">
+          <span className="footer-policies-label">Policies</span>
+          <nav className="footer-policies-links" aria-label="Policies">
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-of-use">Terms of use</Link>
+            <Link href="/community-standards">Community standards</Link>
+            <Link href="/report-a-concern">Report a concern</Link>
+          </nav>
+        </div>
         <div className="footer">
           <span><span className="footer-mark">Optimais Labs</span> — Intelligent Systems. Sustainable Futures.</span>
           <span>© {new Date().getFullYear()} Optimais Labs. All rights reserved.</span>

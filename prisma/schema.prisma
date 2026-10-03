@@ -346,3 +346,18 @@ model AiRequestLog {
   metadata  Json?
   createdAt DateTime @default(now())
 }
+
+// Append-only audit trail for moderation/role actions (see lib/activity-log.ts). Denormalized
+// (no FK to User) so the record survives even if the actor's account is later deleted.
+model AdminActivityLog {
+  id         String   @id @default(cuid())
+  actorName  String
+  actorEmail String
+  action     String
+  targetType String
+  targetId   String?
+  summary    String
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
