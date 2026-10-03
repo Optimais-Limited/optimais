@@ -21,6 +21,7 @@ build/
 coverage/
 .env
 .env*.local
+tsconfig.tsbuildinfo
 
 # Temporary files / screenshots
 .tmp/

@@ -5,6 +5,7 @@ import { OptimaisLanding } from "@/components/optimais-landing";
 import { initialsFromName } from "@/lib/site-viewer";
 import { getLatestNewsletter } from "@/lib/newsletters";
 import { getLatestAdminExhibition } from "@/lib/exhibitions";
+import { listTeamMembers } from "@/lib/team";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,6 @@ export default async function UserDashboardPage() {
   if (!session?.user) redirect("/");
   const initials = initialsFromName(session.user.name, session.user.email);
   const isStaff = session.user.role === "ADMIN" || session.user.role === "EDITOR";
-  const [latestNewsletter, latestExhibition] = await Promise.all([getLatestNewsletter(), getLatestAdminExhibition()]);
-  return <OptimaisLanding isAuthenticated={true} initials={initials} isStaff={isStaff} latestNewsletter={latestNewsletter} latestExhibition={latestExhibition} />;
+  const [latestNewsletter, latestExhibition, team] = await Promise.all([getLatestNewsletter(), getLatestAdminExhibition(), listTeamMembers()]);
+  return <OptimaisLanding isAuthenticated={true} initials={initials} isStaff={isStaff} latestNewsletter={latestNewsletter} latestExhibition={latestExhibition} team={team} />;
 }

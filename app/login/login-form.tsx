@@ -34,6 +34,8 @@ export function LoginForm() {
       setError(
         result.error === "RATE_LIMITED"
           ? "Too many attempts. Please wait a few minutes and try again."
+          : result.error === "ACCOUNT_SUSPENDED"
+          ? "Your account has been suspended. Contact an administrator if you think this is a mistake."
           : "Invalid email or password. Please check your credentials and try again."
       );
       return;

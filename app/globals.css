@@ -217,6 +217,11 @@ textarea.field {
   color: var(--text);
 }
 
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .status {
   margin-top: 14px;
   color: var(--muted);
@@ -228,6 +233,14 @@ textarea.field {
 
 .status.success {
   color: #8fd7b0;
+}
+
+.status code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(var(--ink-rgb), 0.08);
+  color: var(--gold);
+  font-size: 0.85em;
 }
 
 .list {
@@ -938,6 +951,11 @@ textarea.field {
 }
 .opt-root .mobile-nav-link:hover { color: var(--gold); padding-left: 8px; }
 .opt-root .mobile-nav-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+.opt-root .mobile-nav-account { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--card-border); }
+.opt-root .mobile-nav-account .profile-avatar { margin-bottom: 10px; pointer-events: none; }
+.opt-root .mobile-nav-account .mobile-nav-link { padding: 10px 0; font-size: 1.05rem; }
+.opt-root .mobile-nav-link--danger { color: #e07070; }
+.opt-root .mobile-nav-link--danger:hover { color: #f08080; }
 
 /* hero */
 .opt-root .hero {

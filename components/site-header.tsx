@@ -40,11 +40,18 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff =
             {item.mobileLabel}
           </NavLink>
         ))}
+        {isAuthenticated && (
+          <div className="mobile-nav-account">
+            <span className="profile-avatar">{initials}</span>
+            <Link href="/dashboard/profile" className="mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Profile</Link>
+            {isStaff && <Link href="/admin" className="mobile-nav-link" onClick={() => setMobileNavOpen(false)}>Staff Tools</Link>}
+            <button type="button" className="mobile-nav-link mobile-nav-link--danger" onClick={() => signOut({ callbackUrl: "/" })}>Log Out</button>
+          </div>
+        )}
         <div className="mobile-nav-actions">
-          {!isAuthenticated
-            ? <button className="button secondary opt-signin-btn" type="button" onClick={() => { setMobileNavOpen(false); setAuthModal({ open: true, mode: "signin" }); }}>Sign In</button>
-            : <span className="profile-avatar">{initials}</span>
-          }
+          {!isAuthenticated && (
+            <button className="button secondary opt-signin-btn" type="button" onClick={() => { setMobileNavOpen(false); setAuthModal({ open: true, mode: "signin" }); }}>Sign In</button>
+          )}
           <Link className="button" href="/contact" onClick={() => setMobileNavOpen(false)}>Start a Project</Link>
         </div>
       </div>
@@ -84,7 +91,7 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff =
                         </button>
                         {isStaff && (
                           <button role="menuitem" type="button" className="avatar-dropdown-item" onClick={() => { setAvatarDropdownOpen(false); router.push("/admin"); }}>
-                            Admin panel
+                            Staff Tools
                           </button>
                         )}
                         <div className="avatar-dropdown-divider" />

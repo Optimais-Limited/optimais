@@ -20,6 +20,10 @@ export function SiteFooter() {
           </div>
         )}
         <div className="footer-policies">
+          <span className="footer-policies-label">Company</span>
+          <nav className="footer-policies-links" aria-label="Company">
+            <Link href="/about-us">About Us</Link>
+          </nav>
           <span className="footer-policies-label">Policies</span>
           <nav className="footer-policies-links" aria-label="Policies">
             <Link href="/privacy-policy">Privacy Policy</Link>

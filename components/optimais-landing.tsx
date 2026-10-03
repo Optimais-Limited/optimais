@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SITE_NAV, isStaticRoute } from "@/lib/site-nav";
 import { formatNewsletterDate, newsletterImageUrl, type NewsletterSummary } from "@/lib/newsletter-shared";
 import type { ExhibitionSummary } from "@/lib/exhibitions-shared";
+import type { TeamMemberSummary } from "@/lib/team-shared";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
@@ -38,9 +39,10 @@ export interface OptimaisLandingProps {
   isStaff?: boolean;
   latestNewsletter?: NewsletterSummary | null;
   latestExhibition?: ExhibitionSummary | null;
+  team?: TeamMemberSummary[];
 }
 
-export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isStaff = false, latestNewsletter = null, latestExhibition = null }: OptimaisLandingProps) {
+export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isStaff = false, latestNewsletter = null, latestExhibition = null, team = [] }: OptimaisLandingProps) {
   /* ── calendar ── */
   const calDate = useMemo(() => new Date(), []);
   const cal = useMemo(() => buildCalendar(calDate), [calDate]);
@@ -401,59 +403,34 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isSt
           </div>
         </section>
 
-        {/* ── EXECUTIVES ── */}
-        <section className="exec-section">
-          <div className="shell">
-            <div className="section-head reveal">
-              <div>
-                <p className="section-label">Leadership</p>
-                <h2>Executives</h2>
+        {/* ── EXECUTIVES (admin-managed; see /admin/team) ── */}
+        {team.length > 0 && (
+          <section className="exec-section">
+            <div className="shell">
+              <div className="section-head reveal">
+                <div>
+                  <p className="section-label">Leadership</p>
+                  <h2>Executives</h2>
+                </div>
+              </div>
+              <div className="exec-list">
+                {team.map((member) => (
+                  <div className="exec-card reveal" key={member.id}>
+                    <div className="exec-photo-wrap">
+                      <img src={member.photoUrl} alt={`${member.name}, ${member.role}`} className="exec-photo" loading="lazy" width={300} height={400} />
+                    </div>
+                    <div className="exec-bio-wrap">
+                      <h3 className="exec-name">{member.name}</h3>
+                      {member.affiliation && <p className="exec-affiliation">{member.affiliation}</p>}
+                      <p className="exec-role">{member.role}</p>
+                      {member.statement && <blockquote className="exec-statement">{member.statement}</blockquote>}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="exec-list">
-              <div className="exec-card reveal">
-                <div className="exec-photo-wrap">
-                  <img
-                    src="/brand_assets/Uthman_Nabil.jpg"
-                    alt="Uthman Nabil, CEO of Optimais Labs"
-                    className="exec-photo"
-                    loading="lazy"
-                    width={300}
-                    height={400}
-                  />
-                </div>
-                <div className="exec-bio-wrap">
-                  <h3 className="exec-name">Uthman Nabil</h3>
-                  <p className="exec-affiliation">Asst. Operations Manager, Pipeline Infrastructures Nig. Ltd.</p>
-                  <p className="exec-role">CEO, Optimais Labs</p>
-                  <blockquote className="exec-statement">
-                    As CEO of Optimais Labs, I lead our mission to advance AI research, optimization, and practical technology solutions across Africa. I focus on building partnerships and translating research into solutions that help businesses and communities thrive.
-                  </blockquote>
-                </div>
-              </div>
-              <div className="exec-card reveal">
-                <div className="exec-photo-wrap">
-                  <img
-                    src="/brand_assets/Durojaiye_Abeeb.jpg"
-                    alt="Durojaiye Abeeb, Chief Investment and Product Officer of Optimais Labs"
-                    className="exec-photo"
-                    loading="lazy"
-                    width={300}
-                    height={400}
-                  />
-                </div>
-                <div className="exec-bio-wrap">
-                  <h3 className="exec-name">Durojaiye Abeeb</h3>
-                  <p className="exec-affiliation">Decision Maker, Department of Work and Pensions, UK</p>
-                  <p className="exec-role">Chief Investment and Product Officer (CIPO), Optimais Labs</p>
-                  <blockquote className="exec-statement">
-                    As CIPO of Optimais Labs, I lead investment strategy and product development to turn AI research into practical, market-ready solutions. I focus on identifying investment opportunities and shaping products that meet the needs of businesses and communities across Africa.
-                  </blockquote>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ── LOCATIONS ── */}
         <section style={{ padding: "80px 0", borderTop: "1px solid rgba(201,169,97,0.1)" }}>

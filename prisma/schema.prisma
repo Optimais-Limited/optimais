@@ -63,6 +63,7 @@ model User {
   image              String?
   passwordHash       String?
   role               Role                @default(USER)
+  suspended          Boolean             @default(false)
   accountType        String?
   firstName          String?
   lastName           String?
@@ -360,4 +361,31 @@ model AdminActivityLog {
   createdAt  DateTime @default(now())
 
   @@index([createdAt])
+}
+
+// The public leadership/team roster shown on the dashboard. Admin-managed; photos live in the
+// same private R2 bucket as Exhibitions (see lib/storage.ts), under a "team/" prefix.
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  role        String // their title at Optimais Labs, e.g. "CEO, Optimais Labs"
+  affiliation String // their day-job affiliation, e.g. "Asst. Operations Manager, ..."
+  statement   String
+  photoPath   String
+  photoMime   String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([order])
+}
+
+// Admin-editable long-form content for pages that used to be hard-coded (About Us, the legal
+// pages). `body` is lightweight markdown: blank-line-separated paragraphs, "## " starts a heading.
+model SitePage {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  body      String
+  updatedAt DateTime @updatedAt
 }

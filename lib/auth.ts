@@ -58,6 +58,9 @@ export const authOptions: NextAuthOptions = {
         const valid = await bcrypt.compare(credentials.password, user.passwordHash);
         if (!valid) return fail();
 
+        // Correct password, but the account is suspended — not a brute-force signal, don't count it.
+        if (user.suspended) throw new Error("ACCOUNT_SUSPENDED");
+
         resetKey(keys.pair);
 
         return {
