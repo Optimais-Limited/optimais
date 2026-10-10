@@ -192,7 +192,7 @@ export function TeamManagement({ initialMembers }: { initialMembers: TeamMemberS
           <h1>Team</h1>
         </div>
       </div>
-      <p className="status">Manage the Leadership section shown on the landing page. Order here is the order it's shown in.</p>
+      <p className="status">Manage the Leadership section shown on the landing page. Order here is the order it&rsquo;s shown in.</p>
 
       <AddMemberForm onAdded={(member) => setMembers((m) => [...m, member])} />
 

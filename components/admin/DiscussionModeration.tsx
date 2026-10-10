@@ -40,7 +40,7 @@ export function DiscussionModeration({ initialRooms }: { initialRooms: Discussio
           <h1>Discussions</h1>
         </div>
       </div>
-      <p className="status">End a discussion early, or remove one entirely. Hosts can already do this for their own room — these controls work on anyone's.</p>
+      <p className="status">End a discussion early, or remove one entirely. Hosts can already do this for their own room — these controls work on anyone&rsquo;s.</p>
 
       <section className="admin-panel">
         {initialRooms.length === 0 ? (
