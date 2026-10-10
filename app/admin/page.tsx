@@ -1,3 +1,4 @@
+import { requireStaffPage } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -32,6 +33,7 @@ async function getStats() {
 }
 
 export default async function AdminDashboard() {
+  await requireStaffPage();
   const { stats, anyFailed } = await getStats();
   const cards = [
     ["Contacts", stats.contacts ?? "-"],
@@ -58,7 +60,7 @@ export default async function AdminDashboard() {
           </div>
         ))}
       </div>
-      {anyFailed && <p className="status error">Some stats couldn't be loaded just now (a database hiccup) — the rest above are live. Refresh to retry.</p>}
+      {anyFailed && <p className="status error">Some stats couldn&rsquo;t be loaded just now (a database hiccup) — the rest above are live. Refresh to retry.</p>}
     </>
   );
 }

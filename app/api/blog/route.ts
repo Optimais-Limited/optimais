@@ -1,4 +1,4 @@
-import { validationFailure } from "@/lib/api-errors";
+import { prismaFailure, validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { blogPostSchema } from "@/lib/validators";
@@ -25,17 +25,22 @@ export async function POST(request: Request) {
   const { response } = await requireAdminSession();
   if (response) return response;
 
-  const parsed = blogPostSchema.safeParse(await request.json());
+  const parsed = blogPostSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return validationFailure("Invalid post data.", parsed.error);
   }
 
-  const post = await prisma.blogPost.create({
-    data: {
-      ...parsed.data,
-      publishedAt: parsed.data.status === "PUBLISHED" ? new Date() : null
-    }
-  });
-
-  return NextResponse.json({ post }, { status: 201 });
+  try {
+    const post = await prisma.blogPost.create({
+      data: {
+        ...parsed.data,
+        publishedAt: parsed.data.status === "PUBLISHED" ? new Date() : null
+      }
+    });
+    return NextResponse.json({ post }, { status: 201 });
+  } catch (err) {
+    const failure = prismaFailure(err, "post");
+    if (failure) return failure;
+    throw err;
+  }
 }

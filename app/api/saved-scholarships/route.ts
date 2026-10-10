@@ -10,7 +10,7 @@ export async function GET() {
   if (!session?.user?.id) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
 
   const saved = await prisma.savedScholarship.findMany({
-    where: { userId: session.user.id },
+    where: { userId: session.user.id, scholarship: { isPublished: true } },
     include: { scholarship: true },
     orderBy: { createdAt: "desc" }
   });
@@ -25,6 +25,11 @@ export async function POST(request: Request) {
   const parsed = savedScholarshipSchema.safeParse(await request.json());
   if (!parsed.success) {
     return validationFailure("Invalid saved scholarship.", parsed.error);
+  }
+
+  const scholarship = await prisma.scholarshipOpportunity.findUnique({ where: { id: parsed.data.scholarshipId }, select: { isPublished: true } });
+  if (!scholarship?.isPublished) {
+    return NextResponse.json({ error: "Scholarship not found." }, { status: 404 });
   }
 
   const saved = await prisma.savedScholarship.upsert({

@@ -73,13 +73,29 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
+    // getServerSession() runs this on every call, so the role and suspension state are re-read
+    // from the database each time instead of being frozen into the cookie at sign-in. That is
+    // what makes a demotion, suspension or deletion take effect on the very next request,
+    // everywhere a route or page reads the session — not only where a route remembers to re-check.
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as { role?: string }).role;
       }
+      if (token.sub) {
+        try {
+          const current = await prisma.user.findUnique({ where: { id: token.sub }, select: { role: true, suspended: true } });
+          token.role = current?.role ?? "USER";
+          token.blocked = !current || current.suspended;
+        } catch (err) {
+          // A database hiccup keeps the last known state rather than signing everyone out.
+          console.error("session refresh failed:", err);
+        }
+      }
       return token;
     },
     async session({ session, token }) {
+      // A suspended or deleted account gets a session with no user, which every caller treats as signed out.
+      if (token.blocked) return { expires: session.expires };
       if (session.user) {
         session.user.id = token.sub ?? "";
         session.user.role = String(token.role ?? "USER");

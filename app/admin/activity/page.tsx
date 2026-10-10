@@ -1,3 +1,4 @@
+import { requireStaffPage } from "@/lib/api-auth";
 import { listAdminActivity } from "@/lib/activity-log";
 
 export const dynamic = "force-dynamic";
@@ -5,6 +6,7 @@ export const dynamic = "force-dynamic";
 const fmt = (iso: string) => new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC";
 
 export default async function AdminActivityPage() {
+  await requireStaffPage();
   const entries = await listAdminActivity();
   return (
     <>
@@ -14,7 +16,7 @@ export default async function AdminActivityPage() {
           <h1>Action history</h1>
         </div>
       </div>
-      <p className="status">A record of moderation actions taken on other people's content and accounts — approvals, rejections, removals, and role changes. Routine edits to your own posts aren't logged here.</p>
+      <p className="status">A record of moderation actions taken on other people&rsquo;s content and accounts — approvals, rejections, removals, and role changes. Routine edits to your own posts aren&rsquo;t logged here.</p>
 
       <section className="admin-panel">
         {entries.length === 0 ? (

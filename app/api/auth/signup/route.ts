@@ -3,9 +3,18 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { signupSchema } from "@/lib/validators";
+import { clientIp, consume } from "@/lib/rate-limit";
+
+const SIGNUP_LIMIT = 5;
+const SIGNUP_WINDOW_MS = 15 * 60 * 1000;
 
 export async function POST(request: Request) {
-  const parsed = signupSchema.safeParse(await request.json());
+  const limit = consume(`signup:${clientIp(request.headers)}`, SIGNUP_LIMIT, SIGNUP_WINDOW_MS);
+  if (limit.limited) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } });
+  }
+
+  const parsed = signupSchema.safeParse(await request.json().catch(() => null));
 
   if (!parsed.success) {
     return validationFailure("Invalid signup details.", parsed.error);

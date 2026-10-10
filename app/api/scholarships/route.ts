@@ -1,4 +1,4 @@
-import { validationFailure } from "@/lib/api-errors";
+import { prismaFailure, validationFailure } from "@/lib/api-errors";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { scholarshipSchema } from "@/lib/validators";
@@ -37,19 +37,24 @@ export async function POST(request: Request) {
   const { response } = await requireAdminSession();
   if (response) return response;
 
-  const parsed = scholarshipSchema.safeParse(await request.json());
+  const parsed = scholarshipSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return validationFailure("Invalid scholarship data.", parsed.error);
   }
 
   const data = parsed.data;
-  const scholarship = await prisma.scholarshipOpportunity.create({
-    data: {
-      ...data,
-      deadline: data.deadline ? new Date(data.deadline) : null,
-      sourceUrl: data.sourceUrl || null
-    }
-  });
-
-  return NextResponse.json({ scholarship }, { status: 201 });
+  try {
+    const scholarship = await prisma.scholarshipOpportunity.create({
+      data: {
+        ...data,
+        deadline: data.deadline ? new Date(data.deadline) : null,
+        sourceUrl: data.sourceUrl || null
+      }
+    });
+    return NextResponse.json({ scholarship }, { status: 201 });
+  } catch (err) {
+    const failure = prismaFailure(err, "scholarship");
+    if (failure) return failure;
+    throw err;
+  }
 }

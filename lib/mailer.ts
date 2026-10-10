@@ -1,6 +1,13 @@
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 
+// For any HTML email template that interpolates a value someone outside the team typed
+// (a contact form, a signup name): user-controlled markup in an admin's inbox is a phishing
+// and layout-breaking risk, even without script execution in most mail clients.
+export function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
+}
+
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const smtpTransport =
