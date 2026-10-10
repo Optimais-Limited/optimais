@@ -1,14 +1,14 @@
-import { SignupForm } from "./signup-form";
-import { ThemeToggle } from "@/components/theme-toggle";
+import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
+import { SignupModal } from "./signup-modal";
 
-export default function SignupPage() {
-  return (
-    <main className="admin-main">
-      <ThemeToggle className="theme-toggle-floating" />
-      <p className="eyebrow">Optimais Labs Account</p>
-      <h1>Create account</h1>
-      <SignupForm />
-      <p className="status">Already have an account? <a href="/login">Sign in</a>.</p>
-    </main>
-  );
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = { title: "Create your account | Optimais Labs" };
+
+export default async function SignupPage() {
+  const session = await getServerSession(authOptions);
+  if (session?.user) redirect(session.user.role === "ADMIN" || session.user.role === "EDITOR" ? "/admin" : "/dashboard");
+  return <SignupModal />;
 }

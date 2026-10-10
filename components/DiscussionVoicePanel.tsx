@@ -72,14 +72,30 @@ export function DiscussionVoicePanel({ discussionId, isHost, roomOpen }: { discu
       room.on(RoomEvent.Disconnected, () => { setConnected(false); setParticipants([]); });
 
       await room.connect(data.url, data.token);
+
+      // Connecting to the room (signaling) and enabling the microphone (getUserMedia) are
+      // separate failure modes: mic permission can be denied — by the browser's own prompt, or by
+      // the Permissions-Policy header — after the room connection already succeeded. Treating that
+      // as a generic "check your connection" error was misleading, and leaving the room connected
+      // with nothing visibly wrong left the member stuck in it with no way to leave from the UI.
       setCanPublish(data.canPublish);
       if (data.canPublish) {
-        await room.localParticipant.setMicrophoneEnabled(true);
-        setMicOn(true);
+        try {
+          await room.localParticipant.setMicrophoneEnabled(true);
+          setMicOn(true);
+        } catch (micErr) {
+          room.disconnect();
+          roomRef.current = null;
+          const denied = micErr instanceof DOMException && (micErr.name === "NotAllowedError" || micErr.name === "SecurityError");
+          setError(denied ? "Microphone access was blocked. Allow microphone access for this site in your browser settings, then try again." : "Could not enable your microphone. Check your connection and try again.");
+          return;
+        }
       }
       refreshParticipants(room);
       setConnected(true);
     } catch {
+      roomRef.current?.disconnect();
+      roomRef.current = null;
       setError("Could not join voice. Check your connection and try again.");
     } finally {
       setConnecting(false);
@@ -99,8 +115,15 @@ export function DiscussionVoicePanel({ discussionId, isHost, roomOpen }: { discu
     const room = roomRef.current;
     if (!room || !canPublish) return;
     const next = !micOn;
-    await room.localParticipant.setMicrophoneEnabled(next);
-    setMicOn(next);
+    setError("");
+    try {
+      await room.localParticipant.setMicrophoneEnabled(next);
+      setMicOn(next);
+    } catch (micErr) {
+      // Listeners first touch the microphone here, after a host lets them speak.
+      const denied = micErr instanceof DOMException && (micErr.name === "NotAllowedError" || micErr.name === "SecurityError");
+      setError(denied ? "Microphone access was blocked. Allow microphone access for this site in your browser settings, then try again." : "Could not switch your microphone. Please try again.");
+    }
   }
 
   async function raiseHand() {

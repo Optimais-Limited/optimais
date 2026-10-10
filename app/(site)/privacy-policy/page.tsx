@@ -18,7 +18,7 @@ export default async function PrivacyPolicyPage() {
         <p className="kicker">Policies</p>
         <h1 className="page-title">{page.title}</h1>
         <SitePageBody body={page.body} />
-        <p className="legal-note">This page is a general template and isn't a substitute for advice from a qualified lawyer about your specific obligations.</p>
+        <p className="legal-note">This page is a general template and isn&rsquo;t a substitute for advice from a qualified lawyer about your specific obligations.</p>
       </div>
     </section>
   );

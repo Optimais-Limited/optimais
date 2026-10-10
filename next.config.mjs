@@ -22,7 +22,8 @@ const buildCsp = (extraScriptSrc = "") => [
   `script-src 'self' 'unsafe-inline'${extraScriptSrc ? " " + extraScriptSrc : ""}${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  `img-src 'self' data: blob:${r2Origin ? " " + r2Origin : ""}`,
+  // https: because a blog post's cover image is any URL an editor pastes in; images can't run script.
+  `img-src 'self' data: blob: https:`,
   `media-src 'self'${r2Origin ? " " + r2Origin : ""}`,
   `connect-src 'self'${r2Origin ? " " + r2Origin : ""}${livekitOrigin ? ` ${livekitOrigin} ${livekitOrigin.replace("https:", "wss:")}` : ""}${isDev ? " ws: wss:" : ""}`,
   "frame-ancestors 'none'",
@@ -35,7 +36,10 @@ const securityHeaders = [
   { key: "Content-Security-Policy", value: buildCsp() },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" }
+  // microphone=() blocks capture everywhere, including same-origin — that broke the Discussions
+  // voice panel outright, independent of whether LiveKit itself was configured. Camera and
+  // geolocation are genuinely unused here, so they stay denied.
+  { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" }
 ];
 
 /** @type {import('next').NextConfig} */
@@ -66,6 +70,15 @@ const nextConfig = {
       { source: "/deep-tech", destination: "/deep-tech.html" },
       { source: "/culture-benefits", destination: "/culture-benefits.html" },
       { source: "/our-stories", destination: "/our-stories.html" }
+    ];
+  },
+  // public/index.html is the pre-Next.js homepage: a full static duplicate of what `/` now
+  // renders for real (see app/page.tsx). Nothing in the app links to it any more, but an old
+  // bookmark or search result might, so it redirects instead of just disappearing to a 404.
+  async redirects() {
+    return [
+      { source: "/index.html", destination: "/", permanent: true },
+      { source: "/index", destination: "/", permanent: true }
     ];
   }
 };

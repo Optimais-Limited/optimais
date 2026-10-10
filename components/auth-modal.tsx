@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -48,6 +48,8 @@ interface Props {
   onClose: () => void;
   initialMode?: ModalMode;
   initialTab?: SignupTab;
+  /** Called instead of onClose after a successful sign-in, for hosts whose onClose navigates away. */
+  onSignedIn?: () => void;
 }
 
 const ARROW_SVG = (
@@ -56,8 +58,11 @@ const ARROW_SVG = (
   </svg>
 );
 
-export function AuthModal({ open, onClose, initialMode = "signup", initialTab = "individual" }: Props) {
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+export function AuthModal({ open, onClose, initialMode = "signup", initialTab = "individual", onSignedIn }: Props) {
   const router = useRouter();
+  const backdropRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<ModalMode>(initialMode);
   const [tab, setTab] = useState<SignupTab>(initialTab);
   const [loading, setLoading] = useState(false);
@@ -92,17 +97,66 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
   function switchMode(next: ModalMode) { reset(); setMode(next); }
   function switchTab(next: SignupTab) { reset(); setTab(next); }
 
+  // `mode`/`tab` only seed from props at first mount (useState ignores later prop changes), but
+  // the header keeps one AuthModal instance alive and just flips `open`/`initialMode` on each
+  // click — so without this, the first click's mode "sticks" and every later click (e.g. Sign In
+  // after an earlier Create Account) reopens the modal on the wrong screen.
+  useEffect(() => {
+    if (open) {
+      reset();
+      setMode(initialMode);
+      setTab(initialTab);
+    }
+  }, [open, initialMode, initialTab]);
+
+  // Dialog focus behavior: move focus in on open, restore it to whatever opened the dialog on
+  // close, trap Tab/Shift+Tab inside while open, and close on Escape. Without this, focus stays
+  // on the (now hidden) trigger button and Escape does nothing — both real accessibility bugs,
+  // not just nice-to-haves, for anyone navigating by keyboard or screen reader.
+  useEffect(() => {
+    if (!open) return;
+    const trigger = document.activeElement as HTMLElement | null;
+    backdropRef.current?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab") return;
+      const items = Array.from(backdropRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      // Focus starts on the dialog container itself (not in `items`), so "outside the list"
+      // has to wrap too — otherwise Shift+Tab straight after opening left the dialog.
+      const active = document.activeElement as HTMLElement | null;
+      const inList = !!active && items.includes(active);
+      if (e.shiftKey && (active === first || !inList)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (active === last || !inList)) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, mode]);
+
   async function handleForgot(e: FormEvent) {
     e.preventDefault();
     setLoading(true); setError("");
-    const res = await fetch("/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    setLoading(false);
-    if (res.status === 429) { setError("Too many requests. Please try again later."); return; }
-    setForgotSent(true);
+    try {
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.status === 429) { setError("Too many requests. Please try again later."); return; }
+      if (!res.ok) { setError("Could not send the reset link. Please try again."); return; }
+      setForgotSent(true);
+    } catch {
+      setError("Could not send the reset link. Check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSignup(e: FormEvent) {
@@ -113,49 +167,63 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
         ? { accountType: "individual", firstName, lastName, email, phone, country, serviceInterest, password }
         : { accountType: "business", company, contactName, jobTitle, email, phone, industry, country, serviceInterest, password };
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-    if (!res.ok) {
-      const d = await res.json().catch(() => null);
-      setError(d?.error || "Could not create account.");
+      if (!res.ok) {
+        const d = await res.json().catch(() => null);
+        setError(d?.error || "Could not create account.");
+        return;
+      }
+
+      /* account created — prompt user to sign in */
+      setMode("signin");
+      setEmail(body.email as string);
+      setPassword("");
+      setSuccess("Account created! Please sign in to continue.");
+    } catch {
+      setError("Could not create account. Check your connection and try again.");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    /* account created — prompt user to sign in */
-    setLoading(false);
-    setMode("signin");
-    setEmail(body.email as string);
-    setPassword("");
-    setSuccess("Account created! Please sign in to continue.");
   }
 
   async function handleSignin(e: FormEvent) {
     e.preventDefault();
     setLoading(true); setError(""); setSuccess("");
-    const result = await signIn("credentials", { email, password, redirect: false, callbackUrl: "/dashboard" });
-    setLoading(false);
-    if (result?.error) {
-      setError(result.error === "RATE_LIMITED" ? "Too many attempts. Please wait a few minutes and try again." : "Invalid email or password.");
-      return;
+    try {
+      const result = await signIn("credentials", { email, password, redirect: false, callbackUrl: "/dashboard" });
+      if (result?.error) {
+        setError(result.error === "RATE_LIMITED" ? "Too many attempts. Please wait a few minutes and try again." : "Invalid email or password.");
+        return;
+      }
+      // Same destination rule as /login: staff land on their tools, everyone else on the dashboard.
+      const session = await fetch("/api/auth/session").then((r) => r.json()).catch(() => null);
+      const role = session?.user?.role;
+      if (onSignedIn) onSignedIn(); else onClose();
+      router.push(role === "ADMIN" || role === "EDITOR" ? "/admin" : "/dashboard");
+      router.refresh();
+    } catch {
+      setError("Could not sign in. Check your connection and try again.");
+    } finally {
+      setLoading(false);
     }
-    onClose();
-    router.push(result?.url || "/dashboard");
-    router.refresh();
   }
 
   if (!open) return null;
 
   return (
     <div
+      ref={backdropRef}
       className="opt-auth-backdrop"
       role="dialog"
       aria-modal="true"
-      aria-label={mode === "signup" ? "Create your account" : "Sign in to Optimais Labs"}
+      tabIndex={-1}
+      aria-label={mode === "signup" ? "Create your account" : mode === "forgot" ? "Reset your password" : "Sign in to Optimais Labs"}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="opt-auth-modal">
@@ -208,11 +276,11 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
                   </div>
                   <input className="opt-auth-field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
                   <input className="opt-auth-field" type="tel" placeholder="Phone number" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" />
-                  <select className="opt-auth-field" value={country} onChange={e => setCountry(e.target.value)} required>
+                  <select className="opt-auth-field" aria-label="Country" value={country} onChange={e => setCountry(e.target.value)} required>
                     <option value="">Country</option>
                     {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
-                  <select className="opt-auth-field" value={serviceInterest} onChange={e => setServiceInterest(e.target.value)}>
+                  <select className="opt-auth-field" aria-label="Service interest" value={serviceInterest} onChange={e => setServiceInterest(e.target.value)}>
                     <option value="">Service interest</option>
                     {SERVICE_INTERESTS.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
@@ -232,16 +300,16 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
                   <input className="opt-auth-field" type="email" placeholder="Business email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
                   <input className="opt-auth-field" type="tel" placeholder="Phone number" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" />
                   <div className="opt-auth-row">
-                    <select className="opt-auth-field" value={industry} onChange={e => setIndustry(e.target.value)}>
+                    <select className="opt-auth-field" aria-label="Industry" value={industry} onChange={e => setIndustry(e.target.value)}>
                       <option value="">Industry</option>
                       {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
                     </select>
-                    <select className="opt-auth-field" value={country} onChange={e => setCountry(e.target.value)} required>
+                    <select className="opt-auth-field" aria-label="Country" value={country} onChange={e => setCountry(e.target.value)} required>
                       <option value="">Country</option>
                       {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                   </div>
-                  <select className="opt-auth-field" value={serviceInterest} onChange={e => setServiceInterest(e.target.value)}>
+                  <select className="opt-auth-field" aria-label="Service interest" value={serviceInterest} onChange={e => setServiceInterest(e.target.value)}>
                     <option value="">Service interest</option>
                     {SERVICE_INTERESTS.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
@@ -278,7 +346,7 @@ export function AuthModal({ open, onClose, initialMode = "signup", initialTab = 
               {loading ? "Signing in..." : "Sign In"} {!loading && ARROW_SVG}
             </button>
             <p className="opt-auth-footer-note">
-              Don't have an account?{" "}
+              Don&rsquo;t have an account?{" "}
               <button type="button" className="opt-auth-text-link" onClick={() => switchMode("signup")}>
                 Create one
               </button>

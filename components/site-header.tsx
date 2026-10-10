@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signOut } from "next-auth/react";
 import { AuthModal } from "@/components/auth-modal";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -20,8 +20,38 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff =
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
   const [authModal, setAuthModal] = useState<{ open: boolean; mode: "signup" | "signin" }>({ open: false, mode: "signup" });
+  const mobileNavCloseRef = useRef<HTMLButtonElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  // Move focus into the drawer on open, back to the button that opened it on close, and close on
+  // Escape — the same treatment as AuthModal. `inert` on the drawer (below) keeps its links out of
+  // the tab order and the accessibility tree while it's closed, instead of just hidden by opacity.
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+    mobileNavCloseRef.current?.focus();
+    const hamburger = hamburgerRef.current; // read now: by cleanup time the ref may have moved on
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") { setMobileNavOpen(false); return; }
+      if (e.key !== "Tab") return;
+      // Keep Tab inside the open drawer; without this it walked on into the page behind it.
+      const items = Array.from(mobileNavRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      const inside = mobileNavRef.current?.contains(active);
+      if (e.shiftKey && (active === first || !inside)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (active === last || !inside)) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      hamburger?.focus();
+    };
+  }, [mobileNavOpen]);
 
   return (
     <>
@@ -33,8 +63,8 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff =
       />
 
       {/* Mobile nav */}
-      <div className={`mobile-nav${mobileNavOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Site navigation">
-        <button className="mobile-nav-close" type="button" onClick={() => setMobileNavOpen(false)} aria-label="Close menu">✕</button>
+      <div ref={mobileNavRef} className={`mobile-nav${mobileNavOpen ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Site navigation" inert={!mobileNavOpen}>
+        <button ref={mobileNavCloseRef} className="mobile-nav-close" type="button" onClick={() => setMobileNavOpen(false)} aria-label="Close menu">✕</button>
         {SITE_NAV.map(item => (
           <NavLink key={item.id} href={item.href} className="mobile-nav-link" onClick={() => setMobileNavOpen(false)}>
             {item.mobileLabel}
@@ -105,7 +135,7 @@ export function SiteHeader({ isAuthenticated = false, initials = "OU", isStaff =
               )
             }
             <Link className="button" href="/contact">Start a Project</Link>
-            <button className="hamburger" type="button" onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>
+            <button ref={hamburgerRef} className="hamburger" type="button" onClick={() => setMobileNavOpen(true)} aria-label="Open menu" aria-expanded={mobileNavOpen}>
               <span/><span/><span/>
             </button>
           </div>

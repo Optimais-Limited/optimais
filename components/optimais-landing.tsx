@@ -10,7 +10,6 @@ import { SITE_NAV, isStaticRoute } from "@/lib/site-nav";
 import { formatNewsletterDate, newsletterImageUrl, type NewsletterSummary } from "@/lib/newsletter-shared";
 import type { ExhibitionSummary } from "@/lib/exhibitions-shared";
 import type { TeamMemberSummary } from "@/lib/team-shared";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Arrow icon ──────────────────────────────────────────────────────────
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
@@ -54,13 +53,24 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isSt
   useEffect(() => {
     const container = dottedRef.current;
     if (!container) return;
+
+    // Decorative only (aria-hidden): if WebGL isn't available (old browser, disabled GPU,
+    // some headless/embedded contexts), skip it rather than crash the whole landing page.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    } catch {
+      return;
+    }
+
     const SEPARATION = 150, AMOUNTX = 40, AMOUNTY = 60;
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 355, 1220);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // Uncapped devicePixelRatio renders at 3x-4x pixel counts on many phones for no visible
+    // benefit on a field of 8px dots; 2 is the conventional ceiling for exactly this reason.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(scene.fog.color, 0);
     container.appendChild(renderer.domElement);
@@ -79,8 +89,12 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isSt
     const material = new THREE.PointsMaterial({ size: 8, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
     const points = new THREE.Points(geometry, material);
     scene.add(points);
+    // With reduced motion there is no animation loop, so anything that changes the picture
+    // (theme, resize) has to draw its own frame or the canvas stays stale or blank.
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const drawStill = () => { if (reducedMotion) renderer.render(scene, camera); };
     applyDotsTheme(scene, geometry, getTheme());
-    const unsubscribeTheme = subscribeTheme(mode => applyDotsTheme(scene, geometry, mode));
+    const unsubscribeTheme = subscribeTheme(mode => { applyDotsTheme(scene, geometry, mode); drawStill(); });
 
     let count = 0;
     let animId: number;
@@ -103,13 +117,17 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isSt
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      drawStill();
     };
     window.addEventListener("resize", onResize);
-    animate();
+
+    // A continuous requestAnimationFrame loop is exactly the kind of motion
+    // prefers-reduced-motion exists to suppress; render one static frame instead.
+    if (reducedMotion) drawStill(); else animate();
 
     return () => {
       unsubscribeTheme();
-      cancelAnimationFrame(animId);
+      if (!reducedMotion) cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
       scene.traverse(obj => {
         if (obj instanceof THREE.Points) {
@@ -135,7 +153,7 @@ export function OptimaisLanding({ isAuthenticated = false, initials = "OU", isSt
 
   // ═══ RENDER ════════════════════════════════════════════════════════════
   return (
-    <div className={`opt-root${isAuthenticated ? " authenticated" : ""}`}>
+    <div className="opt-root">
       <SiteHeader isAuthenticated={isAuthenticated} initials={initials} isStaff={isStaff} />
 
       <main id="top">

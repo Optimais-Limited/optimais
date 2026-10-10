@@ -15,8 +15,6 @@ const ArrowRight = () => (
 
 export default async function CareersPage() {
   const { isAuthenticated } = await getSiteViewer();
-  // These openings need an account; visitors without one are sent to sign up.
-  const gatedHref = isAuthenticated ? "#" : "/signup";
 
   return (
     <section className="page-section">
@@ -35,12 +33,14 @@ export default async function CareersPage() {
           </div>
           <aside className="insight-card">
             <h3>Explore Opportunities</h3>
+            {/* No open-roles board exists yet (no JobPosting data model); these point at a real,
+                working channel — Contact — rather than a dead "#" or a broken signup redirect. */}
             <div className="career-links">
-              <a href={gatedHref} className="career-link-item"><span>Early Careers</span><ArrowRight /></a>
-              <a href={gatedHref} className="career-link-item"><span>Experienced Professionals</span><ArrowRight /></a>
+              <Link href="/contact" className="career-link-item"><span>Early Careers</span><ArrowRight /></Link>
+              <Link href="/contact" className="career-link-item"><span>Experienced Professionals</span><ArrowRight /></Link>
               <a href="/culture-benefits" className="career-link-item"><span>Culture &amp; Benefits</span><ArrowRight /></a>
               <a href="/our-stories" className="career-link-item"><span>Our Stories</span><ArrowRight /></a>
-              <a href={gatedHref} className="career-link-item"><span>Job Alerts</span><ArrowRight /></a>
+              <Link href="/contact" className="career-link-item"><span>Job Alerts</span><ArrowRight /></Link>
             </div>
           </aside>
         </div>

@@ -12,7 +12,7 @@ export function ConcernForm() {
   if (status === "success") {
     return (
       <div className="contact-success">
-        <p>✓ Thank you — we've received your report and will look into it.</p>
+        <p>✓ Thank you — we&rsquo;ve received your report and will look into it.</p>
       </div>
     );
   }

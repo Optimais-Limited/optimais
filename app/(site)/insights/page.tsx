@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { listPublishedPosts } from "@/lib/blog";
+
+export const dynamic = "force-dynamic";
+
+const formatDate = (iso: string) => new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
 export const metadata: Metadata = {
   title: "Insights | Optimais Labs",
@@ -11,7 +17,9 @@ const ArrowRight = () => (
   </svg>
 );
 
-export default function InsightsPage() {
+export default async function InsightsPage() {
+  const posts = await listPublishedPosts();
+
   return (
     <section className="page-section">
       <div className="shell">
@@ -25,16 +33,35 @@ export default function InsightsPage() {
             </p>
           </div>
           <aside className="insight-card">
-            <h3>Explore by Topic</h3>
-            <div className="career-links">
-              {["Expert Perspectives", "Client Stories", "Latest Publications", "Newsroom", "Events"].map(t => (
-                <a key={t} href="#" className="career-link-item">
-                  <span>{t}</span><ArrowRight />
-                </a>
-              ))}
-            </div>
+            <h3>{posts.length > 0 ? "Latest Insights" : "More to come"}</h3>
+            {posts.length > 0 ? (
+              <div className="career-links">
+                {posts.map((post) => (
+                  <Link key={post.id} href={`/insights/${post.slug}`} className="career-link-item">
+                    <span>{post.title}</span><ArrowRight />
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="panel-lede" style={{ margin: 0 }}>We&rsquo;re preparing our first articles. Check back soon, or <Link href="/contact">get in touch</Link> if you&rsquo;d like to collaborate on research.</p>
+            )}
           </aside>
         </div>
+        {posts.length > 0 && (
+          <div className="opportunity-list" style={{ marginTop: 48 }}>
+            {posts.map((post) => (
+              <article key={post.id} className="opportunity-card">
+                <h3><Link href={`/insights/${post.slug}`}>{post.title}</Link></h3>
+                <div className="opportunity-meta">
+                  {post.publishedAt && <span className="tag">{formatDate(post.publishedAt)}</span>}
+                  {post.tags.slice(0, 3).map((tag) => <span key={tag} className="tag">{tag}</span>)}
+                </div>
+                {post.excerpt && <p>{post.excerpt}</p>}
+                <Link href={`/insights/${post.slug}`}>Read more <ArrowRight /></Link>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
