@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      # Build-time only: pages that read the database (e.g. the sitemap) already fall back to an
+      # empty result on a query error (see lib/exhibitions.ts, lib/blog.ts), so a real, reachable
+      # database isn't required for typecheck/lint/build to pass — these just need something
+      # present so Prisma Client can be constructed. Set real secrets in the repo's Actions
+      # settings if you want the build step to exercise an actual connection.
+      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://user:pass@localhost:5432/db' }}
+      DIRECT_URL: ${{ secrets.DIRECT_URL || 'postgresql://user:pass@localhost:5432/db' }}
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'ci-placeholder-secret-ci-placeholder-secret' }}
+      NEXTAUTH_URL: "http://localhost:4173"
+      # Puppeteer is only used for local screenshots; CI doesn't need its Chrome download.
+      PUPPETEER_SKIP_DOWNLOAD: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build

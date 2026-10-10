@@ -63,7 +63,7 @@ export async function getObjectInfo(path: string): Promise<ObjectInfo | null> {
   try {
     const head = await s3().send(new HeadObjectCommand({ Bucket: BUCKET, Key: path }));
     return { size: head.ContentLength ?? 0, contentType: head.ContentType ?? "" };
-  } catch (err) {
+  } catch {
     return null;
   }
 }

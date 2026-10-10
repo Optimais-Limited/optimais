@@ -45,7 +45,7 @@ export async function endVoiceRoom(discussionId: string): Promise<void> {
   if (!livekitConfigured()) return;
   try {
     await service().deleteRoom(voiceRoomName(discussionId));
-  } catch (err) {
+  } catch {
     // Deleting a room that was never joined (no one used voice) throws — that's fine, not an error.
   }
 }
