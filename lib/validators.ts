@@ -98,3 +98,21 @@ export const aiRequestSchema = z.object({
   prompt: z.string().min(5).max(12000),
   context: z.record(z.unknown()).optional()
 });
+
+const optionalText = (max: number) => z.string().trim().max(max).optional().or(z.literal(""));
+
+export const agentEnquirySchema = z.object({
+  requestId: z.string().trim().min(8).max(64).regex(/^[A-Za-z0-9-]+$/),
+  name: z.string().trim().min(2, "Please enter your name.").max(120),
+  email: z.string().trim().email("Please enter a valid business email."),
+  company: z.string().trim().min(2, "Please enter your company.").max(160),
+  workflowProblem: z.string().trim().min(20, "Please describe the workflow in a sentence or two.").max(3000),
+  currentTools: z.string().trim().min(2, "Please list the tools involved today.").max(600),
+  serviceInterest: optionalText(60),
+  website: optionalText(200),
+  country: optionalText(100),
+  volumeBand: optionalText(60),
+  budgetBand: optionalText(60),
+  contactMethod: optionalText(30),
+  marketingOptIn: z.boolean().default(false)
+});

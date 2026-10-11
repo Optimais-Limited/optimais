@@ -10,6 +10,7 @@ export type SiteNavItem = {
 // Single source of truth for the header, mobile menu and the landing page's link tiles.
 export const SITE_NAV: SiteNavItem[] = [
   { id: "industries", href: "/industries", label: "Industries", mobileLabel: "Industries", tileLabel: "Industries", blurb: "Ten sectors where we deliver intelligent, lasting impact." },
+  { id: "ai-agents", href: "/ai-agents", label: "AI Agents", mobileLabel: "AI Agent Integration", tileLabel: "AI Agent Integration", blurb: "Approved AI workflows connected to the tools your team already uses." },
   { id: "innovation", href: "/innovation", label: "Innovation", mobileLabel: "R&D & Innovation", tileLabel: "R&D and Innovation", blurb: "Applied research, validated through engineering and built to perform." },
   { id: "markets", href: "/markets", label: "Markets", mobileLabel: "Markets", tileLabel: "Markets Served", blurb: "Public, private and industrial markets, and the communities they serve." },
   { id: "opportunities", href: "/opportunities", label: "Opportunities", mobileLabel: "Scholarships & Grants", tileLabel: "Scholarships & Grants", blurb: "Curated funding opportunities for your academic journey." },

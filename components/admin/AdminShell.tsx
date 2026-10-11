@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const links: [string, string, boolean?][] = [
   ["/admin", "Overview"],
+  ["/admin/agent-leads", "AI agent leads"],
   ["/admin/exhibitions", "Exhibition review"],
   ["/admin/discussions", "Discussions"],
   ["/admin/newsletter", "Newsletter"],
